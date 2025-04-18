@@ -21,5 +21,7 @@ Además, la validación de disponibilidad, el seguimiento al uso de los recursos
 
 Por tanto, se hace necesario desarrollar un sistema integral que permita gestionar de forma automatizada y transparente el ciclo completo de los préstamos, desde la solicitud hasta la devolución, incluyendo la retroalimentación de los usuarios y el mantenimiento de los recursos.
 
+El planteamiento de este problema de manera mas detallada puede encontrarse en el siguiente enlace: [Planteamiento problema proyecto integrador](https://github.com/duvanleandro/ProyectoIntegradorUDI/blob/main/docs/PropuestaProyectoIntegrador-Cuarto-1-2025.pdf)
+
 
 **Nota:** Este archivo puede ser modificado en el transcurso del desarrollo del proyecto para reflejar avances, ajustes o nuevas decisiones tomadas por el grupo.
