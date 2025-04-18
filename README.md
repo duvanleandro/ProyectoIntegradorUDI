@@ -23,5 +23,22 @@ Por tanto, se hace necesario desarrollar un sistema integral que permita gestion
 
 El planteamiento de este problema de manera mas detallada puede encontrarse en el siguiente enlace: [Planteamiento problema proyecto integrador](https://github.com/duvanleandro/ProyectoIntegradorUDI/blob/main/docs/PropuestaProyectoIntegrador-Cuarto-1-2025.pdf)
 
+---
+## Cómo instalar y usar
 
+Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máquina local:
+
+### Requisitos previos
+1. Asegúrate de tener instalado:
+   - [Git](https://git-scm.com/) para clonar el repositorio.
+
+### Instalación
+1. Clona este repositorio en tu máquina local:
+   ```bash
+   git clone https://github.com/duvanleandro/ProyectoIntegradorUDI.git
+
+2. Accede al directorio del proyecto:
+   ```bash
+   cd ProyectoIntegradorUDI
+---
 **Nota:** Este archivo puede ser modificado en el transcurso del desarrollo del proyecto para reflejar avances, ajustes o nuevas decisiones tomadas por el grupo.
