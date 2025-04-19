@@ -51,6 +51,12 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 1. Descarga el proyecto en formato ZIP desde el mismo repositorio
 2. Asegurate de tener instalado el JAVA
 3. Accede al aplicativo siguiendo la ruta de INTEGRADOR4A > Target > INTEGRADOR4A-1.0-SNAPSHOT-jar-with-dependencies.jar
+4. Una vez en la pantalla de Login, puede ingresar a la prueba utilizando las siguientes credenciales
+   * - Correo: usuario@example.com
+     - Contraseña: usuario
+       
+   * - Correo: admin@example.com
+     - Contraseña: admin
 
 ### Como un desarrollador
 
@@ -59,6 +65,18 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 3. Desde NeatBeans accede a "file" y luego a "Open Project"
 4. Busca el archivo en donde lo hayas guardado y selecciona la carpeta "INTEGRADOR4A"
 5. Realice las modificaciones necesarias
+---
 
+## Ejemplo previo de la interfaz
+
+### Login
+En el login puede ingresar usando las credenciales mencionadas en cómo se puede utilizar la aplicación como un usuario
+![Login](https://github.com/duvanleandro/ProyectoIntegradorUDI/blob/main/img/interfaces/Interfaz1Login.png)
+
+### interfaz del usuario
+![InterfazUsu](https://github.com/duvanleandro/ProyectoIntegradorUDI/blob/main/img/interfaces/Interfaz2PanelUsuario.png)
+
+## interfaz del administrador
+![InterfazAdm](https://github.com/duvanleandro/ProyectoIntegradorUDI/blob/main/img/interfaces/Interfaz9PanelAdmin.png)
 
 **Nota:** Este archivo puede ser modificado en el transcurso del desarrollo del proyecto para reflejar avances, ajustes o nuevas decisiones tomadas por el grupo.
