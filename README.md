@@ -31,7 +31,7 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 ### Requisitos previos
 1. Asegúrate de tener instalado:
    - [Git](https://git-scm.com/) para clonar el repositorio.
-   - [Java](https://www.oracle.com/java/technologies/downloads/?er=221886) para ejecutar el aplicativo
+   - [Java](https://www.oracle.com/java/technologies/downloads/?er=221886) para ejecutar el aplicativo (instala versión 21 en adelante)
    - [NetBeans](https://netbeans.apache.org/front/main/index.html) para utilizarlo como entorno de desarrollo para la interfaz de la aplicación
 
 ### Instalación
@@ -66,7 +66,16 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 4. Busca el archivo en donde lo hayas guardado y selecciona la carpeta "INTEGRADOR4A"
 5. Realice las modificaciones necesarias
 ---
+## Errores comunes
 
+### Versión de Java incompatible
+![JavaError](https://i.sstatic.net/4vO7Y.png)
+
+Este error ocurre al intentar ejecutar el archivo `.jar` con una versión de Java inferior a la 21.  
+Para solucionarlo, simplemente ingresa a la página de Oracle e instala cualquier versión de Java 21 o superior.  
+El enlace directo se encuentra en la sección de **Requisitos previos** mencionada anteriormente.
+
+---
 ## Ejemplo previo de la interfaz
 
 ### Login
