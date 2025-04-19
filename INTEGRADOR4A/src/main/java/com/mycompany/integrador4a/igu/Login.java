@@ -1,5 +1,6 @@
 package com.mycompany.integrador4a.igu;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -50,6 +51,12 @@ public class Login extends javax.swing.JFrame {
         lblContra.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblContra.setText("CONTRASEÑA:");
         Panel_Bienvenidos.add(lblContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, -1, -1));
+
+        PContra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PContraKeyPressed(evt);
+            }
+        });
         Panel_Bienvenidos.add(PContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 270, 30));
 
         btnLogin.setText("LOGIN");
@@ -77,31 +84,40 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+private void realizarLogin() {
     String correo = txtCorreo.getText();
     String contraseña = new String(PContra.getPassword()); // Obtener la contraseña de forma segura
 
     if (correo.isEmpty() || contraseña.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(null, "Un campo está vacío");
+        JOptionPane.showMessageDialog(null, "Un campo está vacío");
+    } else {
+        if (correo.equals("usuario@example.com") && contraseña.equals("usuario")) {
+            JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
+            MenuUsuario MenuUsu = new MenuUsuario();
+            MenuUsu.setVisible(true);
+            this.dispose();
+        } else if (correo.equals("admin@example.com") && contraseña.equals("admin")) {
+            JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
+            MenuAdmin MenuAdm = new MenuAdmin();
+            MenuAdm.setVisible(true);
+            this.dispose();
         } else {
-            if(correo.equals("usuario@example.com") && contraseña.equals("usuario")){
-                JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
-                MenuUsuario MenuUsu = new MenuUsuario();
-                MenuUsu.setVisible(true);
-                this.dispose();
-                } else{
-                    if(correo.equals("admin@example.com") && contraseña.equals("admin")){
-                    JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
-                    MenuAdmin MenuAdm = new MenuAdmin();
-                    MenuAdm.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null,"El usuario o contraseña es incorrecto o no existe");
-                }
-            }
+            JOptionPane.showMessageDialog(null, "El usuario o contraseña es incorrecto o no existe");
         }
+    }
+}
+
+    
+    
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    realizarLogin();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void PContraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PContraKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            realizarLogin();
+        }
+    }//GEN-LAST:event_PContraKeyPressed
 
     /**
      * @param args the command line arguments
