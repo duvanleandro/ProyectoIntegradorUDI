@@ -32,6 +32,7 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 1. Asegúrate de tener instalado:
    - [Git](https://git-scm.com/) para clonar el repositorio.
    - [Java](https://www.oracle.com/java/technologies/downloads/?er=221886) para ejecutar el aplicativo (instala versión 21 en adelante)
+     * *Si no sabes que version de java tienes, puedes entrar en el **cmd** y escribir `java -version` para verificar la versión de java que tienes instalada, si no te sale ninguna información o comando desconocido, debes decargar java*
    - [NetBeans](https://netbeans.apache.org/front/main/index.html) para utilizarlo como entorno de desarrollo para la interfaz de la aplicación
 
 ### Instalación
