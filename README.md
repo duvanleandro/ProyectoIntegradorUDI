@@ -24,7 +24,7 @@ Por tanto, se hace necesario desarrollar un sistema integral que permita gestion
 El planteamiento de este problema de manera mas detallada puede encontrarse en el siguiente enlace: [Planteamiento problema proyecto integrador](https://github.com/duvanleandro/ProyectoIntegradorUDI/blob/main/docs/Planteamiento%20problema/PropuestaProyectoIntegrador-Cuarto-1-2025.pdf)
 
 ---
-## Cómo instalar y usar
+## Cómo instalar y usar el repositorio
 
 Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máquina local:
 
