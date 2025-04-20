@@ -50,7 +50,7 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 ### Como un usuario
 
 1. Descarga el proyecto en formato ZIP desde el mismo repositorio
-2. Asegurate de tener instalado el JAVA
+2. Asegurate de tener instalado el JAVA versión 21
 3. Accede al aplicativo siguiendo la ruta de INTEGRADOR4A > Target > INTEGRADOR4A-1.0-SNAPSHOT-jar-with-dependencies.jar
 4. Una vez en la pantalla de Login, puede ingresar a la prueba utilizando las siguientes credenciales
    * - Correo: usuario@example.com
