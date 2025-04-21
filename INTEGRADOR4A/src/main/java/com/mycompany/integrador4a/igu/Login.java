@@ -46,6 +46,12 @@ public class Login extends javax.swing.JFrame {
         lblCorreo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCorreo.setText("CORREO:");
         Panel_Bienvenidos.add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, -1, -1));
+
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyPressed(evt);
+            }
+        });
         Panel_Bienvenidos.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, 270, 30));
 
         lblContra.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -118,6 +124,12 @@ private void realizarLogin() {
             realizarLogin();
         }
     }//GEN-LAST:event_PContraKeyPressed
+
+    private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            PContra.requestFocus();
+        }
+    }//GEN-LAST:event_txtCorreoKeyPressed
 
     /**
      * @param args the command line arguments
