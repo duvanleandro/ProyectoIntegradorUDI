@@ -31,7 +31,7 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 ### Requisitos previos
 1. Asegúrate de tener instalado:
    - [Git](https://git-scm.com/) para clonar el repositorio.
-   - [Java](https://www.oracle.com/java/technologies/downloads/?er=221886) para ejecutar el aplicativo (instala versión 21 en adelante)
+   - [Java](https://www.oracle.com/java/technologies/downloads/?er=221886) para ejecutar el aplicativo (instala versión 8 en adelante)
      * *Si no sabes que version de java tienes, puedes entrar en el **cmd** y escribir `java -version` para verificar la versión de java que tienes instalada, si no te sale ninguna información o comando desconocido, debes decargar java*
    - [NetBeans](https://netbeans.apache.org/front/main/index.html) para utilizarlo como entorno de desarrollo para la interfaz de la aplicación
 
@@ -50,7 +50,7 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 ### Como un usuario
 
 1. Descarga el proyecto en formato ZIP desde el mismo repositorio
-2. Asegurate de tener instalado el JAVA versión 21
+2. Asegurate de tener instalado el JAVA versión 8
 3. Accede al aplicativo siguiendo la ruta de INTEGRADOR4A > Target > INTEGRADOR4A-1.0-SNAPSHOT-jar-with-dependencies.jar
 4. Una vez en la pantalla de Login, puede ingresar a la prueba utilizando las siguientes credenciales
    * - Correo: usuario@example.com
@@ -72,8 +72,8 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 ### Versión de Java incompatible
 ![JavaError](https://i.sstatic.net/4vO7Y.png)
 
-Este error ocurre al intentar ejecutar el archivo `.jar` con una versión de Java inferior a la 21.  
-Para solucionarlo, simplemente ingresa a la página de Oracle e instala cualquier versión de Java 21 o superior.  
+Este error ocurre al intentar ejecutar el archivo `.jar` con una versión de Java inferior a la 8.  
+Para solucionarlo, simplemente ingresa a la página de Oracle e instala cualquier versión de Java 8 o superior.  
 El enlace directo se encuentra en la sección de **Requisitos previos** mencionada anteriormente.
 
 ---
