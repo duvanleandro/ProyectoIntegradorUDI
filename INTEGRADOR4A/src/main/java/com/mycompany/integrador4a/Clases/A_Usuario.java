@@ -9,5 +9,5 @@ package Clases;
  * @author SALA-4
  */
 public class A_Usuario {
-    
+    System.out.println("Prueba");
 }
