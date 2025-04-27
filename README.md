@@ -34,6 +34,7 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
    - [Java](https://www.oracle.com/java/technologies/downloads/?er=221886) para ejecutar el aplicativo (instala versión 8 en adelante)
      * *Si no sabes que version de java tienes, puedes entrar en el **cmd** y escribir `java -version` para verificar la versión de java que tienes instalada, si no te sale ninguna información o comando desconocido, debes decargar java*
    - [NetBeans](https://netbeans.apache.org/front/main/index.html) para utilizarlo como entorno de desarrollo para la interfaz de la aplicación
+   - [Oracle](https://www.oracle.com/database/technologies/xe-downloads.html) para poder usar la base de datos y que funcione en la aplicacion en el ambito de los usuarios
 
 ### Instalación
 1. Clona este repositorio en tu máquina local:
@@ -45,6 +46,10 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
    cd ProyectoIntegradorUDI
 ---
 
+3. Busca la carpeta del ProyectoIntegradorUDI > database > dsmProyecto.DMP, copia su ubicacion de archivo
+4. Abre el terminal, ingresa a la cuenta System de oracle y crea otro usuario llamado dsmProyecto con la contraseña dsmProyecto, después el archivo dsmProyecto.DMP debe importarse en la cuenta que se creo con system
+5. Verifica si el aplicativo funciona ***(los usuarios de prueba estan habilitados SOLO con la base de datos)***
+
 ## Cómo utilizar la aplicación
 
 ### Como un usuario
@@ -53,10 +58,10 @@ Sigue los pasos a continuación para instalar y ejecutar el proyecto en tu máqu
 2. Asegurate de tener instalado el JAVA versión 8
 3. Accede al aplicativo siguiendo la ruta de INTEGRADOR4A > Target > INTEGRADOR4A-1.0-SNAPSHOT-jar-with-dependencies.jar
 4. Una vez en la pantalla de Login, puede ingresar a la prueba utilizando las siguientes credenciales
-   * - Correo: usuario@example.com
+   * - Correo: usuario@example.com ***(Por el momento deshabilitado sin un acceso a la base de datos)***
      - Contraseña: usuario
        
-   * - Correo: admin@example.com
+   * - Correo: admin@example.com ***(Por el momento deshabilitado un acceso a la base de datos)***
      - Contraseña: admin
 
 ### Como un desarrollador
