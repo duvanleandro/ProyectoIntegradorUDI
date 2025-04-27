@@ -1,6 +1,10 @@
 package com.mycompany.integrador4a.igu;
 
+import Conexion.ConexionOracle;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,12 +13,13 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+    ConexionOracle con = new ConexionOracle();
+    Connection cn = con.conectar();
+    
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        this.setTitle("Login");
     }
 
     @SuppressWarnings("unchecked")
@@ -90,7 +95,7 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private void realizarLogin() {
+/* private void realizarLogin() {
     String correo = txtCorreo.getText();
     String contraseña = new String(PContra.getPassword()); // Obtener la contraseña de forma segura
 
@@ -109,6 +114,44 @@ private void realizarLogin() {
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "El usuario o contraseña es incorrecto o no existe");
+        }
+    }
+}
+*/
+    
+    private void realizarLogin() {
+    String correo = txtCorreo.getText();
+    String contraseña = new String(PContra.getPassword()); 
+    
+    if (correo.equals("") || contraseña.equals("")) {
+        JOptionPane.showMessageDialog(null, "Los campos están vacios");
+    } else {
+        try {
+            PreparedStatement ps = cn.prepareStatement("SELECT nivel FROM usuarios WHERE email=? AND clave=?");
+            ps.setString(1, correo); // Reemplaza el primer "?" con el valor de la variable "correo"
+            ps.setString(2, contraseña);  // Reemplaza el segundo "?" con el valor de la variable "clave"
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                String TipoNivel = rs.getString("nivel");
+                if (TipoNivel.equalsIgnoreCase("ADMIN")) {
+                    JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
+                    MenuAdmin MenuAdm = new MenuAdmin();
+                    MenuAdm.setVisible(true);
+                    dispose();  // Cierra la ventana actual
+                    // Aquí puedes abrir la ventana de admin
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
+                    MenuUsuario MenuUsu = new MenuUsuario();
+                    MenuUsu.setVisible(true);
+                    dispose();
+                    // Aquí puedes abrir la ventana de usuario
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El usuario o contraseña esta incorrecto o no existe");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + e.getMessage());
         }
     }
 }

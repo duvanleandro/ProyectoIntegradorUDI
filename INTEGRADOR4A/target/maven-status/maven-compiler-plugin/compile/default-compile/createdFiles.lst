@@ -16,7 +16,6 @@ com\mycompany\integrador4a\igu\PedirSoporte$2.class
 com\mycompany\integrador4a\igu\Login.class
 com\mycompany\integrador4a\igu\RealizarDevolucion$3.class
 com\mycompany\integrador4a\igu\Login$4.class
-com\mycompany\integrador4a\INTEGRADOR4A.class
 com\mycompany\integrador4a\igu\RealizarSolicitud.class
 com\mycompany\integrador4a\igu\RealizarSancion$2.class
 com\mycompany\integrador4a\igu\InformacionApp$2.class
@@ -68,6 +67,7 @@ com\mycompany\integrador4a\igu\RealizarSolicitud$1.class
 com\mycompany\integrador4a\igu\MenuUsuario$3.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$5.class
 com\mycompany\integrador4a\igu\MenuUsuario.class
+Conexion\ConexionOracle.class
 com\mycompany\integrador4a\igu\InformacionApp$3.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones$5.class
 com\mycompany\integrador4a\igu\GestionarSanciones$1.class
