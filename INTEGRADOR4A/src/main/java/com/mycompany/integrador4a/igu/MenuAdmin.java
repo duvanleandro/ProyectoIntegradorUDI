@@ -10,9 +10,6 @@ package com.mycompany.integrador4a.igu;
  */
 public class MenuAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuAdmin
-     */
     public MenuAdmin() {
         initComponents();
         setLocationRelativeTo(null);

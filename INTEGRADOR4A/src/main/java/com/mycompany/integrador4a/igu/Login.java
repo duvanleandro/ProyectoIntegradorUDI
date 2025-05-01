@@ -138,14 +138,12 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
                     MenuAdmin MenuAdm = new MenuAdmin();
                     MenuAdm.setVisible(true);
-                    dispose();  // Cierra la ventana actual
-                    // Aquí puedes abrir la ventana de admin
+                    dispose();  
                 } else {
                     JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
                     MenuUsuario MenuUsu = new MenuUsuario();
                     MenuUsu.setVisible(true);
                     dispose();
-                    // Aquí puedes abrir la ventana de usuario
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El usuario o contraseña esta incorrecto o no existe");
