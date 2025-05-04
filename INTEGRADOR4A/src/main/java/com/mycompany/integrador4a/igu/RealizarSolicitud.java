@@ -65,6 +65,11 @@ public class RealizarSolicitud extends javax.swing.JFrame {
 
         lblVerPrestamos.setText("jLabel2");
         lblVerPrestamos.setVerifyInputWhenFocusTarget(false);
+        lblVerPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblVerPrestamos(evt);
+            }
+        });
         jPanel1.add(lblVerPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 140, 160));
 
         lblPrestarAudiio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audiovisualUsu.png"))); // NOI18N
@@ -141,6 +146,12 @@ public class RealizarSolicitud extends javax.swing.JFrame {
     private void lblPedirPrestamo1(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPedirPrestamo1
         PedirPrestamo();
     }//GEN-LAST:event_lblPedirPrestamo1
+
+    private void lblVerPrestamos(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerPrestamos
+      VerMisPrestamos VerPrestamo = new VerMisPrestamos();
+      VerPrestamo.setVisible(true);
+      dispose();
+    }//GEN-LAST:event_lblVerPrestamos
 
 
     public static void main(String args[]) {

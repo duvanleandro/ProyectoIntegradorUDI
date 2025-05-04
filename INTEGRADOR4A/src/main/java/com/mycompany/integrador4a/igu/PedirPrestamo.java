@@ -210,7 +210,7 @@ public class PedirPrestamo extends javax.swing.JFrame {
 
         lblPrestamoSalas.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblPrestamoSalas.setForeground(new java.awt.Color(255, 255, 255));
-        lblPrestamoSalas.setText("PRESTAMO DE SALAS");
+        lblPrestamoSalas.setText("MIS PRESTAMOS");
         jPanel1.add(lblPrestamoSalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, -1, -1));
 
         lblTipo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
