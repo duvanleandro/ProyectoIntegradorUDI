@@ -134,7 +134,7 @@ public class RealizarSolicitud extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void PedirPrestamo() {
-        PedirPrestamo IrSala = new PedirPrestamo();
+        PedirPrestamo IrSala = new PedirPrestamo(1);
         IrSala.setVisible(true);
         dispose();
     }
@@ -148,7 +148,7 @@ public class RealizarSolicitud extends javax.swing.JFrame {
     }//GEN-LAST:event_lblPedirPrestamo1
 
     private void lblVerPrestamos(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerPrestamos
-      VerMisPrestamos VerPrestamo = new VerMisPrestamos();
+      VerMisPrestamos VerPrestamo = new VerMisPrestamos(1);
       VerPrestamo.setVisible(true);
       dispose();
     }//GEN-LAST:event_lblVerPrestamos

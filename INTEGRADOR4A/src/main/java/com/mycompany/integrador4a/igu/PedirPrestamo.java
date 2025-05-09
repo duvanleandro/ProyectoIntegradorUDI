@@ -1,161 +1,195 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.mycompany.integrador4a.igu;
 
+import Conexion.ConexionOracle;
 import Interfaz.PlaceHolder;
 import Interfaz.ActualizarFecha;
 import Interfaz.HorarioAyuda;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableCellEditor;
 
-public class PedirPrestamo extends javax.swing.JFrame {
-
+public class PedirPrestamo extends JFrame {
     private DefaultTableModel model;
-    
-    String[] equiposAudiovisuales = { "Proyector", "Cámara de video", "Pantalla", "Micrófono", "Elegir otro" };
-    String[] salasInformatica = { "Sala A - Diseño Gráfico", "Sala B - Edición de Video", "Sala C - Programación", "Elegir otro" };
+    private final int userId;
 
-    public PedirPrestamo() {
+    String[] equiposAudiovisuales = {"Proyector", "Cámara de video", "Pantalla", "Micrófono", "Elegir otro"};
+    String[] salasInformatica     = {"Sala A - Diseño Gráfico", "Sala B - Edición de Video", "Sala C - Programación", "Elegir otro"};
+
+    public PedirPrestamo(int userId) {
+        this.userId = userId;
         initComponents();
         setLocationRelativeTo(null);
 
+        // Placeholders y fechas
         PlaceHolder.aplicarPlaceholder(TextOtroMaterial, "Ingrese otro elemento");
         ActualizarFecha.llenarFechas(ElegirFecha);
 
-        HoraInicio.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        // Ajuste de hora fin según hora inicio
+        HoraInicio.addActionListener(e -> {
             String horaInicio = (String) HoraInicio.getSelectedItem();
             HorarioAyuda.actualizarComboHoraFin(horaInicio, HoraFinal);
-        }
-    });
-
-    
-        String horaInicioDefault = (String) HoraInicio.getSelectedItem();
-        HorarioAyuda.actualizarComboHoraFin(horaInicioDefault, HoraFinal);
-
-
-        ButtonGroup grupoOpciones = new ButtonGroup();
-        grupoOpciones.add(BEquipoAudiovisual);
-        grupoOpciones.add(BSalaDeInformatica);
-
-        BEquipoAudiovisual.addActionListener(e -> {
-            actualizarComboOpciones(equiposAudiovisuales);
-            TextOtroMaterial.setEnabled(false);
-            TextOtroMaterial.setText("");
         });
+        // Inicializar HoraFinal
+        HorarioAyuda.actualizarComboHoraFin((String) HoraInicio.getSelectedItem(), HoraFinal);
 
-        BSalaDeInformatica.addActionListener(e -> {
-            actualizarComboOpciones(salasInformatica);
-            TextOtroMaterial.setEnabled(false);
-            TextOtroMaterial.setText("");
-        });
+        // Radio buttons para servicio
+        ButtonGroup grupo = new ButtonGroup();
+        grupo.add(BEquipoAudiovisual);
+        grupo.add(BSalaDeInformatica);
+        BEquipoAudiovisual.setSelected(true);
+        actualizarComboOpciones(equiposAudiovisuales);
+        BEquipoAudiovisual.addActionListener(e -> actualizarComboOpciones(equiposAudiovisuales));
+        BSalaDeInformatica.addActionListener(e -> actualizarComboOpciones(salasInformatica));
 
+        // Mostrar u ocultar campo "otro"
         ElegirEquipo.addActionListener(e -> {
-            String seleccion = (String) ElegirEquipo.getSelectedItem();
-            if ("Elegir otro".equals(seleccion)) {
+            if ("Elegir otro".equals(ElegirEquipo.getSelectedItem())) {
                 TextOtroMaterial.setEnabled(true);
             } else {
                 TextOtroMaterial.setEnabled(false);
                 TextOtroMaterial.setText("");
             }
         });
-        BEquipoAudiovisual.setSelected(true);
-        actualizarComponentesSegunSeleccion();
 
+        // Tabla de detalles
         String[] columnas = {"Tipo de servicio", "Elemento seleccionado", "Eliminar"};
         model = new DefaultTableModel(columnas, 0);
         TablaVisual.setModel(model);
-
         TablaVisual.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
         TablaVisual.getColumnModel().getColumn(2).setCellEditor(new ButtonEditor(new JCheckBox()));
 
-
-        jPanel1.setLayout(null);
-
+        // Botón Agregar
         BAgregar.addActionListener(e -> agregarAFila());
+
+        // Botón Enviar solicitud
+        btnEnviar.addActionListener(e -> {
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this,
+                    "Debe agregar al menos un elemento.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Lectura de fecha y horas
+            String fechaConDia = (String) ElegirFecha.getSelectedItem();
+            String fechaStr    = fechaConDia.split(" - ")[0]; // dd/MM/yyyy
+            String horaIni     = (String) HoraInicio.getSelectedItem();
+            String horaFin     = (String) HoraFinal.getSelectedItem();
+
+            ConexionOracle co = new ConexionOracle();
+            Connection cn = co.conectar();
+            try {
+                // Insertar cabecera
+                String sqlSol = "INSERT INTO SOLICITUDES " +
+                                "(ID_USUARIO, FECHA_USO, HORA_INICIO, HORA_FIN) " +
+                                "VALUES (?, TO_DATE(?,'DD/MM/YYYY'), ?, ?)";
+                PreparedStatement psSol = cn.prepareStatement(sqlSol, new String[]{"ID_SOLICITUD"});
+                psSol.setInt(1, userId);
+                psSol.setString(2, fechaStr);
+                psSol.setString(3, horaIni);
+                psSol.setString(4, horaFin);
+                psSol.executeUpdate();
+
+                // Recuperar ID_GENERADO
+                ResultSet rsKey = psSol.getGeneratedKeys();
+                if (rsKey.next()) {
+                    int idSolicitud = rsKey.getInt(1);
+
+                    // Insertar detalles
+                    String sqlDet = "INSERT INTO DETALLE_SOLICITUD " +
+                                    "(ID_SOLICITUD, TIPO_SERVICIO, ELEMENTO) VALUES (?, ?, ?)";
+                    PreparedStatement psDet = cn.prepareStatement(sqlDet);
+                    for (int i = 0; i < model.getRowCount(); i++) {
+                        psDet.setInt(1, idSolicitud);
+                        psDet.setString(2, model.getValueAt(i, 0).toString());
+                        psDet.setString(3, model.getValueAt(i, 1).toString());
+                        psDet.addBatch();
+                    }
+                    psDet.executeBatch();
+
+                    JOptionPane.showMessageDialog(this,
+                        "Solicitud enviada con éxito. ID: " + idSolicitud);
+                    model.setRowCount(0);
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this,
+                    "Error al enviar: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                co.cerrarConexion();
+            }
+        });
+        
     }
 
     private void actualizarComboOpciones(String[] opciones) {
-        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>(opciones);
-        ElegirEquipo.setModel(modelo);
-    }
-
-    private void actualizarComponentesSegunSeleccion() {
-        ElegirEquipo.removeAllItems();
-
-        if (BEquipoAudiovisual.isSelected()) {
-            for (String equipo : equiposAudiovisuales) {
-                ElegirEquipo.addItem(equipo);
-            }
-            TextOtroMaterial.setEnabled(false);
-        } else if (BSalaDeInformatica.isSelected()) {
-            for (String sala : salasInformatica) {
-                ElegirEquipo.addItem(sala);
-            }
-            TextOtroMaterial.setEnabled(false);
-        }
+        DefaultComboBoxModel<String> m = new DefaultComboBoxModel<>(opciones);
+        ElegirEquipo.setModel(m);
+        TextOtroMaterial.setEnabled(false);
+        TextOtroMaterial.setText("");
     }
 
     private void agregarAFila() {
-        String tipoServicio = BEquipoAudiovisual.isSelected() ? "Equipo Audiovisual" : "Sala de Informatica";
+        String tipo = BEquipoAudiovisual.isSelected() ?
+                      "Equipo Audiovisual" : "Sala de Informatica";
         String seleccion = (String) ElegirEquipo.getSelectedItem();
-
         if ("Elegir otro".equals(seleccion)) {
             seleccion = TextOtroMaterial.getText().trim();
             if (seleccion.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debe ingresar el nombre del otro material.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                    "Debe ingresar el nombre del otro material.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
-
-        // Validar única selección si es sala
-        if ("Sala de Informatica".equals(tipoServicio) && model.getRowCount() > 0) {
-            JOptionPane.showMessageDialog(this, "Solo puede seleccionar una sala de informática.", "Aviso", JOptionPane.WARNING_MESSAGE);
+        if ("Sala de Informatica".equals(tipo) && model.getRowCount() > 0) {
+            JOptionPane.showMessageDialog(this,
+                "Solo puede seleccionar una sala de informática.",
+                "Aviso", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        model.addRow(new Object[]{tipoServicio, seleccion, "❌"});
+        model.addRow(new Object[]{tipo, seleccion, "❌"});
     }
 
-    // Clase interna para el botón de la "X" (Eliminación)
+    // Renderiza botón ❌
     class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
-            setText("❌");
-        }
-
+        public ButtonRenderer() { setText("❌"); }
         @Override
-        public java.awt.Component getTableCellRendererComponent(JTable table, Object value,
+        public Component getTableCellRendererComponent(JTable table, Object value,
                 boolean isSelected, boolean hasFocus, int row, int column) {
             return this;
         }
     }
 
+    // Edita la celda y elimina fila al pulsar ❌
     class ButtonEditor extends DefaultCellEditor {
-        private JButton button;
+        private final JButton button;
         private int row;
         private JTable table;
 
         public ButtonEditor(JCheckBox checkBox) {
             super(checkBox);
             button = new JButton("❌");
-            button.addActionListener(e -> {
-                if (table != null && row >= 0 && row < model.getRowCount()) {
-                    fireEditingStopped(); // <- ¡Primero detenemos la edición!
-                    model.removeRow(row); // <- Luego eliminamos
+            button.addActionListener((ActionEvent e) -> {
+                fireEditingStopped();
+                if (table != null && row >= 0) {
+                    model.removeRow(row);
                 }
             });
         }
 
         @Override
-        public java.awt.Component getTableCellEditorComponent(JTable table, Object value,
-                boolean isSelected, int row, int column) {
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                                                     boolean isSelected, int row, int column) {
             this.table = table;
             this.row = row;
             return button;
@@ -167,6 +201,27 @@ public class PedirPrestamo extends javax.swing.JFrame {
         }
     }
 
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        /* Crear e mostrar la ventana, pasando un userId (p.ej., 1 para pruebas) */
+        java.awt.EventQueue.invokeLater(() -> {
+            new PedirPrestamo(1).setVisible(true);
+        });
+        
+    }
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -230,7 +285,7 @@ public class PedirPrestamo extends javax.swing.JFrame {
 
         btnEnviar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEnviar.setText("ENVIAR");
-        jPanel1.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 570, 130, 40));
+        jPanel1.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 580, 130, 40));
 
         btnMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPrincipal.setText("MENU PRINCIPAL");
@@ -239,16 +294,16 @@ public class PedirPrestamo extends javax.swing.JFrame {
                 btnMenuPrincipalActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 570, 150, 40));
+        jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 580, -1, 40));
 
         btnIrAudiovisual.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnIrAudiovisual.setText("AUDIOVISUAL");
-        btnIrAudiovisual.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIrAudiovisualActionPerformed(evt);
+        btnIrAudiovisual.setText("VER MIS PRESTAMOS");
+        btnIrAudiovisual.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIrAudiovisualMouseClicked(evt);
             }
         });
-        jPanel1.add(btnIrAudiovisual, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 570, 150, 40));
+        jPanel1.add(btnIrAudiovisual, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 580, 200, 40));
 
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSalir.setText("SALIR");
@@ -257,7 +312,7 @@ public class PedirPrestamo extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 570, 130, 40));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 580, 130, 40));
 
         lblSala1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hackerUsu.png"))); // NOI18N
         jPanel1.add(lblSala1, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 80, 130, 140));
@@ -355,43 +410,15 @@ public class PedirPrestamo extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnIrAudiovisualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIrAudiovisualActionPerformed
-
-    }//GEN-LAST:event_btnIrAudiovisualActionPerformed
+    private void btnIrAudiovisualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIrAudiovisualMouseClicked
+        VerMisPrestamos verPrestamos = new VerMisPrestamos(1);
+        verPrestamos.setVisible(true);
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIrAudiovisualMouseClicked
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PedirPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PedirPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PedirPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PedirPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PedirPrestamo().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BAgregar;

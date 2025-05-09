@@ -1,51 +1,86 @@
-// com/mycompany/integrador4a/igu/VerMisPrestamos.java
 package com.mycompany.integrador4a.igu;
 
+import Conexion.ConexionOracle;
 import Interfaz.TablaMisPrestamos;
-import javax.swing.JCheckBox;
+import java.sql.*;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class VerMisPrestamos extends javax.swing.JFrame {
+public class VerMisPrestamos extends JFrame {
+    private final int userId;
+    private DefaultTableModel modelo;
 
-    public VerMisPrestamos() {
+    public VerMisPrestamos(int userId) {
+        this.userId = userId;
         initComponents();
         setLocationRelativeTo(null);
+        configurarTabla();
+        cargarSolicitudes();
+    }
 
-        String[] columnas = {
-            "Fecha", "Hora inicio", "Hora final",
-            "Estado", "Acción", "Cancelar"
+    private void configurarTabla() {
+        // Definimos columnas incluyendo ID_SOLICITUD oculto
+        String[] columnas = {"ID_SOLICITUD", "Fecha", "Hora inicio", "Hora final", "Estado", "Acción", "Cancelar"};
+        modelo = new DefaultTableModel(columnas, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Solo las columnas de acción y cancelar son editables
+                return column == 5 || column == 6;
+            }
         };
-
-        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
         TablaMisPrestamos.setModel(modelo);
 
+        // Ocultar columna de ID_SOLICITUD
+        TablaMisPrestamos.removeColumn(TablaMisPrestamos.getColumnModel().getColumn(0));
+
+        // Renderers y editors
         TablaMisPrestamos.getColumnModel().getColumn(4)
             .setCellRenderer(new TablaMisPrestamos.RenderizadorBoton("Ver Detalles"));
         TablaMisPrestamos.getColumnModel().getColumn(4)
-            .setCellEditor(new TablaMisPrestamos.EditorBoton(new JCheckBox(), "Ver Detalles"));
+            .setCellEditor(new TablaMisPrestamos.EditorBoton(new JCheckBox(), "Ver Detalles", this));
 
         TablaMisPrestamos.getColumnModel().getColumn(5)
             .setCellRenderer(new TablaMisPrestamos.RenderizadorCancelar());
         TablaMisPrestamos.getColumnModel().getColumn(5)
             .setCellEditor(new TablaMisPrestamos.EditorCancelar(new JCheckBox()));
-
-        modelo.addRow(new Object[]{
-            "2025-05-03", "08:00", "10:00", "Pendiente", "Ver Detalles", "❌"
-        });
-        modelo.addRow(new Object[]{
-            "2025-05-04", "14:00", "16:00", "Aceptado", "Ver Detalles", "❌"
-        });
-        modelo.addRow(new Object[]{
-            "2025-05-05", "09:00", "11:00", "Rechazado", "Ver Detalles", "❌"
-        });
     }
 
+    private void cargarSolicitudes() {
+        ConexionOracle co = new ConexionOracle();
+        try (Connection cn = co.conectar()) {
+            String sql = "SELECT ID_SOLICITUD, FECHA_USO, HORA_INICIO, HORA_FIN, ESTADO " +
+                         "FROM SOLICITUDES WHERE ID_USUARIO = ? ORDER BY FECHA_SOLICITUD DESC";
+            PreparedStatement ps = cn.prepareStatement(sql);
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getInt("ID_SOLICITUD"),
+                    rs.getDate("FECHA_USO"),
+                    rs.getString("HORA_INICIO"),
+                    rs.getString("HORA_FIN"),
+                    rs.getString("ESTADO"),
+                    "Ver Detalles",
+                    "❌"
+                });
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                "Error al cargar solicitudes: " + ex.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            co.cerrarConexion();
+        }
+    }
 
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> {
-            new VerMisPrestamos().setVisible(true);
+        SwingUtilities.invokeLater(() -> {
+            // reemplaza 1 por el ID real del usuario autenticado
+            new VerMisPrestamos(1).setVisible(true);
         });
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -56,7 +91,6 @@ public class VerMisPrestamos extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaMisPrestamos = new javax.swing.JTable();
-        BHistorial = new javax.swing.JRadioButton();
         lblFondoSolicitud = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,11 +135,6 @@ public class VerMisPrestamos extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 860, 200));
 
-        BHistorial.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BHistorial.setForeground(new java.awt.Color(255, 255, 255));
-        BHistorial.setText("Historial de solicitudes");
-        jPanel1.add(BHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, -1));
-
         lblFondoSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/FondoUsu.jpg"))); // NOI18N
         jPanel1.add(lblFondoSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 660));
 
@@ -141,7 +170,6 @@ public class VerMisPrestamos extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton BHistorial;
     private javax.swing.JTable TablaMisPrestamos;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnSalir;

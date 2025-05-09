@@ -6,11 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-
-/**
- *
- * @author Santiago
- */
 public class Login extends javax.swing.JFrame {
 
     ConexionOracle con = new ConexionOracle();
@@ -95,32 +90,8 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
- /*
-    private void realizarLogin() {
-    String correo = txtCorreo.getText();
-    String contraseña = new String(PContra.getPassword()); // Obtener la contraseña de forma segura
 
-    if (correo.isEmpty() || contraseña.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Un campo está vacío");
-    } else {
-        if (correo.equals("usuario@example.com") && contraseña.equals("usuario")) {
-            JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
-            MenuUsuario MenuUsu = new MenuUsuario();
-            MenuUsu.setVisible(true);
-            this.dispose();
-        } else if (correo.equals("admin@example.com") && contraseña.equals("admin")) {
-            JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
-            MenuAdmin MenuAdm = new MenuAdmin();
-            MenuAdm.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "El usuario o contraseña es incorrecto o no existe");
-        }
-    }
-}
-*/
-    
-
+   
     private void realizarLogin() {
     String correo = txtCorreo.getText();
     String contraseña = new String(PContra.getPassword()); 
@@ -149,7 +120,7 @@ public class Login extends javax.swing.JFrame {
                     MenuUsu.setVisible(true);
                     dispose();
                 }
-            } else {
+            } else { 
                 JOptionPane.showMessageDialog(null, "El usuario o contraseña esta incorrecto o no existe");
             }
         } catch (Exception e) {

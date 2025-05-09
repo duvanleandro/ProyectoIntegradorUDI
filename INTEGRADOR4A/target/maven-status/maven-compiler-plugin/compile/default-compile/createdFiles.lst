@@ -3,6 +3,7 @@ com\mycompany\integrador4a\igu\GestionarUsuarios$2.class
 com\mycompany\integrador4a\igu\InformacionApp.class
 com\mycompany\integrador4a\igu\MenuAdmin$6.class
 Interfaz\TablaMisPrestamos$EditorBoton.class
+com\mycompany\integrador4a\igu\VerMisPrestamos$3.class
 Interfaz\TablaSolicitudesAdmin.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones$1.class
 Utilidades\EscaladoImagen.class
@@ -42,10 +43,10 @@ com\mycompany\integrador4a\igu\InformacionApp$1.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$2.class
 com\mycompany\integrador4a\igu\RealizarSancion$1.class
 com\mycompany\integrador4a\igu\RealizarSolicitud$4.class
-com\mycompany\integrador4a\igu\PedirPrestamo$5.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones.class
 com\mycompany\integrador4a\igu\RealizarSancion.class
 com\mycompany\integrador4a\igu\VerMisPrestamos$1.class
+ColorDisponibilidad.class
 com\mycompany\integrador4a\igu\RealizarDevolucion$1.class
 Interfaz\TablaSolicitudesAdmin$RenderBotonAceptar.class
 com\mycompany\integrador4a\igu\GestionarSanciones$4.class
@@ -54,6 +55,7 @@ com\mycompany\integrador4a\igu\MenuAdmin$7.class
 com\mycompany\integrador4a\igu\AgregarUsuarios$5.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones$2.class
 Interfaz\TablaSolicitudesAdmin$EditorBotonAceptar.class
+ColorDisponibilidad$1.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$1.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$4.class
 com\mycompany\integrador4a\igu\RealizarSancion$3.class
