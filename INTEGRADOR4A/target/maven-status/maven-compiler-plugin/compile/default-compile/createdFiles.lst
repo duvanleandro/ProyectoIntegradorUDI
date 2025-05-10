@@ -2,18 +2,8 @@ com\mycompany\integrador4a\igu\GestionarDevoluciones$4.class
 com\mycompany\integrador4a\igu\GestionarUsuarios$2.class
 com\mycompany\integrador4a\igu\InformacionApp.class
 com\mycompany\integrador4a\igu\MenuAdmin$6.class
-<<<<<<< HEAD
-com\mycompany\integrador4a\igu\PrestamoAudio$2.class
-com\mycompany\integrador4a\igu\GestionarDevoluciones$1.class
-com\mycompany\integrador4a\igu\MenuAdmin$3.class
-com\mycompany\integrador4a\igu\AgregarUsuarios$1.class
-com\mycompany\integrador4a\igu\GestionarUsuarios$5.class
-com\mycompany\integrador4a\igu\Login$1.class
-com\mycompany\integrador4a\igu\PrestamoSala.class
-com\mycompany\integrador4a\igu\GestionarSolicitudes.class
-com\mycompany\integrador4a\igu\PrestamoAudio.class
-=======
 Interfaz\TablaMisPrestamos$EditorBoton.class
+com\mycompany\integrador4a\igu\PrestamoAudio$2.class
 com\mycompany\integrador4a\igu\VerMisPrestamos$3.class
 Interfaz\TablaSolicitudesAdmin.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones$1.class
@@ -24,8 +14,9 @@ Interfaz\TablaMisPrestamos$EditorCancelar.class
 com\mycompany\integrador4a\igu\AgregarUsuarios$1.class
 com\mycompany\integrador4a\igu\GestionarUsuarios$5.class
 com\mycompany\integrador4a\igu\Login$1.class
+com\mycompany\integrador4a\igu\PrestamoSala.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes.class
->>>>>>> AdelantoSinTerminar
+com\mycompany\integrador4a\igu\PrestamoAudio.class
 com\mycompany\integrador4a\igu\AgregarUsuarios$4.class
 com\mycompany\integrador4a\igu\AgregarUsuarios.class
 com\mycompany\integrador4a\igu\GestionarSanciones.class
@@ -43,14 +34,7 @@ com\mycompany\integrador4a\igu\RealizarDevolucion.class
 com\mycompany\integrador4a\igu\RealizarSolicitud$2.class
 com\mycompany\integrador4a\igu\Login$2.class
 com\mycompany\integrador4a\igu\RealizarSolicitud$5.class
-<<<<<<< HEAD
 com\mycompany\integrador4a\igu\PrestamoSala$2.class
-com\mycompany\integrador4a\igu\MenuAdmin$1.class
-com\mycompany\integrador4a\igu\MenuAdmin.class
-com\mycompany\integrador4a\igu\GestionarSanciones$5.class
-com\mycompany\integrador4a\igu\MenuUsuario$6.class
-com\mycompany\integrador4a\igu\AgregarUsuarios$6.class
-=======
 com\mycompany\integrador4a\igu\MenuAdmin$1.class
 com\mycompany\integrador4a\igu\VerMisPrestamos$2.class
 com\mycompany\integrador4a\igu\MenuAdmin.class
@@ -59,58 +43,29 @@ com\mycompany\integrador4a\igu\MenuUsuario$6.class
 Interfaz\TablaMisPrestamos$RenderizadorBoton.class
 com\mycompany\integrador4a\igu\AgregarUsuarios$6.class
 Interfaz\TablaSolicitudesAdmin$RenderBoton.class
->>>>>>> AdelantoSinTerminar
 com\mycompany\integrador4a\igu\InformacionApp$1.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$2.class
 com\mycompany\integrador4a\igu\RealizarSancion$1.class
 com\mycompany\integrador4a\igu\RealizarSolicitud$4.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones.class
 com\mycompany\integrador4a\igu\RealizarSancion.class
-<<<<<<< HEAD
-com\mycompany\integrador4a\igu\RealizarDevolucion$1.class
-com\mycompany\integrador4a\igu\PrestamoSala$3.class
-com\mycompany\integrador4a\igu\PrestamoAudio$4.class
-=======
 com\mycompany\integrador4a\igu\VerMisPrestamos$1.class
 ColorDisponibilidad.class
 com\mycompany\integrador4a\igu\RealizarDevolucion$1.class
+com\mycompany\integrador4a\igu\PrestamoSala$3.class
 Interfaz\TablaSolicitudesAdmin$RenderBotonAceptar.class
->>>>>>> AdelantoSinTerminar
+com\mycompany\integrador4a\igu\PrestamoAudio$4.class
 com\mycompany\integrador4a\igu\GestionarSanciones$4.class
 com\mycompany\integrador4a\igu\MenuUsuario$1.class
 com\mycompany\integrador4a\igu\MenuAdmin$7.class
 com\mycompany\integrador4a\igu\AgregarUsuarios$5.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones$2.class
-<<<<<<< HEAD
-=======
 Interfaz\TablaSolicitudesAdmin$EditorBotonAceptar.class
 ColorDisponibilidad$1.class
->>>>>>> AdelantoSinTerminar
 com\mycompany\integrador4a\igu\GestionarSolicitudes$1.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$4.class
 com\mycompany\integrador4a\igu\RealizarSancion$3.class
 com\mycompany\integrador4a\igu\RealizarSolicitud$3.class
-<<<<<<< HEAD
-com\mycompany\integrador4a\igu\PedirSoporte.class
-com\mycompany\integrador4a\igu\AgregarUsuarios$8.class
-com\mycompany\integrador4a\igu\GestionarSanciones$3.class
-com\mycompany\integrador4a\igu\RealizarDevolucion$2.class
-com\mycompany\integrador4a\igu\PrestamoSala$4.class
-com\mycompany\integrador4a\igu\PedirSoporte$3.class
-com\mycompany\integrador4a\igu\Login$3.class
-com\mycompany\integrador4a\igu\GestionarDevoluciones$3.class
-com\mycompany\integrador4a\igu\PrestamoSala$1.class
-com\mycompany\integrador4a\igu\MenuAdmin$5.class
-com\mycompany\integrador4a\igu\MenuUsuario$5.class
-com\mycompany\integrador4a\igu\MenuAdmin$2.class
-com\mycompany\integrador4a\igu\MenuUsuario$2.class
-com\mycompany\integrador4a\igu\GestionarUsuarios$4.class
-com\mycompany\integrador4a\igu\PrestamoAudio$3.class
-com\mycompany\integrador4a\igu\GestionarUsuarios$1.class
-com\mycompany\integrador4a\igu\AgregarUsuarios$3.class
-com\mycompany\integrador4a\igu\InformacionApp$4.class
-com\mycompany\integrador4a\igu\GestionarUsuarios.class
-=======
 Interfaz\PlaceHolder.class
 Interfaz\DetallesTablaMisPrestamos.class
 com\mycompany\integrador4a\igu\PedirSoporte.class
@@ -119,12 +74,14 @@ Interfaz\TablaSolicitudesAdmin$RenderBotonRechazar.class
 com\mycompany\integrador4a\igu\GestionarSanciones$3.class
 com\mycompany\integrador4a\igu\RealizarDevolucion$2.class
 Interfaz\ActualizarFecha.class
+com\mycompany\integrador4a\igu\PrestamoSala$4.class
 com\mycompany\integrador4a\igu\PedirSoporte$3.class
 com\mycompany\integrador4a\igu\RealizarSolicitud$6.class
 Interfaz\TablaSolicitudesAdmin$EditorBoton.class
 com\mycompany\integrador4a\igu\Login$3.class
 Interfaz\TablaSolicitudesAdmin$EditorBotonRechazar.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones$3.class
+com\mycompany\integrador4a\igu\PrestamoSala$1.class
 Interfaz\TablaSolicitudesAdmin$RenderBotonVerUsuario.class
 com\mycompany\integrador4a\igu\MenuAdmin$5.class
 com\mycompany\integrador4a\igu\MenuUsuario$5.class
@@ -133,6 +90,7 @@ Interfaz\TablaMisPrestamos$RenderizadorCancelar.class
 com\mycompany\integrador4a\igu\MenuAdmin$2.class
 com\mycompany\integrador4a\igu\MenuUsuario$2.class
 com\mycompany\integrador4a\igu\GestionarUsuarios$4.class
+com\mycompany\integrador4a\igu\PrestamoAudio$3.class
 Interfaz\TablaMisPrestamos.class
 com\mycompany\integrador4a\igu\GestionarUsuarios$1.class
 com\mycompany\integrador4a\igu\AgregarUsuarios$3.class
@@ -140,7 +98,6 @@ com\mycompany\integrador4a\igu\InformacionApp$4.class
 Interfaz\PlaceHolder$1.class
 com\mycompany\integrador4a\igu\GestionarUsuarios.class
 Interfaz\TablaSolicitudesAdmin$EditorBotonVerUsuario.class
->>>>>>> AdelantoSinTerminar
 com\mycompany\integrador4a\igu\RealizarSolicitud$1.class
 com\mycompany\integrador4a\igu\MenuUsuario$3.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$5.class
@@ -150,15 +107,10 @@ com\mycompany\integrador4a\igu\InformacionApp$3.class
 com\mycompany\integrador4a\igu\AgregarUsuarios$2.class
 com\mycompany\integrador4a\igu\GestionarDevoluciones$5.class
 com\mycompany\integrador4a\igu\GestionarSanciones$1.class
-<<<<<<< HEAD
-com\mycompany\integrador4a\igu\GestionarUsuarios$3.class
-com\mycompany\integrador4a\igu\PedirSoporte$1.class
-com\mycompany\integrador4a\igu\PrestamoAudio$1.class
-=======
 com\mycompany\integrador4a\igu\PedirPrestamo$ButtonEditor.class
 com\mycompany\integrador4a\igu\GestionarUsuarios$3.class
 com\mycompany\integrador4a\igu\PedirSoporte$1.class
+com\mycompany\integrador4a\igu\PrestamoAudio$1.class
 com\mycompany\integrador4a\igu\VerMisPrestamos.class
->>>>>>> AdelantoSinTerminar
 com\mycompany\integrador4a\igu\MenuUsuario$4.class
 com\mycompany\integrador4a\igu\MenuAdmin$4.class

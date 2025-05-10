@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\AgregarUsuarios.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarDevoluciones.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarSanciones.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarSolicitudes.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarUsuarios.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\InformacionApp.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\Login.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\MenuAdmin.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\MenuUsuario.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PedirSoporte.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PrestamoAudio.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PrestamoSala.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarDevolucion.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSancion.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSolicitud.java
-C:\Users\USER\OneDrive\Desktop\Universidad\Cuarto semestre\proyecto integrador\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Conexion\ConexionOracle.java
-=======
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\AgregarUsuarios.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarDevoluciones.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarSanciones.java
@@ -27,6 +9,8 @@ C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\MenuUsuario.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PedirPrestamo.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PedirSoporte.java
+C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PrestamoAudio.java
+C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PrestamoSala.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarDevolucion.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSancion.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSolicitud.java
@@ -40,4 +24,3 @@ C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Interfaz\TablaMisPrestamos.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Interfaz\TablaSolicitudesAdmin.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Utilidades\EscaladoImagen.java
->>>>>>> AdelantoSinTerminar
