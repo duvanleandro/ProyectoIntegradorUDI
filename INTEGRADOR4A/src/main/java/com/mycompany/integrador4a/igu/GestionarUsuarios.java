@@ -19,7 +19,7 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     
-
+    // Se añade el nombre a cada columna
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.addColumn("ID");
     modelo.addColumn("Nombre");
@@ -31,7 +31,8 @@ public class GestionarUsuarios extends javax.swing.JFrame {
     try {
         PreparedStatement ps = cn.prepareStatement("SELECT id, nombre, apellido, email, clave, nivel FROM usuarios");
         ResultSet rs = ps.executeQuery();
-
+        
+        // Los datos recuperados en la base se registra en la tabla
         while (rs.next()) {
             Object[] fila = new Object[6]; 
             fila[0] = rs.getInt("id");
@@ -42,13 +43,16 @@ public class GestionarUsuarios extends javax.swing.JFrame {
             fila[5] = rs.getString("nivel");
             modelo.addRow(fila);
         }
-
+        
         TablaUsuarios.setModel(modelo);
 
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Error al cargar los datos: " + e.getMessage());
     }
-    
+    // Organizar la tabla en base a preferencia del usuario
+    TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaUsuarios.getModel());
+    TablaUsuarios.setRowSorter(sorter);
+
     
 }
 
@@ -151,7 +155,7 @@ public class GestionarUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    int fila = TablaUsuarios.getSelectedRow(); 
+    int fila = TablaUsuarios.getSelectedRow(); // Se toma el numero de la fila seleccionada
 
     if (fila == -1) {
         JOptionPane.showMessageDialog(null, "Selecciona un usuario para eliminar.");
@@ -163,6 +167,7 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         return;
     }
 
+    // Se obtiene el ID para borrar los demás datos del usuario registrado
     int id = Integer.parseInt(TablaUsuarios.getValueAt(fila, 0).toString());
 
     try {
@@ -202,9 +207,6 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
