@@ -1,8 +1,11 @@
 package Ejecutar;
 
+import Entidad.Usuario;
 import com.mycompany.integrador4a.igu.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import Logica.IniciarSesion;
 
 public class EjecutarSistema {
 
@@ -19,6 +22,7 @@ public class EjecutarSistema {
     static GestionarSolicitudes GSolicitudes;
     static RealizarSancion RSancion;
     static GestionarUsuarios GUsuarios;
+    static AgregarUsuarios AUsuarios;
     static GestionarDevoluciones GDevoluciones;
     static GestionarSanciones GSanciones;
 
@@ -28,38 +32,81 @@ public class EjecutarSistema {
             login.setVisible(true);
             login.setLocationRelativeTo(null);
 
+            // Registro del listener del botón “Login”
             login.getBtnLogin().addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
+                    // 1) Leer campos
+                    String correoIngresado = login.getUsuario();
+                    String claveIngresada = login.getPassword();
+
+                    // 2) Validar que no estén vacíos
+                    if (correoIngresado.isEmpty() || claveIngresada.isEmpty()) {
+                        JOptionPane.showMessageDialog(
+                            login,
+                            "Debes ingresar usuario y contraseña.",
+                            "Error",
+                            JOptionPane.WARNING_MESSAGE
+                        );
+                        return;
+                    }
+
+                    // 3) Validar credenciales con la BD
+                    IniciarSesion ls = new IniciarSesion();
+                    Usuario usuario = ls.validarCredenciales(correoIngresado, claveIngresada);
+
+                    if (usuario == null) {
+                        JOptionPane.showMessageDialog(
+                            login,
+                            "Usuario o contraseña incorrectos.",
+                            "Error de autenticación",
+                            JOptionPane.ERROR_MESSAGE
+                        );
+                        return;
+                    }
+
+                    String rol = usuario.getRol();
+
+                    // 4) Credenciales válidas
                     login.setVisible(false);
 
-                    if (menu == null) menu = new MenuUsuario();
-                    if (menuAd == null) menuAd = new MenuAdmin();
-
-                    if (RSolicitud == null) RSolicitud = new RealizarSolicitud();
+                    // 5) Inicializo cada ventana solo si aún no existe
+                    if (menu == null)        menu        = new MenuUsuario();
+                    if (menuAd == null)      menuAd      = new MenuAdmin();
+                    if (RSolicitud == null)  RSolicitud  = new RealizarSolicitud();
                     if (RDevolucion == null) RDevolucion = new RealizarDevolucion();
-                    if (PSoporte == null) PSoporte = new PedirSoporte();
-                    if (IApp == null) IApp = new InformacionApp();
-                    if (PPrestamo == null) PPrestamo = new PedirPrestamo();
-                    if (VMPrestamo == null) VMPrestamo = new VerMisPrestamos();
+                    if (PSoporte == null)    PSoporte    = new PedirSoporte();
+                    if (IApp == null)        IApp        = new InformacionApp();
+                    if (PPrestamo == null)   PPrestamo   = new PedirPrestamo();
+                    if (VMPrestamo == null)  VMPrestamo  = new VerMisPrestamos();
+                    if (GSolicitudes == null)   GSolicitudes   = new GestionarSolicitudes();
+                    if (AUsuarios == null)   AUsuarios = new AgregarUsuarios();
+                    if (RSancion == null)       RSancion       = new RealizarSancion();
+                    if (GUsuarios == null)      GUsuarios      = new GestionarUsuarios();
+                    if (GDevoluciones == null)  GDevoluciones  = new GestionarDevoluciones();
+                    if (GSanciones == null)     GSanciones     = new GestionarSanciones();
 
-                    if (GSolicitudes == null) GSolicitudes = new GestionarSolicitudes();
-                    if (RSancion == null) RSancion = new RealizarSancion();
-                    if (GUsuarios == null) GUsuarios = new GestionarUsuarios();
-                    if (GDevoluciones == null) GDevoluciones = new GestionarDevoluciones();
-                    if (GSanciones == null) GSanciones = new GestionarSanciones();
-
-                    menu.setVisible(true);
-                    menu.setLocationRelativeTo(null);
-                    menuAd.setVisible(true);
-                    menuAd.setLocationRelativeTo(null);
-
+                    // 6) Mostrar solo el menú que corresponda según el rol
+                    if (rol.equalsIgnoreCase("ADMIN")) {
+                        menuAd.setVisible(true);
+                        menuAd.setLocationRelativeTo(null);
+                    } else {
+                        menu.setVisible(true);
+                        menu.setLocationRelativeTo(null);
+                    }
                     // MENU USUARIO
                     menu.getLblDevolucion().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menu.setVisible(false);
                             RDevolucion.setVisible(true);
                             RDevolucion.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    menu.getLblSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            menu.setVisible(false);
+                            login.setVisible(true);
                         }
                     });
 
@@ -308,6 +355,13 @@ public class EjecutarSistema {
                             menuAd.setVisible(true);
                         }
                     });
+                    
+                    GUsuarios.getBtnAgregar().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            GUsuarios.setVisible(false);
+                            AUsuarios.setVisible(true);
+                        }
+                    });
 
                     GUsuarios.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
@@ -347,4 +401,4 @@ public class EjecutarSistema {
             });
         });
     }
-}
+}   

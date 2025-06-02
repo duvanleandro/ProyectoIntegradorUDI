@@ -2,20 +2,32 @@
 package com.mycompany.integrador4a.igu;
 
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame { 
 
-    /** Creates new form Login */
+
     public Login() {
     initComponents();
     setLocationRelativeTo(null);
     }
 
-    public JButton getBtnLogin() {
-    return btnLogin;
-}
+public JButton getBtnLogin() {
+        return btnLogin;
+    }
 
+    // Devuelve el texto de txtCorreo
+    public String getUsuario() {
+        return txtCorreo.getText().trim();
+    }
+
+    // Cambiado para usar PContra en lugar de txtPassword
+    public String getPassword() {
+        return new String(PContra.getPassword());
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

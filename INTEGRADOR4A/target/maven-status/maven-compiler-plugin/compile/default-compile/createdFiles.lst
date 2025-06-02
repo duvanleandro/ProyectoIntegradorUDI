@@ -15,6 +15,7 @@ Entidad\DetalleSolicitud.class
 com\mycompany\integrador4a\igu\Login.class
 com\mycompany\integrador4a\igu\RealizarSolicitud.class
 com\mycompany\integrador4a\igu\RealizarDevolucion.class
+Logica\IniciarSesion.class
 Ejecutar\EjecutarSistema$1$14.class
 Ejecutar\EjecutarSistema$1$4.class
 com\mycompany\integrador4a\igu\MenuAdmin.class
@@ -35,13 +36,16 @@ Ejecutar\EjecutarSistema$1$16.class
 Entidad\Soporte.class
 Entidad\Usuario.class
 com\mycompany\integrador4a\igu\PedirSoporte.class
+Logica\GestionarUsuarios.class
 Ejecutar\EjecutarSistema$1$10.class
 Ejecutar\EjecutarSistema$1$30.class
 Ejecutar\EjecutarSistema$1$5.class
 Ejecutar\EjecutarSistema$1$33.class
 Ejecutar\EjecutarSistema$1$13.class
 Ejecutar\EjecutarSistema$1$19.class
+Ejecutar\EjecutarSistema$1$39.class
 Ejecutar\EjecutarSistema$1$21.class
+com\mycompany\integrador4a\igu\GestionarUsuarios$1.class
 Ejecutar\EjecutarSistema$1$36.class
 Ejecutar\EjecutarSistema$1$2.class
 Ejecutar\EjecutarSistema$1$1.class
@@ -57,6 +61,7 @@ Ejecutar\EjecutarSistema$1$35.class
 Conexion\ConexionOracle.class
 Ejecutar\EjecutarSistema$1$7.class
 Ejecutar\EjecutarSistema$1$17.class
+Ejecutar\EjecutarSistema$1$40.class
 Entidad\Prestamo.class
 Ejecutar\EjecutarSistema$1$23.class
 com\mycompany\integrador4a\igu\VerMisPrestamos.class

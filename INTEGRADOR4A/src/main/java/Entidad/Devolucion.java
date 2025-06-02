@@ -15,18 +15,13 @@ public class Devolucion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String fecha;
     private String observaciones;
-
     @ManyToOne
     private Usuario usuario;
-
     @OneToOne
     private Prestamo prestamo;
-
     @OneToOne(mappedBy = "devolucion")
     private Sanciones sancion;
 
-    // Getters y Setters
 }
