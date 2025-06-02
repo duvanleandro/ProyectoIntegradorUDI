@@ -1,21 +1,21 @@
+
 package com.mycompany.integrador4a.igu;
 
-import Conexion.ConexionOracle;
-import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
+import javax.swing.JButton;
+
+
 public class Login extends javax.swing.JFrame {
 
-    ConexionOracle con = new ConexionOracle();
-    Connection cn = con.conectar();
-    
+    /** Creates new form Login */
     public Login() {
-        initComponents();
-        setLocationRelativeTo(null);
-        this.setTitle("Login");
+    initComponents();
+    setLocationRelativeTo(null);
     }
+
+    public JButton getBtnLogin() {
+    return btnLogin;
+}
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -46,32 +46,15 @@ public class Login extends javax.swing.JFrame {
         lblCorreo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblCorreo.setText("CORREO:");
         Panel_Bienvenidos.add(lblCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, -1, -1));
-
-        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtCorreoKeyPressed(evt);
-            }
-        });
         Panel_Bienvenidos.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 380, 270, 30));
 
         lblContra.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblContra.setText("CONTRASEÑA:");
         Panel_Bienvenidos.add(lblContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, -1, -1));
-
-        PContra.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                PContraKeyPressed(evt);
-            }
-        });
         Panel_Bienvenidos.add(PContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 270, 30));
 
         btnLogin.setText("LOGIN");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
         Panel_Bienvenidos.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 520, 130, 40));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Login3.jpg"))); // NOI18N
@@ -91,97 +74,6 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-   
-    private void realizarLogin() {
-    String correo = txtCorreo.getText();
-    String contraseña = new String(PContra.getPassword()); 
-    
-    // Inicio de sesión
-    if (correo.equals("") || contraseña.equals("")) {
-        JOptionPane.showMessageDialog(null, "Los campos están vacios");
-    } else {
-        try {
-            // Se recupera el tipo de nivel segun el email y clave que ingrese el usuario y que este en la base de datos
-            PreparedStatement ps = cn.prepareStatement("SELECT nivel FROM usuarios WHERE email=? AND clave=?");
-            ps.setString(1, correo); // Reemplaza el primer "?" con el valor de la variable "correo"
-            ps.setString(2, contraseña);  // Reemplaza el segundo "?" con el valor de la variable "clave"
-            ResultSet rs = ps.executeQuery();
-            
-            if (rs.next()) {
-                String TipoNivel = rs.getString("nivel");
-                if (TipoNivel.equalsIgnoreCase("ADMIN")) {
-                    JOptionPane.showMessageDialog(null, "Bienvenido Administrador");
-                    MenuAdmin MenuAdm = new MenuAdmin();
-                    MenuAdm.setVisible(true);
-                    dispose();  
-                } else {
-                    JOptionPane.showMessageDialog(null, "Bienvenido Usuario");
-                    MenuUsuario MenuUsu = new MenuUsuario();
-                    MenuUsu.setVisible(true);
-                    dispose();
-                }
-            } else { 
-                JOptionPane.showMessageDialog(null, "El usuario o contraseña esta incorrecto o no existe");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al iniciar sesión: " + e.getMessage());
-        }
-    }
-}
-
-    
-    
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-    realizarLogin();
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void PContraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PContraKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-            realizarLogin();
-        }
-    }//GEN-LAST:event_PContraKeyPressed
-
-    private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            PContra.requestFocus();
-        }
-    }//GEN-LAST:event_txtCorreoKeyPressed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField PContra;
     private javax.swing.JPanel Panel_Bienvenidos;
@@ -193,4 +85,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
+
 }

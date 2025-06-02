@@ -2,31 +2,54 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
 package com.mycompany.integrador4a.igu;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import Utilidades.EscaladoImagen;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
+/**
+ *
+ * @author USER
+ */
 public class RealizarSolicitud extends javax.swing.JFrame {
 
-        public RealizarSolicitud() {
-            initComponents();
-            this.setLocationRelativeTo(this);
+    /** Creates new form RealizarSolicitud */
+    public RealizarSolicitud() {
+        initComponents();
+    }
 
-            EscaladoImagen.pintar(this.lblVerPrestamos, "/images/VerPrestamos.png");
-        }
+    public JButton getBtnMenuPrincipal() {
+        return btnMenuPrincipal;
+    }
+
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
+    public JLabel getLblPrestarAudio() {
+        return lblPrestarAudio;
+    }
+
+    public JLabel getLblPrestarSala() {
+        return lblPrestarSala;
+    }
+
+    public JLabel getLblVerPrestamos() {
+        return lblVerPrestamos;
+    }
+
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         lblSolicitarPrestamo = new javax.swing.JLabel();
-        btnEnviar = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblVerPrestamos = new javax.swing.JLabel();
-        lblPrestarAudiio = new javax.swing.JLabel();
+        lblPrestarAudio = new javax.swing.JLabel();
         lblPrestarSala = new javax.swing.JLabel();
         lblTextAudio = new javax.swing.JLabel();
         lblTextSala = new javax.swing.JLabel();
@@ -41,52 +64,23 @@ public class RealizarSolicitud extends javax.swing.JFrame {
         lblSolicitarPrestamo.setText("SOLICITAR PRESTAMO");
         jPanel1.add(lblSolicitarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 550, 60));
 
-        btnEnviar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEnviar.setText("ENVIAR");
-        jPanel1.add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 560, 130, 40));
-
         btnMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPrincipal.setText("MENU PRINCIPAL");
-        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuPrincipalActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 560, 160, 40));
+        jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 560, 160, 40));
 
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSalir.setText("SALIR");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 560, 130, 40));
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 560, 130, 40));
 
         lblVerPrestamos.setText("jLabel2");
         lblVerPrestamos.setVerifyInputWhenFocusTarget(false);
-        lblVerPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblVerPrestamos(evt);
-            }
-        });
         jPanel1.add(lblVerPrestamos, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, 140, 160));
 
-        lblPrestarAudiio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audiovisualUsu.png"))); // NOI18N
-        lblPrestarAudiio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPedirPrestamo1(evt);
-            }
-        });
-        jPanel1.add(lblPrestarAudiio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 150, 150));
+        lblPrestarAudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audiovisualUsu.png"))); // NOI18N
+        jPanel1.add(lblPrestarAudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 150, 150));
 
         lblPrestarSala.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SalaUsu.png"))); // NOI18N
-        lblPrestarSala.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblPedirPrestamo2(evt);
-            }
-        });
-        jPanel1.add(lblPrestarSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 180, 150));
+        jPanel1.add(lblPrestarSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 170, 150));
 
         lblTextAudio.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTextAudio.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,67 +109,18 @@ public class RealizarSolicitud extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        // TODO add your handling code here:
-        
-        //Ir a la interfaz del menu principla(MenuUsuario)
-        MenuUsuario irMenu = new MenuUsuario();
-        irMenu.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-        
-        //Ir a la interfaz de inicial de LOGIN
-        Login irInicio = new Login();
-        irInicio.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void PedirPrestamo() {
-        PedirPrestamo IrSala = new PedirPrestamo(1);
-        IrSala.setVisible(true);
-        dispose();
-    }
-    
-    private void lblPedirPrestamo2(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPedirPrestamo2
-        PedirPrestamo();
-    }//GEN-LAST:event_lblPedirPrestamo2
-
-    private void lblPedirPrestamo1(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPedirPrestamo1
-        PedirPrestamo();
-    }//GEN-LAST:event_lblPedirPrestamo1
-
-    private void lblVerPrestamos(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerPrestamos
-      VerMisPrestamos VerPrestamo = new VerMisPrestamos(1);
-      VerPrestamo.setVisible(true);
-      dispose();
-    }//GEN-LAST:event_lblVerPrestamos
-
-
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RealizarSolicitud().setVisible(true);
-            }
-        });
-       
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblFondoSolicitud;
-    private javax.swing.JLabel lblPrestarAudiio;
+    private javax.swing.JLabel lblPrestarAudio;
     private javax.swing.JLabel lblPrestarSala;
     private javax.swing.JLabel lblSolicitarPrestamo;
     private javax.swing.JLabel lblTextAudio;
     private javax.swing.JLabel lblTextSala;
     private javax.swing.JLabel lblVerPrestamos;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -1,64 +1,32 @@
-// GestionarSolicitudes.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+
 package com.mycompany.integrador4a.igu;
 
-import Interfaz.TablaSolicitudesAdmin;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
+import javax.swing.JButton;
 
+/**
+ *
+ * @author USER
+ */
 public class GestionarSolicitudes extends javax.swing.JFrame {
 
+    /** Creates new form GestionarSolicitudes */
     public GestionarSolicitudes() {
         initComponents();
-        setLocationRelativeTo(null);
-
-        String[] columnas = {
-            "Fecha","Hora inicio","Hora final",
-            "Info Usuario","Acción","Aceptar","Rechazar","Elementos"
-        };
-        DefaultTableModel modelo = new DefaultTableModel(columnas,0);
-        TablaSolicitudes.setModel(modelo);
-
-        modelo.addRow(new Object[]{
-            "2025-05-03","08:00","10:00",
-            "Juan:Pérez:juan.perez@example.com",
-            "Ver Detalles","✔️","❌",
-            "Sala de informática:Sala A - Programación;Equipo audiovisual:Cámara"
-        });
-        modelo.addRow(new Object[]{
-            "2025-05-04","14:00","16:00",
-            "Ana:Gómez:ana.gomez@example.com",
-            "Ver Detalles","✔️","❌",
-            "Equipo audiovisual:Micrófono;Equipo audiovisual:Proyector"
-        });
-
-        TableColumn col=TablaSolicitudes.getColumnModel().getColumn(7);
-        col.setMinWidth(0); col.setMaxWidth(0); col.setWidth(0);
-
-        TablaSolicitudes.getColumnModel().getColumn(3)
-            .setCellRenderer(new TablaSolicitudesAdmin.RenderBotonVerUsuario());
-        TablaSolicitudes.getColumnModel().getColumn(3)
-            .setCellEditor(new TablaSolicitudesAdmin.EditorBotonVerUsuario());
-
-        TablaSolicitudes.getColumnModel().getColumn(4)
-            .setCellRenderer(new TablaSolicitudesAdmin.RenderBoton("Ver Detalles"));
-        TablaSolicitudes.getColumnModel().getColumn(4)
-            .setCellEditor(new TablaSolicitudesAdmin.EditorBoton("Ver Detalles"));
-
-        TablaSolicitudes.getColumnModel().getColumn(5)
-            .setCellRenderer(new TablaSolicitudesAdmin.RenderBotonAceptar());
-        TablaSolicitudes.getColumnModel().getColumn(5)
-            .setCellEditor(new TablaSolicitudesAdmin.EditorBotonAceptar());
-
-        TablaSolicitudes.getColumnModel().getColumn(6)
-            .setCellRenderer(new TablaSolicitudesAdmin.RenderBotonRechazar());
-        TablaSolicitudes.getColumnModel().getColumn(6)
-            .setCellEditor(new TablaSolicitudesAdmin.EditorBotonRechazar());
     }
 
+    public JButton getBtnMenuPrincipal() {
+        return btnMenuPrincipal;
+    }
 
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
 
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -98,38 +66,18 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnActualizar.setText("ACTUALIZAR");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 570, 170, 40));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 570, 170, 40));
 
         btnMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPrincipal.setText("MENU PRINCIPAL");
-        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuPrincipalActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 570, 170, 40));
 
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSalir.setText("SALIR");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 570, 170, 40));
 
         lblFondoGestionSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoAdmin.jpg"))); // NOI18N
@@ -149,66 +97,6 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        // TODO add your handling code here:
-
-        //Ir al menu principal del administrador
-        MenuAdmin irAdmin = new MenuAdmin();
-        irAdmin.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-
-        //Boton para salir de a la interfaz de LOGIN
-        Login irInicio = new Login();
-        irInicio.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionarSolicitudes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionarSolicitudes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionarSolicitudes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionarSolicitudes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GestionarSolicitudes().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaSolicitudes;
@@ -221,4 +109,5 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
     private javax.swing.JLabel lblFondoGestionSolicitud;
     private javax.swing.JLabel lblGestionSolicitud;
     // End of variables declaration//GEN-END:variables
+
 }

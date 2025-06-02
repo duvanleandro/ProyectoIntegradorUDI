@@ -1,63 +1,32 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+
 package com.mycompany.integrador4a.igu;
 
-import Conexion.ConexionOracle;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
+import javax.swing.JButton;
 
+/**
+ *
+ * @author USER
+ */
 public class GestionarUsuarios extends javax.swing.JFrame {
 
-    ConexionOracle con = new ConexionOracle();
-    Connection cn = con.conectar();
-    
+    /** Creates new form GestionarUsuarios */
     public GestionarUsuarios() {
         initComponents();
-        setLocationRelativeTo(null);
-    
-    // Se añade el nombre a cada columna
-    DefaultTableModel modelo = new DefaultTableModel();
-    modelo.addColumn("ID");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Apellido");
-    modelo.addColumn("Email");
-    modelo.addColumn("Clave");
-    modelo.addColumn("Tipo");
-
-    try {
-        PreparedStatement ps = cn.prepareStatement("SELECT id, nombre, apellido, email, clave, nivel FROM usuarios");
-        ResultSet rs = ps.executeQuery();
-        
-        // Los datos recuperados en la base se registra en la tabla
-        while (rs.next()) {
-            Object[] fila = new Object[6]; 
-            fila[0] = rs.getInt("id");
-            fila[1] = rs.getString("nombre");
-            fila[2] = rs.getString("apellido");
-            fila[3] = rs.getString("email");
-            fila[4] = rs.getString("clave");
-            fila[5] = rs.getString("nivel");
-            modelo.addRow(fila);
-        }
-        
-        TablaUsuarios.setModel(modelo);
-
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al cargar los datos: " + e.getMessage());
     }
-    // Organizar la tabla en base a preferencia del usuario
-    TableRowSorter<TableModel> sorter = new TableRowSorter<>(TablaUsuarios.getModel());
-    TablaUsuarios.setRowSorter(sorter);
 
-    
-}
+    public JButton getBtnMenuPrincipal() {
+        return btnMenuPrincipal;
+    }
 
-    
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
 
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -82,38 +51,18 @@ public class GestionarUsuarios extends javax.swing.JFrame {
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnActualizar.setText("AGREGAR");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 580, 170, 40));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEliminar.setText("ELIMINAR");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 580, 170, 40));
 
         btnMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPrincipal.setText("MENU PRINCIPAL");
-        btnMenuPrincipal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMenuPrincipalActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 580, 170, 40));
 
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSalir.setText("SALIR");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
         jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 580, 170, 40));
 
         TablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -148,96 +97,6 @@ public class GestionarUsuarios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        AgregarUsuarios irAgregar = new AgregarUsuarios();
-        irAgregar.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-    int fila = TablaUsuarios.getSelectedRow(); // Se toma el numero de la fila seleccionada
-
-    if (fila == -1) {
-        JOptionPane.showMessageDialog(null, "Selecciona un usuario para eliminar.");
-        return;
-    }
-
-    int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar este usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-    if (confirmacion != JOptionPane.YES_OPTION) {
-        return;
-    }
-
-    // Se obtiene el ID para borrar los demás datos del usuario registrado
-    int id = Integer.parseInt(TablaUsuarios.getValueAt(fila, 0).toString());
-
-    try {
-        String sql = "DELETE FROM usuarios WHERE id = ?";
-        PreparedStatement ps = cn.prepareStatement(sql);
-        ps.setInt(1, id);
-
-        int filasAfectadas = ps.executeUpdate();
-        if (filasAfectadas > 0) {
-            JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente.");
-            DefaultTableModel modelo = (DefaultTableModel) TablaUsuarios.getModel();
-            modelo.removeRow(fila);
-        } else {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar el usuario.");
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar: " + e.getMessage());
-    }
-
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrincipalActionPerformed
-        // TODO add your handling code here:
-
-        //Ir al menu principal del administrador
-        MenuAdmin irAdmin = new MenuAdmin();
-        irAdmin.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnMenuPrincipalActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        // TODO add your handling code here:
-
-        //Boton para salir de a la interfaz de LOGIN
-        Login irInicio = new Login();
-        irInicio.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestionarUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestionarUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestionarUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GestionarUsuarios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GestionarUsuarios().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaUsuarios;
@@ -250,4 +109,5 @@ public class GestionarUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel lblFondoGestionUsuarios;
     private javax.swing.JLabel lblGestionUsuarios;
     // End of variables declaration//GEN-END:variables
+
 }

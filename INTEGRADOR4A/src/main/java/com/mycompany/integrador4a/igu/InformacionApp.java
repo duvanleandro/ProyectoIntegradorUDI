@@ -2,28 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+
 package com.mycompany.integrador4a.igu;
+
+import javax.swing.JLabel;
 
 /**
  *
- * @author Santiago
+ * @author USER
  */
 public class InformacionApp extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InformacionApp
-     */
+    /** Creates new form InformacionApp */
     public InformacionApp() {
         initComponents();
-        setLocationRelativeTo(null);
-        BloquearEscritura();
-    }
-    
-    public void BloquearEscritura(){
-        txtTextoInformacion.setEnabled(false);
     }
 
-   
+    public JLabel getLblMenuPrincipal() {
+        return lblMenuPrincipal;
+    }
+
+    public JLabel getLblSalir() {
+        return lblSalir;
+    }
+
+    public JLabel getLblSolicitud() {
+        return lblSolicitud;
+    }
+
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -58,11 +65,6 @@ public class InformacionApp extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 910, 320));
 
         lblSolicitud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/solicitudUsu.png"))); // NOI18N
-        lblSolicitud.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSolicitudMouseClicked(evt);
-            }
-        });
         jPanel1.add(lblSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 130, 150));
 
         lblTxtSolicitud.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -71,11 +73,6 @@ public class InformacionApp extends javax.swing.JFrame {
         jPanel1.add(lblTxtSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 580, -1, -1));
 
         lblSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/salidaUsu.png"))); // NOI18N
-        lblSalir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSalirMouseClicked(evt);
-            }
-        });
         jPanel1.add(lblSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 450, 150, 120));
 
         lblTextSalir.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -84,11 +81,6 @@ public class InformacionApp extends javax.swing.JFrame {
         jPanel1.add(lblTextSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 580, -1, -1));
 
         lblMenuPrincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/MenuPrincipal.png"))); // NOI18N
-        lblMenuPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblMenuPrincipalMouseClicked(evt);
-            }
-        });
         jPanel1.add(lblMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 460, 130, 120));
 
         lblTxtMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -117,67 +109,6 @@ public class InformacionApp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblSolicitudMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSolicitudMouseClicked
-        // TODO add your handling code here:
-
-        //Para ir a la interfaz de realizarSolicitud
-        RealizarSolicitud irSolicitud = new RealizarSolicitud();
-        irSolicitud.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_lblSolicitudMouseClicked
-
-    private void lblSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSalirMouseClicked
-        // TODO add your handling code here:
-
-        //Para salir a la interfaz de Login
-        Login Salir = new Login();//objeto
-        Salir.setVisible(true);
-        dispose();//para cerrar las otras ventanas si estan abiertas, que solo trabaje con una
-    }//GEN-LAST:event_lblSalirMouseClicked
-
-    private void lblMenuPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMenuPrincipalMouseClicked
-        // TODO add your handling code here:
-        
-        //Para ir al menu principal del Usuario
-        MenuUsuario irMenu = new MenuUsuario();
-        irMenu.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_lblMenuPrincipalMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InformacionApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InformacionApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InformacionApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InformacionApp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InformacionApp().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -192,4 +123,5 @@ public class InformacionApp extends javax.swing.JFrame {
     private javax.swing.JLabel lblTxtSolicitud;
     private javax.swing.JTextArea txtTextoInformacion;
     // End of variables declaration//GEN-END:variables
+
 }

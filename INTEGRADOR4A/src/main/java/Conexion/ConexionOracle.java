@@ -13,7 +13,7 @@ public class ConexionOracle {
             if (cn == null || cn.isClosed()) {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
                 cn = DriverManager.getConnection(
-                        "jdbc:oracle:thin:@192.168.254.215:1521@orcl",
+                        "jdbc:oracle:thin:@localhost:1521:xe",
                         "dsmProyecto",
                         "dsmProyecto"
                 );
