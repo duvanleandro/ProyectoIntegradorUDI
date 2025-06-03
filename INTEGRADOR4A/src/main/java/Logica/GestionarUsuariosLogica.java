@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionarUsuarios {
+public class GestionarUsuariosLogica {
 
     public boolean crearUsuario(Usuario usuario) {
         String sql = "INSERT INTO usuarios (id, nombre, apellido, email, clave, nivel) " +
@@ -72,8 +72,8 @@ public boolean borrarUsuarioPorId(Long id) {
 
     public List<Usuario> listarUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
-        // Cambié "usuario" por "usuarios" y agregué apellido y clave en el select
-        String sql = "SELECT id, nombre, apellido, email AS correo, clave, nivel AS rol FROM usuarios";
+        String sql = "SELECT id, nombre, apellido, email, clave, nivel FROM usuarios";
+
 
         try (Connection cn = new ConexionOracle().conectar();
              PreparedStatement ps = cn.prepareStatement(sql);
@@ -84,9 +84,9 @@ public boolean borrarUsuarioPorId(Long id) {
                 u.setId(rs.getLong("id"));
                 u.setNombre(rs.getString("nombre"));
                 u.setApellido(rs.getString("apellido"));
-                u.setEmail(rs.getString("correo"));
+                u.setEmail(rs.getString("email"));
                 u.setClave(rs.getString("clave"));
-                u.setNivel(rs.getString("rol"));
+                u.setNivel(rs.getString("nivel"));
                 usuarios.add(u);
             }
 
@@ -95,5 +95,6 @@ public boolean borrarUsuarioPorId(Long id) {
         }
         return usuarios;
     }
+
 
 }

@@ -5,46 +5,48 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import Logica.GestionarUsuarios;  // Importa la clase de lógica
+import Logica.GestionarUsuariosLogica; 
 
 public class AgregarUsuarios extends javax.swing.JFrame {
 
-    private GestionarUsuarios gestionarUsuarios;  // Declaras la variable
-
+    private GestionarUsuarios gestionarUsuariosGUI;  // Clase GUI con la tabla
+    private GestionarUsuariosLogica gestionarUsuariosLogica;  // Clase lógica para BD
     /** Creates new form AgregarUsuarios */
-    public AgregarUsuarios() {
-        initComponents();
-        gestionarUsuarios = new GestionarUsuarios();  // La inicializas
+    public AgregarUsuarios(GestionarUsuarios gestionarUsuariosGUI) {
+    initComponents();
+    this.gestionarUsuariosGUI = gestionarUsuariosGUI;
+    this.gestionarUsuariosLogica = new GestionarUsuariosLogica();
 
-            btnAgregar.addActionListener(e -> {
-                String nombre = getInsertarNombre().getText();
-                String apellido = getInsertarApellido().getText();  // OJO: Usuario.java no tiene apellido, ¿lo tienes?
-                String correo = getInsertarEmail().getText();
-                String clave = getInsertarContraseña().getText();
-                String rol = (String) getTipoRol().getSelectedItem();
+        btnAgregar.addActionListener(e -> {
+            String nombre = getInsertarNombre().getText();
+            String apellido = getInsertarApellido().getText();
+            String correo = getInsertarEmail().getText();
+            String clave = getInsertarContraseña().getText();
+            String rol = (String) getTipoRol().getSelectedItem();
 
-                if (nombre.isEmpty() || correo.isEmpty() || clave.isEmpty() || rol == null) {
-                    JOptionPane.showMessageDialog(this, "Complete todos los campos.");
-                    return;
-                }
+            if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || clave.isEmpty() || rol == null) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos.");
+                return;
+            }
 
-                Usuario usuario = new Usuario();
-                usuario.setNombre(nombre);
-                usuario.setApellido(apellido);
-                usuario.setEmail(correo);
-                usuario.setClave(clave);
-                usuario.setNivel(rol);
+            Usuario usuario = new Usuario();
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setEmail(correo);
+            usuario.setClave(clave);
+            usuario.setNivel(rol);
 
-                boolean exito = gestionarUsuarios.crearUsuario(usuario);
+            boolean exito = gestionarUsuariosLogica.crearUsuario(usuario);
 
-                if (exito) {
-                    JOptionPane.showMessageDialog(this, "Usuario creado correctamente.");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al crear usuario.");
-                }
-            });
-
-    
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Usuario creado correctamente.");
+                // Actualizar la tabla de usuarios en la ventana gestionarUsuarios
+                gestionarUsuariosGUI.cargarTablaUsuarios();
+                // Opcional: limpiar campos o cerrar ventana
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al crear usuario.");
+            }
+        });
     }
 
     public JTextField getInsertarApellido() {
@@ -75,7 +77,10 @@ public class AgregarUsuarios extends javax.swing.JFrame {
         return btnBorrar;
     }
     
-    
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -27,6 +27,8 @@ public class EjecutarSistema {
     static GestionarSanciones GSanciones;
 
     public static void main(String[] args) {
+        
+
         java.awt.EventQueue.invokeLater(() -> {
             Login login = new Login();
             login.setVisible(true);
@@ -70,21 +72,25 @@ public class EjecutarSistema {
                     // 4) Credenciales válidas
                     login.setVisible(false);
 
-                    // 5) Inicializo cada ventana solo si aún no existe
+                    // 5) Inicializo ventanas generales si aún no existen
                     if (menu == null)        menu        = new MenuUsuario();
                     if (menuAd == null)      menuAd      = new MenuAdmin();
                     if (RSolicitud == null)  RSolicitud  = new RealizarSolicitud();
                     if (RDevolucion == null) RDevolucion = new RealizarDevolucion();
                     if (PSoporte == null)    PSoporte    = new PedirSoporte();
                     if (IApp == null)        IApp        = new InformacionApp();
-                    if (PPrestamo == null)   PPrestamo   = new PedirPrestamo(usuario);
-                    if (VMPrestamo == null)  VMPrestamo  = new VerMisPrestamos();
-                    if (GSolicitudes == null)   GSolicitudes   = new GestionarSolicitudes();
-                    if (AUsuarios == null)   AUsuarios = new AgregarUsuarios();
                     if (RSancion == null)       RSancion       = new RealizarSancion();
-                    if (GUsuarios == null)      GUsuarios      = new GestionarUsuarios();
                     if (GDevoluciones == null)  GDevoluciones  = new GestionarDevoluciones();
                     if (GSanciones == null)     GSanciones     = new GestionarSanciones();
+
+                    // Crear NUEVAS instancias para ventanas que dependen del usuario activo
+                    VMPrestamo = new VerMisPrestamos(usuario);
+                    PPrestamo = new PedirPrestamo(usuario, VMPrestamo);
+                    GSolicitudes = new GestionarSolicitudes(usuario);
+                    GUsuarios = new GestionarUsuarios(GSolicitudes);
+                    AUsuarios = new AgregarUsuarios(GUsuarios);
+
+
 
                     // 6) Mostrar solo el menú que corresponda según el rol
                     if (rol.equalsIgnoreCase("ADMIN")) {
@@ -106,7 +112,9 @@ public class EjecutarSistema {
                     menu.getLblSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menu.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
+                            
                         }
                     });
 
@@ -145,6 +153,7 @@ public class EjecutarSistema {
                     RSolicitud.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             RSolicitud.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -184,6 +193,7 @@ public class EjecutarSistema {
                     PPrestamo.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             PPrestamo.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -215,6 +225,7 @@ public class EjecutarSistema {
                     VMPrestamo.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             VMPrestamo.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -230,6 +241,7 @@ public class EjecutarSistema {
                     PSoporte.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             PSoporte.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -245,6 +257,7 @@ public class EjecutarSistema {
                     IApp.getLblSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             IApp.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -268,6 +281,7 @@ public class EjecutarSistema {
                     RDevolucion.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             RDevolucion.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -284,6 +298,7 @@ public class EjecutarSistema {
                     menuAd.getLblSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menuAd.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -331,6 +346,7 @@ public class EjecutarSistema {
                     GSolicitudes.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             GSolicitudes.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -345,6 +361,7 @@ public class EjecutarSistema {
                     RSancion.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             RSancion.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -362,10 +379,18 @@ public class EjecutarSistema {
                             AUsuarios.setVisible(true);
                         }
                     });
+                    
+                    AUsuarios.getBtnSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            AUsuarios.setVisible(false);
+                            GUsuarios.setVisible(true);
+                        }
+                    });
 
                     GUsuarios.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             GUsuarios.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -380,6 +405,7 @@ public class EjecutarSistema {
                     GDevoluciones.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             GDevoluciones.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
@@ -394,11 +420,21 @@ public class EjecutarSistema {
                     GSanciones.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             GSanciones.setVisible(false);
+                            limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
                     });
                 }
             });
         });
+        
     }
+    private static void limpiarVentanasUsuario() {
+    PPrestamo = null;
+    VMPrestamo = null;
+    GSolicitudes = null;
+    // Agrega aquí otras ventanas que dependan del usuario
+}
+
+    
 }   

@@ -24,17 +24,16 @@ import java.util.Locale;
  */
 public class PedirPrestamo extends javax.swing.JFrame {
 
-    // Instancia de la lógica (debe inicializarse antes de usarla)
     private ProgramarSolicitudPrestamo programarSolicitudPrestamo;
-    private Usuario usuarioLogueado;  // Campo para almacenar el usuario conectado
+    private Usuario usuarioLogueado;
+    private VerMisPrestamos verMisPrestamosInstance;  // referencia para refrescar tabla
 
-    public PedirPrestamo(Usuario usuario) {
+    public PedirPrestamo(Usuario usuario, VerMisPrestamos verMisPrestamos) {
         initComponents();
 
-        // Guardar el usuario conectado en el campo
         this.usuarioLogueado = usuario;
+        this.verMisPrestamosInstance = verMisPrestamos;  // guardamos referencia
 
-        // Inicializar lógica
         programarSolicitudPrestamo = new ProgramarSolicitudPrestamo();
 
         // Que al inicio TextOtroMaterial esté deshabilitado
@@ -52,9 +51,9 @@ public class PedirPrestamo extends javax.swing.JFrame {
 
             if (lista.isEmpty()) {
                 // Si no hay equipos en BD, mostrar tres ejemplos mínimos
-                ElegirEquipo.addItem("Cámara");
-                ElegirEquipo.addItem("Pantalla");
-                ElegirEquipo.addItem("Micrófono");
+                //ElegirEquipo.addItem("Cámara");
+                //ElegirEquipo.addItem("Pantalla");
+                //ElegirEquipo.addItem("Micrófono");
             } else {
                 for (Equipos eq : lista) {
                     ElegirEquipo.addItem(eq.getNombre());
@@ -71,9 +70,9 @@ public class PedirPrestamo extends javax.swing.JFrame {
 
             if (lista.isEmpty()) {
                 // Si no hay salas en BD, mostrar tres ejemplos mínimos
-                ElegirEquipo.addItem("Sala A - Programación");
-                ElegirEquipo.addItem("Sala B - Edición");
-                ElegirEquipo.addItem("Sala C - Diseño");
+                //ElegirEquipo.addItem("Sala A - Programación");
+                //ElegirEquipo.addItem("Sala B - Edición");
+                //ElegirEquipo.addItem("Sala C - Diseño");
             } else {
                 for (Salas s : lista) {
                     ElegirEquipo.addItem(s.getNombre());
@@ -184,60 +183,56 @@ public class PedirPrestamo extends javax.swing.JFrame {
         });
 
         // Botón “Enviar” → guarda en la BD la solicitud + detalles
-            btnEnviar.addActionListener(e -> {
-                try {
-                    // 1) ID del usuario actual
-                    Long idUsuario = this.usuarioLogueado.getId();
+ btnEnviar.addActionListener(e -> {
+            try {
+                Long idUsuario = this.usuarioLogueado.getId();
+                java.sql.Date fechaSolicitud = new java.sql.Date(System.currentTimeMillis());
 
-                    // 2) Fecha de hoy (para fecha_solicitud)
-                    java.sql.Date fechaSolicitud = new java.sql.Date(System.currentTimeMillis());
-
-                    // 3) Fecha de uso: extraer “dd/MM/yyyy” de “dd/MM/yyyy - nombreDelDía”
-                    String textoCompleto = (String) ElegirFecha.getSelectedItem();
-                    // Si nunca cambió, puede ser null; mejor validar:
-                    if (textoCompleto == null) {
-                        JOptionPane.showMessageDialog(this, "Debes elegir una fecha de uso.");
-                        return;
-                    }
-                    // Partimos en “ - ” y tomamos la primera parte (dd/MM/yyyy)
-                    String fechaParte = textoCompleto.split(" - ")[0]; // ej. "05/06/2025"
-                    // Ahora la convertimos a LocalDate usando el patrón adecuado:
-                    java.time.format.DateTimeFormatter fmt = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                    java.time.LocalDate ld = java.time.LocalDate.parse(fechaParte, fmt);
-                    java.sql.Date fechaUso = java.sql.Date.valueOf(ld);
-
-                    // 4) Obtener horas
-                    String horaInicio = (String) HoraInicio.getSelectedItem();
-                    String horaFin    = (String) HoraFinal.getSelectedItem();
-                    if (horaInicio == null || horaFin == null) {
-                        JOptionPane.showMessageDialog(this, "Debes elegir hora de inicio y hora final.");
-                        return;
-                    }
-
-                    // 5) Estado inicial
-                    String estado = "PENDIENTE";
-
-                    // 6) Llamar a registrarSolicitud
-                    boolean exito = programarSolicitudPrestamo.registrarSolicitud(
-                        idUsuario, fechaSolicitud, fechaUso, horaInicio, horaFin, estado
-                    );
-
-                    if (exito) {
-                        JOptionPane.showMessageDialog(this, "Solicitud registrada correctamente.");
-                        programarSolicitudPrestamo.getListaDetallesTemp().clear();
-                        refrescarTablaVisual();
-                        ElegirFecha.setSelectedIndex(0);
-                        HoraInicio.setSelectedIndex(0);
-                        HoraFinal.setSelectedIndex(0);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Error al registrar la solicitud.");
-                    }
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Ocurrió un error interno.");
+                String textoCompleto = (String) ElegirFecha.getSelectedItem();
+                if (textoCompleto == null) {
+                    JOptionPane.showMessageDialog(this, "Debes elegir una fecha de uso.");
+                    return;
                 }
-            });
+                String fechaParte = textoCompleto.split(" - ")[0];
+                java.time.format.DateTimeFormatter fmt = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                java.time.LocalDate ld = java.time.LocalDate.parse(fechaParte, fmt);
+                java.sql.Date fechaUso = java.sql.Date.valueOf(ld);
+
+                String horaInicio = (String) HoraInicio.getSelectedItem();
+                String horaFin = (String) HoraFinal.getSelectedItem();
+                if (horaInicio == null || horaFin == null) {
+                    JOptionPane.showMessageDialog(this, "Debes elegir hora de inicio y hora final.");
+                    return;
+                }
+
+                String estado = "PENDIENTE";
+
+                boolean exito = programarSolicitudPrestamo.registrarSolicitud(
+                    idUsuario, fechaSolicitud, fechaUso, horaInicio, horaFin, estado
+                );
+
+                if (exito) {
+                    JOptionPane.showMessageDialog(this, "Solicitud registrada correctamente.");
+                    programarSolicitudPrestamo.getListaDetallesTemp().clear();
+                    refrescarTablaVisual();
+                    ElegirFecha.setSelectedIndex(0);
+                    HoraInicio.setSelectedIndex(0);
+                    HoraFinal.setSelectedIndex(0);
+
+                    // Aquí llamamos a refrescar tabla en VerMisPrestamos
+                    if (verMisPrestamosInstance != null) {
+                        verMisPrestamosInstance.refrescarTabla();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al registrar la solicitud.");
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Ocurrió un error interno.");
+            }
+        });
+    
 
     }
 

@@ -1,21 +1,137 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package com.mycompany.integrador4a.igu;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+import Entidad.Solicitud;
+import Entidad.DetalleSolicitud;
+import Entidad.Usuario;
+import Logica.ProgramarSolicitudPrestamo;
 import javax.swing.JButton;
 
-/**
- *
- * @author USER
- */
 public class GestionarSolicitudes extends javax.swing.JFrame {
+    
+    private EntityManagerFactory emf;
+    private EntityManager entityManager;
 
-    /** Creates new form GestionarSolicitudes */
-    public GestionarSolicitudes() {
+    public GestionarSolicitudes(Usuario usuario) {
         initComponents();
+        emf = Persistence.createEntityManagerFactory("PU");
+        entityManager = emf.createEntityManager();
+
+        cargarTablaSolicitudes();  // carga todas las solicitudes al iniciar
+        
+        TablaSolicitudes.getSelectionModel().addListSelectionListener(e -> {
+    if (!e.getValueIsAdjusting()) {
+        actualizarEstadoBotones();
+    }
+});
+        btnAceptar.addActionListener(e -> {
+    int fila = TablaSolicitudes.getSelectedRow();
+    if (fila != -1) {
+        Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
+
+        // Llama a tu lógica para aceptar la solicitud
+        ProgramarSolicitudPrestamo logica = new ProgramarSolicitudPrestamo();
+        boolean exito = logica.aceptarSolicitud(idSolicitud);
+        logica.cerrar();
+
+        if (exito) {
+            cargarTablaSolicitudes();
+            actualizarEstadoBotones();
+        } else {
+            // Mostrar mensaje de error si quieres
+        }
+    }
+});
+
+btnRechazar.addActionListener(e -> {
+    int fila = TablaSolicitudes.getSelectedRow();
+    if (fila != -1) {
+        Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
+
+        // Llama a tu lógica para rechazar la solicitud
+        ProgramarSolicitudPrestamo logica = new ProgramarSolicitudPrestamo();
+        boolean exito = logica.rechazarSolicitud(idSolicitud);
+        logica.cerrar();
+
+        if (exito) {
+            cargarTablaSolicitudes();
+            actualizarEstadoBotones();
+        } else {
+            // Mostrar mensaje de error si quieres
+        }
+    }
+});
+
+
+    }
+    
+    private void actualizarEstadoBotones() {
+    int fila = TablaSolicitudes.getSelectedRow();
+    if (fila == -1) {
+        // No hay fila seleccionada: deshabilitar botones
+        btnAceptar.setEnabled(false);
+        btnRechazar.setEnabled(false);
+        return;
+    }
+
+    // El modelo que usas es DefaultTableModel, la columna estado es la 6
+    String estado = TablaSolicitudes.getModel().getValueAt(fila, 6).toString();
+
+    if ("PENDIENTE".equalsIgnoreCase(estado)) {
+        btnAceptar.setEnabled(true);
+        btnRechazar.setEnabled(true);
+    } else {
+        btnAceptar.setEnabled(false);
+        btnRechazar.setEnabled(false);
+    }
+}
+
+
+    public void cargarTablaSolicitudes() {
+        String[] columnas = {
+            "ID Solicitud", "Usuario", "Fecha Solicitud", "Fecha Uso",
+            "Hora Inicio", "Hora Fin", "Estado",
+            "Tipo Servicio", "Elemento"
+        };
+
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy - EEEE", new Locale("es", "ES"));
+
+        // Consulta para traer todas las solicitudes con sus detalles y usuario
+        String jpql = "SELECT s FROM Solicitud s LEFT JOIN FETCH s.detalles LEFT JOIN FETCH s.usuario";
+        TypedQuery<Solicitud> query = entityManager.createQuery(jpql, Solicitud.class);
+        List<Solicitud> listaSolicitudes = query.getResultList();
+
+        for (Solicitud s : listaSolicitudes) {
+            for (DetalleSolicitud d : s.getDetalles()) {
+                Object[] fila = new Object[9];
+                fila[0] = s.getIdSolicitud();
+                fila[1] = s.getUsuario().getNombre(); // Asumiendo getNombre() en Usuario
+                fila[2] = formato.format(s.getFechaSolicitud());
+                fila[3] = formato.format(s.getFechaUso());
+                fila[4] = s.getHoraInicio();
+                fila[5] = s.getHoraFin();
+                fila[6] = s.getEstado();
+                fila[7] = d.getTipoServicio();
+                fila[8] = d.getElemento();
+                modelo.addRow(fila);
+            }
+        }
+
+        TablaSolicitudes.setModel(modelo);
     }
 
     public JButton getBtnMenuPrincipal() {
@@ -35,8 +151,8 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         lblGestionSolicitud = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaSolicitudes = new javax.swing.JTable();
-        btnActualizar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
+        btnRechazar = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         lblFondoGestionSolicitud = new javax.swing.JLabel();
@@ -64,13 +180,13 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 231, 990, 320));
 
-        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnActualizar.setText("ACTUALIZAR");
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 570, 170, 40));
+        btnAceptar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAceptar.setText("ACEPTAR");
+        jPanel1.add(btnAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 570, 170, 40));
 
-        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEliminar.setText("ELIMINAR");
-        jPanel1.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 570, 170, 40));
+        btnRechazar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRechazar.setText("RECHAZAR");
+        jPanel1.add(btnRechazar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 570, 170, 40));
 
         btnMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPrincipal.setText("MENU PRINCIPAL");
@@ -100,9 +216,9 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaSolicitudes;
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnMenuPrincipal;
+    private javax.swing.JButton btnRechazar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

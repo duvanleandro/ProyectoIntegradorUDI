@@ -14,13 +14,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class GestionarUsuarios extends javax.swing.JFrame {
 
-    private Logica.GestionarUsuarios gestionarUsuariosLogica;
+    private Logica.GestionarUsuariosLogica gestionarUsuariosLogica;
+    private GestionarSolicitudes gestionarSolicitudesVentana; // Referencia a la ventana de solicitudes
 
-    public GestionarUsuarios() {
+    public GestionarUsuarios(GestionarSolicitudes gestionarSolicitudes) {
         initComponents();
-        gestionarUsuariosLogica = new Logica.GestionarUsuarios();
+        gestionarUsuariosLogica = new Logica.GestionarUsuariosLogica();
+        this.gestionarSolicitudesVentana = gestionarSolicitudes;  // guardamos la referencia
         cargarTablaUsuarios();
-
+        
         // Agregar listener al botón modificar
         btnModificar.addActionListener(e -> abrirVentanaEditar());
         btnEliminar.addActionListener(e -> eliminarUsuario());
@@ -107,30 +109,37 @@ public class GestionarUsuarios extends javax.swing.JFrame {
     }
 
     private void eliminarUsuario() {
-    int filaSeleccionada = TablaUsuarios.getSelectedRow();
-    if (filaSeleccionada == -1) {
-        JOptionPane.showMessageDialog(this, "Por favor, selecciona un usuario para eliminar.");
-        return;
+        int filaSeleccionada = TablaUsuarios.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un usuario para eliminar.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de eliminar este usuario?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        Long id = (Long) TablaUsuarios.getValueAt(filaSeleccionada, 0);
+
+        if (gestionarUsuariosLogica.borrarUsuarioPorId(id)) {
+            JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente.");
+            cargarTablaUsuarios();
+
+            // Actualizamos la tabla de solicitudes en la otra ventana
+            if (gestionarSolicitudesVentana != null) {
+                gestionarSolicitudesVentana.cargarTablaSolicitudes();
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al eliminar usuario.");
+        }
     }
 
-    int confirm = JOptionPane.showConfirmDialog(this, "¿Estás seguro de eliminar este usuario?", "Confirmar", JOptionPane.YES_NO_OPTION);
-    if (confirm != JOptionPane.YES_OPTION) {
-        return;
-    }
-
-    Long id = (Long) TablaUsuarios.getValueAt(filaSeleccionada, 0);
-
-    if (gestionarUsuariosLogica.borrarUsuarioPorId(id)) {
-        JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente.");
-        cargarTablaUsuarios();
-    } else {
-        JOptionPane.showMessageDialog(this, "Error al eliminar usuario.");
-    }
-}
 
     
     public void cargarTablaUsuarios() {
-        String[] columnas = {"ID", "Nombre", "Apellido", "Correo", "Clave", "Nivel"};
+        String[] columnas = {"ID", "Nombre", "Apellido", "Email", "Clave", "Nivel"};
 
         DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
             @Override

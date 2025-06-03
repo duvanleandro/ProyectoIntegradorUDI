@@ -1,21 +1,119 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package com.mycompany.integrador4a.igu;
 
+import Entidad.DetalleSolicitud;
+import Entidad.Solicitud;
+import Entidad.Usuario;
+import Logica.ProgramarSolicitudPrestamo;
+import java.util.List;
+import javax.persistence.TypedQuery;
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
-/**
- *
- * @author USER
- */
 public class VerMisPrestamos extends javax.swing.JFrame {
+    private EntityManager entityManager;
+    private EntityManagerFactory emf;
+    private Usuario usuario;
 
-    /** Creates new form VerMisPrestamos */
-    public VerMisPrestamos() {
+    public VerMisPrestamos(Usuario usuario) {
         initComponents();
+
+        this.usuario = usuario;
+
+        emf = Persistence.createEntityManagerFactory("PU");
+        entityManager = emf.createEntityManager();
+
+        // Listener para habilitar/deshabilitar botón según estado
+        TablaMisPrestamos.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int fila = TablaMisPrestamos.getSelectedRow();
+                if (fila >= 0) {
+                    String estado = (String) TablaMisPrestamos.getValueAt(fila, 5);
+                    CancelarPrestamo.setEnabled("PENDIENTE".equalsIgnoreCase(estado));
+                } else {
+                    CancelarPrestamo.setEnabled(false);
+                }
+            }
+        });
+
+        // Acción del botón "Cancelar"
+        CancelarPrestamo.addActionListener(e -> {
+            int fila = TablaMisPrestamos.getSelectedRow();
+            if (fila >= 0) {
+                Long idSolicitud = (Long) TablaMisPrestamos.getValueAt(fila, 0);
+
+                ProgramarSolicitudPrestamo logica = new ProgramarSolicitudPrestamo();
+                boolean exito = logica.cancelarSolicitud(idSolicitud);
+
+                if (exito) {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Préstamo cancelado correctamente.");
+                    
+                    // Limpiar caché del EntityManager y refrescar la tabla
+                    entityManager.clear(); 
+                    refrescarTabla();
+                    CancelarPrestamo.setEnabled(false);
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "No se pudo cancelar el préstamo.");
+                }
+            }
+        });
+
+        cargarTablaPrestamos(usuario);
+    }
+
+public void refrescarTabla() {
+    if (entityManager.isOpen()) {
+        entityManager.close();
+    }
+    entityManager = emf.createEntityManager(); // Nueva conexión limpia
+    cargarTablaPrestamos(usuario);
+}
+
+
+    public void cargarTablaPrestamos(Usuario usuario) {
+        String[] columnas = {
+            "ID Solicitud", "Fecha Solicitud", "Fecha Uso",
+            "Hora Inicio", "Hora Fin", "Estado",
+            "Tipo Servicio", "Elemento"
+        };
+
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy - EEEE", new Locale("es", "ES"));
+        List<Solicitud> listaSolicitudes = listarSolicitudesPorUsuario(usuario);
+
+        for (Solicitud s : listaSolicitudes) {
+            for (DetalleSolicitud d : s.getDetalles()) {
+                Object[] fila = new Object[8];
+                fila[0] = s.getIdSolicitud();
+                fila[1] = formato.format(s.getFechaSolicitud());
+                fila[2] = formato.format(s.getFechaUso());
+                fila[3] = s.getHoraInicio();
+                fila[4] = s.getHoraFin();
+                fila[5] = s.getEstado();
+                fila[6] = d.getTipoServicio();
+                fila[7] = d.getElemento();
+                modelo.addRow(fila);
+            }
+        }
+
+        TablaMisPrestamos.setModel(modelo);
+    }
+
+    public List<Solicitud> listarSolicitudesPorUsuario(Usuario usuario) {
+        String jpql = "SELECT s FROM Solicitud s LEFT JOIN FETCH s.detalles WHERE s.usuario.id = :usuarioId";
+        TypedQuery<Solicitud> query = entityManager.createQuery(jpql, Solicitud.class);
+        query.setParameter("usuarioId", usuario.getId());
+        return query.getResultList();
     }
 
     public JButton getRealizarPrestamo() {
@@ -38,6 +136,7 @@ public class VerMisPrestamos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblSolicitarPrestamo = new javax.swing.JLabel();
         btnMenuPrincipal = new javax.swing.JButton();
+        CancelarPrestamo = new javax.swing.JButton();
         RealizarPrestamo = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -56,6 +155,10 @@ public class VerMisPrestamos extends javax.swing.JFrame {
         btnMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPrincipal.setText("MENU PRINCIPAL");
         jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 570, 160, 40));
+
+        CancelarPrestamo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CancelarPrestamo.setText("Cancelar por ID");
+        jPanel1.add(CancelarPrestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 360, 190, 40));
 
         RealizarPrestamo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         RealizarPrestamo.setText("REALIZAR PRESTAMO");
@@ -99,6 +202,7 @@ public class VerMisPrestamos extends javax.swing.JFrame {
 
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelarPrestamo;
     private javax.swing.JButton RealizarPrestamo;
     private javax.swing.JTable TablaMisPrestamos;
     private javax.swing.JButton btnMenuPrincipal;

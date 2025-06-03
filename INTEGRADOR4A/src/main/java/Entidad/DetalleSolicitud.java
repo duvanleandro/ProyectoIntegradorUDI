@@ -32,6 +32,8 @@ public class DetalleSolicitud implements Serializable {
         this.solicitud = solicitud;
     }
 
+    // Getters y Setters
+
     public Long getIdDetalle() {
         return idDetalle;
     }

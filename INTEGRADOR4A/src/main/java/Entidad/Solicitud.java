@@ -2,6 +2,7 @@ package Entidad;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "solicitudes")  // ojo, el nombre de tabla es plural según tu BD
@@ -35,6 +36,16 @@ public class Solicitud {
     private String estado;
 
     // Getters y Setters
+    @OneToMany(mappedBy = "solicitud", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<DetalleSolicitud> detalles;
+
+    public List<DetalleSolicitud> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleSolicitud> detalles) {
+        this.detalles = detalles;
+    }
 
     public Long getIdSolicitud() {
         return idSolicitud;

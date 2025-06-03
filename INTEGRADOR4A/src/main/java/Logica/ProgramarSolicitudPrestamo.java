@@ -256,4 +256,100 @@ public boolean registrarSolicitud(
     return todoOK;
 }
 
+public boolean cancelarSolicitud(Long idSolicitud) {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+    EntityManager em = emf.createEntityManager();
+    boolean exito = false;
+
+    try {
+        em.getTransaction().begin();
+
+        Solicitud solicitud = em.find(Solicitud.class, idSolicitud);
+
+        if (solicitud != null && "PENDIENTE".equalsIgnoreCase(solicitud.getEstado())) {
+            solicitud.setEstado("CANCELADO");
+            em.merge(solicitud);
+            em.getTransaction().commit();
+            exito = true;
+        } else {
+            em.getTransaction().rollback();
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+    } finally {
+        em.close();
+        emf.close();
+    }
+
+    return exito;
+}
+
+public boolean aceptarSolicitud(Long idSolicitud) {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+    EntityManager em = emf.createEntityManager();
+    boolean exito = false;
+
+    try {
+        em.getTransaction().begin();
+
+        Solicitud solicitud = em.find(Solicitud.class, idSolicitud);
+
+        if (solicitud != null && "PENDIENTE".equalsIgnoreCase(solicitud.getEstado())) {
+            solicitud.setEstado("ACEPTADO");
+            em.merge(solicitud);
+            em.getTransaction().commit();
+            exito = true;
+        } else {
+            em.getTransaction().rollback();
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+    } finally {
+        em.close();
+        emf.close();
+    }
+
+    return exito;
+}
+
+public boolean rechazarSolicitud(Long idSolicitud) {
+    EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+    EntityManager em = emf.createEntityManager();
+    boolean exito = false;
+
+    try {
+        em.getTransaction().begin();
+
+        Solicitud solicitud = em.find(Solicitud.class, idSolicitud);
+
+        if (solicitud != null && "PENDIENTE".equalsIgnoreCase(solicitud.getEstado())) {
+            solicitud.setEstado("RECHAZADO");
+            em.merge(solicitud);
+            em.getTransaction().commit();
+            exito = true;
+        } else {
+            em.getTransaction().rollback();
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
+    } finally {
+        em.close();
+        emf.close();
+    }
+
+    return exito;
+}
+
 }

@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +54,7 @@ public class Usuario {
         return email;
     }
 
-    public void setEmail(String correo) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
