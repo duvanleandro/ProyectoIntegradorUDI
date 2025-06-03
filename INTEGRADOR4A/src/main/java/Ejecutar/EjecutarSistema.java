@@ -65,7 +65,7 @@ public class EjecutarSistema {
                         return;
                     }
 
-                    String rol = usuario.getRol();
+                    String rol = usuario.getNivel();
 
                     // 4) Credenciales válidas
                     login.setVisible(false);
@@ -77,7 +77,7 @@ public class EjecutarSistema {
                     if (RDevolucion == null) RDevolucion = new RealizarDevolucion();
                     if (PSoporte == null)    PSoporte    = new PedirSoporte();
                     if (IApp == null)        IApp        = new InformacionApp();
-                    if (PPrestamo == null)   PPrestamo   = new PedirPrestamo();
+                    if (PPrestamo == null)   PPrestamo   = new PedirPrestamo(usuario);
                     if (VMPrestamo == null)  VMPrestamo  = new VerMisPrestamos();
                     if (GSolicitudes == null)   GSolicitudes   = new GestionarSolicitudes();
                     if (AUsuarios == null)   AUsuarios = new AgregarUsuarios();

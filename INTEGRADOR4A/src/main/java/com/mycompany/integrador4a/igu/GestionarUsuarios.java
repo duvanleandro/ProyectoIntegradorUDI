@@ -84,13 +84,13 @@ public class GestionarUsuarios extends javax.swing.JFrame {
             usuario.setId(id);
             usuario.setNombre(txtNombre.getText());
             usuario.setApellido(txtApellido.getText());
-            usuario.setCorreo(correo); // siempre el correo original
+            usuario.setEmail(correo); // siempre el correo original
             if (nuevaClave.isEmpty()) {
                 usuario.setClave(claveActual); // no cambia la clave
             } else {
                 usuario.setClave(nuevaClave);
             }
-            usuario.setRol((String) cmbNivel.getSelectedItem());
+            usuario.setNivel((String) cmbNivel.getSelectedItem());
 
             if (gestionarUsuariosLogica.modificarUsuario(usuario)) {
                 JOptionPane.showMessageDialog(dialog, "Usuario actualizado correctamente.");
@@ -146,9 +146,9 @@ public class GestionarUsuarios extends javax.swing.JFrame {
             fila[0] = u.getId();
             fila[1] = u.getNombre();
             fila[2] = u.getApellido();
-            fila[3] = u.getCorreo();
+            fila[3] = u.getEmail();
             fila[4] = u.getClave();
-            fila[5] = u.getRol();
+            fila[5] = u.getNivel();
             modelo.addRow(fila);
         }
 

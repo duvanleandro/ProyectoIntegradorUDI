@@ -251,19 +251,7 @@
         <Component class="javax.swing.JComboBox" name="HoraInicio">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="11">
-                <StringItem index="0" value="8:00 AM"/>
-                <StringItem index="1" value="9:00 AM"/>
-                <StringItem index="2" value="10:00 AM"/>
-                <StringItem index="3" value="11:00 AM"/>
-                <StringItem index="4" value="12:00 PM"/>
-                <StringItem index="5" value="1:00 PM"/>
-                <StringItem index="6" value="2:00 PM"/>
-                <StringItem index="7" value="3:00 PM"/>
-                <StringItem index="8" value="4:00 PM"/>
-                <StringItem index="9" value="5:00 Pm"/>
-                <StringItem index="10" value="6:00 pm"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>

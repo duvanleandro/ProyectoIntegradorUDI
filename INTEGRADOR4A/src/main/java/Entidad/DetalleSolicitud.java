@@ -1,70 +1,59 @@
 package Entidad;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="detalle_solicitud")
+@Table(name = "detalle_solicitud")
 public class DetalleSolicitud implements Serializable {
-    
+
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(length=500)
-    private String descripcion;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fecha;
-    
-    @Column(length=50)
-    private String estado;
-    
-    @ManyToOne
-    @JoinColumn(name="solicitud_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detalle_solicitud_seq")
+    @SequenceGenerator(name = "detalle_solicitud_seq", sequenceName = "seq_detalle_solicitud", allocationSize = 1)
+    @Column(name = "id_detalle")
+    private Long idDetalle;
+
+    @Column(name = "tipo_servicio", nullable = false, length = 50)
+    private String tipoServicio;
+
+    @Column(name = "elemento", nullable = false, length = 100)
+    private String elemento;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_solicitud", nullable = false)
     private Solicitud solicitud;
-    
+
     public DetalleSolicitud() {
     }
-    
-    public DetalleSolicitud(String descripcion, Date fecha, String estado, Solicitud solicitud) {
-        this.descripcion = descripcion;
-        this.fecha = fecha;
-        this.estado = estado;
+
+    public DetalleSolicitud(String tipoServicio, String elemento, Solicitud solicitud) {
+        this.tipoServicio = tipoServicio;
+        this.elemento = elemento;
         this.solicitud = solicitud;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdDetalle() {
+        return idDetalle;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdDetalle(Long idDetalle) {
+        this.idDetalle = idDetalle;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getTipoServicio() {
+        return tipoServicio;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setTipoServicio(String tipoServicio) {
+        this.tipoServicio = tipoServicio;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getElemento() {
+        return elemento;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setElemento(String elemento) {
+        this.elemento = elemento;
     }
 
     public Solicitud getSolicitud() {
@@ -74,5 +63,4 @@ public class DetalleSolicitud implements Serializable {
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
     }
-
 }

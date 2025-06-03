@@ -1,23 +1,271 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-
 package com.mycompany.integrador4a.igu;
 
+import Entidad.Equipos;
+import Entidad.Salas;
+import Entidad.Usuario;
+import Logica.ProgramarSolicitudPrestamo;
+
+import java.time.LocalDate;
+import java.util.List;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 /**
- *
- * @author USER
+ * Ventana para que el usuario seleccione equipos o salas, agregue a la tabla resumen
+ * y finalmente “Enviar” la solicitud.
  */
 public class PedirPrestamo extends javax.swing.JFrame {
 
-    /** Creates new form PedirPrestamo */
-    public PedirPrestamo() {
+    // Instancia de la lógica (debe inicializarse antes de usarla)
+    private ProgramarSolicitudPrestamo programarSolicitudPrestamo;
+    private Usuario usuarioLogueado;  // Campo para almacenar el usuario conectado
+
+    public PedirPrestamo(Usuario usuario) {
         initComponents();
+
+        // Guardar el usuario conectado en el campo
+        this.usuarioLogueado = usuario;
+
+        // Inicializar lógica
+        programarSolicitudPrestamo = new ProgramarSolicitudPrestamo();
+
+        // Que al inicio TextOtroMaterial esté deshabilitado
+        TextOtroMaterial.setEnabled(false);
+
+        // Agrupar los dos JRadioButton para que solo uno se pueda seleccionar
+        ButtonGroup grupoServicio = new ButtonGroup();
+        grupoServicio.add(BEquipoAudiovisual);
+        grupoServicio.add(BSalaDeInformatica);
+
+        // Listener para radio “Equipo Audiovisual”
+        BEquipoAudiovisual.addActionListener(e -> {
+            ElegirEquipo.removeAllItems();
+            List<Equipos> lista = programarSolicitudPrestamo.listarEquipos();
+
+            if (lista.isEmpty()) {
+                // Si no hay equipos en BD, mostrar tres ejemplos mínimos
+                ElegirEquipo.addItem("Cámara");
+                ElegirEquipo.addItem("Pantalla");
+                ElegirEquipo.addItem("Micrófono");
+            } else {
+                for (Equipos eq : lista) {
+                    ElegirEquipo.addItem(eq.getNombre());
+                }
+            }
+            // Agregar “Otro” siempre
+            ElegirEquipo.addItem("Otro");
+        });
+
+        // Listener para radio “Sala de Informática”
+        BSalaDeInformatica.addActionListener(e -> {
+            ElegirEquipo.removeAllItems();
+            List<Salas> lista = programarSolicitudPrestamo.listarSalas();
+
+            if (lista.isEmpty()) {
+                // Si no hay salas en BD, mostrar tres ejemplos mínimos
+                ElegirEquipo.addItem("Sala A - Programación");
+                ElegirEquipo.addItem("Sala B - Edición");
+                ElegirEquipo.addItem("Sala C - Diseño");
+            } else {
+                for (Salas s : lista) {
+                    ElegirEquipo.addItem(s.getNombre());
+                }
+            }
+            // Agregar “Otro” siempre
+            ElegirEquipo.addItem("Otro");
+        });
+
+        // Habilitar/Deshabilitar campo “Otro” si se elige “Otro”
+        ElegirEquipo.addActionListener(e -> {
+            if ("Otro".equals(ElegirEquipo.getSelectedItem())) {
+                TextOtroMaterial.setEnabled(true);
+            } else {
+                TextOtroMaterial.setEnabled(false);
+                TextOtroMaterial.setText("");
+            }
+        });
+
+        // Botón “Agregar” → añade el detalle a la lista temporal y refresca tabla
+        BAgregar.addActionListener(e -> {
+            String tipoServicio = BEquipoAudiovisual.isSelected()
+                                ? "Equipo Audiovisual"
+                                : "Sala de Informática";
+
+            String elementoSeleccionado = (String) ElegirEquipo.getSelectedItem();
+            if ("Otro".equals(elementoSeleccionado)) {
+                elementoSeleccionado = TextOtroMaterial.getText().trim();
+                if (elementoSeleccionado.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Ingresa el nombre del recurso ‘Otro’");
+                    return;
+                }
+            }
+
+            programarSolicitudPrestamo.agregarDetalleTemporal(tipoServicio, elementoSeleccionado);
+            refrescarTablaVisual();
+        });
+
+        // Llenar ElegirFecha con la fecha de hoy + los 7 días siguientes,
+        // usando formato "dd/MM/yyyy - NombreDelDía" (en español)
+        LocalDate hoy = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        Locale localeEs = new Locale("es", "ES");
+
+        for (int i = 0; i <= 6; i++) {
+            LocalDate fecha = hoy.plusDays(i);
+
+            // Ejemplo:  "05/06/2025"
+            String fechaFormateada = fecha.format(formatter);
+
+            // Obtener nombre del día en español, e.g. "jueves"
+            DayOfWeek diaSemana = fecha.getDayOfWeek();
+            String nombreDia = diaSemana.getDisplayName(TextStyle.FULL, localeEs);
+
+            // Combinar: "05/06/2025 - jueves"
+            ElegirFecha.addItem(fechaFormateada + " - " + nombreDia);
+        }
+        
+        HoraInicio.removeAllItems();
+    for (int h = 8; h <= 18; h++) {
+        // Si h < 12, es "am"; si h >= 12, es "pm"
+        String sufijo = (h < 12) ? "am" : "pm";
+        // Convertimos a formato 12 horas (1–12)
+        int hora12 = (h == 12 ? 12 : h % 12);
+        HoraInicio.addItem(hora12 + ":00 " + sufijo);
     }
 
+        // 2) Listener para poblar HoraFinal cuando cambie HoraInicio:
+    HoraInicio.addActionListener(e -> {
+        HoraFinal.removeAllItems();
+        String inicio = (String) HoraInicio.getSelectedItem(); // ej. "8:00 am" o "12:00 pm"
+
+        // Extraemos solo el número de hora (antes de los dos puntos)
+        String parteHora = inicio.split(":")[0]; // "8" o "12"
+        int h = Integer.parseInt(parteHora);
+
+        // Si está en pm y es menor que 12, lo sumamos a 12 para obtener 24h
+        if (inicio.endsWith("pm") && h < 12) {
+            h += 12;
+        }
+        // Si es "12:00 am", h quedaría en 12 y debemos convertirlo a 0; pero
+        // aquí nunca aparecerá "12:00 am" (nuestra lista empieza en 8 am).
+
+        // Añadimos hasta 4 horas siguientes, sin pasar de 18 (6 pm)
+        for (int delta = 1; delta <= 4; delta++) {
+            int hFinal = h + delta;
+            if (hFinal > 19) break;
+
+            String sufFinal = (hFinal < 12) ? "am" : "pm";
+            int hora12Final = (hFinal == 12 ? 12 : hFinal % 12);
+            HoraFinal.addItem(hora12Final + ":00 " + sufFinal);
+        }
+    });
+
+        // Agregar MouseListener para “Eliminar” en la tabla
+        TablaVisual.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int fila = TablaVisual.rowAtPoint(e.getPoint());
+                int columna = TablaVisual.columnAtPoint(e.getPoint());
+                // Columna 2 es “Eliminar”
+                if (columna == 2 && fila >= 0) {
+                    // Borrar el detalle temporal correspondiente
+                    programarSolicitudPrestamo.eliminarDetalleTemporal(fila);
+                    refrescarTablaVisual();
+                }
+            }
+        });
+
+        // Botón “Enviar” → guarda en la BD la solicitud + detalles
+            btnEnviar.addActionListener(e -> {
+                try {
+                    // 1) ID del usuario actual
+                    Long idUsuario = this.usuarioLogueado.getId();
+
+                    // 2) Fecha de hoy (para fecha_solicitud)
+                    java.sql.Date fechaSolicitud = new java.sql.Date(System.currentTimeMillis());
+
+                    // 3) Fecha de uso: extraer “dd/MM/yyyy” de “dd/MM/yyyy - nombreDelDía”
+                    String textoCompleto = (String) ElegirFecha.getSelectedItem();
+                    // Si nunca cambió, puede ser null; mejor validar:
+                    if (textoCompleto == null) {
+                        JOptionPane.showMessageDialog(this, "Debes elegir una fecha de uso.");
+                        return;
+                    }
+                    // Partimos en “ - ” y tomamos la primera parte (dd/MM/yyyy)
+                    String fechaParte = textoCompleto.split(" - ")[0]; // ej. "05/06/2025"
+                    // Ahora la convertimos a LocalDate usando el patrón adecuado:
+                    java.time.format.DateTimeFormatter fmt = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    java.time.LocalDate ld = java.time.LocalDate.parse(fechaParte, fmt);
+                    java.sql.Date fechaUso = java.sql.Date.valueOf(ld);
+
+                    // 4) Obtener horas
+                    String horaInicio = (String) HoraInicio.getSelectedItem();
+                    String horaFin    = (String) HoraFinal.getSelectedItem();
+                    if (horaInicio == null || horaFin == null) {
+                        JOptionPane.showMessageDialog(this, "Debes elegir hora de inicio y hora final.");
+                        return;
+                    }
+
+                    // 5) Estado inicial
+                    String estado = "PENDIENTE";
+
+                    // 6) Llamar a registrarSolicitud
+                    boolean exito = programarSolicitudPrestamo.registrarSolicitud(
+                        idUsuario, fechaSolicitud, fechaUso, horaInicio, horaFin, estado
+                    );
+
+                    if (exito) {
+                        JOptionPane.showMessageDialog(this, "Solicitud registrada correctamente.");
+                        programarSolicitudPrestamo.getListaDetallesTemp().clear();
+                        refrescarTablaVisual();
+                        ElegirFecha.setSelectedIndex(0);
+                        HoraInicio.setSelectedIndex(0);
+                        HoraFinal.setSelectedIndex(0);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al registrar la solicitud.");
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error interno.");
+                }
+            });
+
+    }
+
+    // Reconstruye el contenido de TablaVisual a partir de la lista temporal
+    private void refrescarTablaVisual() {
+        List<ProgramarSolicitudPrestamo.DetalleTemp> detalles =
+            programarSolicitudPrestamo.getListaDetallesTemp();
+
+        String[] columnas = {"Tipo de servicio", "Elemento", "Eliminar"};
+        DefaultTableModel model = new DefaultTableModel(null, columnas) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        for (ProgramarSolicitudPrestamo.DetalleTemp dt : detalles) {
+            Object[] fila = {
+                dt.getTipoServicio(),
+                dt.getElemento(),
+                "X"  // Marcador para “Eliminar”
+            };
+            model.addRow(fila);
+        }
+        TablaVisual.setModel(model);
+    }
+
+    // Getters para botones de navegación (menu principal, salir, etc.)
     public JButton getBtnMenuPrincipal() {
         return btnMenuPrincipal;
     }
@@ -128,7 +376,6 @@ public class PedirPrestamo extends javax.swing.JFrame {
 
         jPanel1.add(HoraFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 460, 170, 40));
 
-        HoraInicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8:00 AM", "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 Pm", "6:00 pm" }));
         jPanel1.add(HoraInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 170, 40));
 
         jPanel1.add(ElegirFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 460, 170, 40));

@@ -27,8 +27,8 @@ public class IniciarSesion {
                 usuario = new Usuario();
                 usuario.setId(rs.getLong("id"));          // Asegúrate que el campo exista y esté bien en la tabla
                 usuario.setNombre(rs.getString("nombre"));
-                usuario.setCorreo(rs.getString("email"));
-                usuario.setRol(rs.getString("nivel"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setNivel(rs.getString("nivel"));
             }
 
         } catch (SQLException ex) {

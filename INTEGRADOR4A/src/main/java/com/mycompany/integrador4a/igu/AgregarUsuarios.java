@@ -31,9 +31,9 @@ public class AgregarUsuarios extends javax.swing.JFrame {
                 Usuario usuario = new Usuario();
                 usuario.setNombre(nombre);
                 usuario.setApellido(apellido);
-                usuario.setCorreo(correo);
+                usuario.setEmail(correo);
                 usuario.setClave(clave);
-                usuario.setRol(rol);
+                usuario.setNivel(rol);
 
                 boolean exito = gestionarUsuarios.crearUsuario(usuario);
 

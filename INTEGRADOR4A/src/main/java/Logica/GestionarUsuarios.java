@@ -17,9 +17,9 @@ public class GestionarUsuarios {
 
             ps.setString(1, usuario.getNombre());
             ps.setString(2, usuario.getApellido());  
-            ps.setString(3, usuario.getCorreo());
+            ps.setString(3, usuario.getEmail());
             ps.setString(4, usuario.getClave());    
-            ps.setString(5, usuario.getRol());
+            ps.setString(5, usuario.getNivel());
             
 
 
@@ -48,7 +48,6 @@ public boolean borrarUsuarioPorId(Long id) {
     }
 }
 
-
    public boolean modificarUsuario(Usuario usuario) {
     String sql = "UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, clave = ?, nivel = ? WHERE id = ?";
     try (Connection cn = new ConexionOracle().conectar();
@@ -56,9 +55,9 @@ public boolean borrarUsuarioPorId(Long id) {
 
         ps.setString(1, usuario.getNombre());
         ps.setString(2, usuario.getApellido());
-        ps.setString(3, usuario.getCorreo());
+        ps.setString(3, usuario.getEmail());
         ps.setString(4, usuario.getClave());
-        ps.setString(5, usuario.getRol());
+        ps.setString(5, usuario.getNivel());
         ps.setLong(6, usuario.getId());
 
         int filas = ps.executeUpdate();
@@ -85,9 +84,9 @@ public boolean borrarUsuarioPorId(Long id) {
                 u.setId(rs.getLong("id"));
                 u.setNombre(rs.getString("nombre"));
                 u.setApellido(rs.getString("apellido"));
-                u.setCorreo(rs.getString("correo"));
+                u.setEmail(rs.getString("correo"));
                 u.setClave(rs.getString("clave"));
-                u.setRol(rs.getString("rol"));
+                u.setNivel(rs.getString("rol"));
                 usuarios.add(u);
             }
 

@@ -12,6 +12,7 @@ Ejecutar\EjecutarSistema$1$27.class
 com\mycompany\integrador4a\igu\AgregarUsuarios.class
 com\mycompany\integrador4a\igu\GestionarSanciones.class
 Entidad\DetalleSolicitud.class
+Logica\ProgramarSolicitudPrestamo$DetalleTemp.class
 com\mycompany\integrador4a\igu\Login.class
 com\mycompany\integrador4a\igu\RealizarSolicitud.class
 com\mycompany\integrador4a\igu\RealizarDevolucion.class
@@ -36,6 +37,7 @@ Ejecutar\EjecutarSistema$1$16.class
 Entidad\Soporte.class
 Entidad\Usuario.class
 com\mycompany\integrador4a\igu\PedirSoporte.class
+Logica\ProgramarSolicitudPrestamo.class
 Logica\GestionarUsuarios.class
 Ejecutar\EjecutarSistema$1$10.class
 Ejecutar\EjecutarSistema$1$30.class

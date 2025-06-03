@@ -15,13 +15,14 @@ import javax.persistence.OneToMany;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Long id;
     
     private String nombre;
     private String apellido;
-    private String correo;
+    private String email;
     private String clave;
-    private String rol;
+    private String nivel;
 
 
     @OneToMany(mappedBy = "usuario")
@@ -49,20 +50,20 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEmail(String correo) {
+        this.email = email;
     }
 
-    public String getRol() {
-        return rol;
+    public String getNivel() {
+        return nivel;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
     }
 
     public String getApellido() {
