@@ -19,8 +19,6 @@ public class Devolucion {
     private String observaciones;
     @ManyToOne
     private Usuario usuario;
-    @OneToOne
-    private Prestamo prestamo;
     @OneToOne(mappedBy = "devolucion")
     private Sanciones sancion;
 

@@ -26,7 +26,7 @@ public class Usuario {
 
 
     @OneToMany(mappedBy = "usuario")
-    private List<Prestamo> prestamos;
+    private List<Solicitud> prestamos;
 
     @OneToMany(mappedBy = "usuario")
     private List<Solicitud> solicitudes;

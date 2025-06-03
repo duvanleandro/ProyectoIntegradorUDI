@@ -20,7 +20,7 @@ public class Salas {
    
 
     @OneToMany(mappedBy = "sala")
-    private List<Prestamo> prestamos;
+    private List<DetalleSolicitud> Solicitud;
 
     // Getters y Setters
 
