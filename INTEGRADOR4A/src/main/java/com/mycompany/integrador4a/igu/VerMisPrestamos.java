@@ -3,7 +3,7 @@ package com.mycompany.integrador4a.igu;
 import Entidad.DetalleSolicitud;
 import Entidad.Solicitud;
 import Entidad.Usuario;
-import Logica.ProgramarSolicitudPrestamo;
+import Logica.RealizarSolicitudP;
 import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.swing.JButton;
@@ -46,7 +46,7 @@ public class VerMisPrestamos extends javax.swing.JFrame {
             if (fila >= 0) {
                 Long idSolicitud = (Long) TablaMisPrestamos.getValueAt(fila, 0);
 
-                ProgramarSolicitudPrestamo logica = new ProgramarSolicitudPrestamo();
+                RealizarSolicitudP logica = new RealizarSolicitudP();
                 boolean exito = logica.cancelarSolicitud(idSolicitud);
 
                 if (exito) {

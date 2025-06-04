@@ -11,7 +11,7 @@ import java.util.Locale;
 import Entidad.Solicitud;
 import Entidad.DetalleSolicitud;
 import Entidad.Usuario;
-import Logica.ProgramarSolicitudPrestamo;
+import Logica.RealizarSolicitudP;
 import javax.swing.JButton;
 
 public class GestionarSolicitudes extends javax.swing.JFrame {
@@ -23,7 +23,7 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         initComponents();
         emf = Persistence.createEntityManagerFactory("PU");
         entityManager = emf.createEntityManager();
-
+        
         cargarTablaSolicitudes();  // carga todas las solicitudes al iniciar
         
         TablaSolicitudes.getSelectionModel().addListSelectionListener(e -> {
@@ -37,7 +37,7 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
 
         // Llama a tu lógica para aceptar la solicitud
-        ProgramarSolicitudPrestamo logica = new ProgramarSolicitudPrestamo();
+        RealizarSolicitudP logica = new RealizarSolicitudP();
         boolean exito = logica.aceptarSolicitud(idSolicitud);
         logica.cerrar();
 
@@ -56,7 +56,7 @@ btnRechazar.addActionListener(e -> {
         Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
 
         // Llama a tu lógica para rechazar la solicitud
-        ProgramarSolicitudPrestamo logica = new ProgramarSolicitudPrestamo();
+        RealizarSolicitudP logica = new RealizarSolicitudP();
         boolean exito = logica.rechazarSolicitud(idSolicitud);
         logica.cerrar();
 
@@ -94,45 +94,50 @@ btnRechazar.addActionListener(e -> {
 }
 
 
-    public void cargarTablaSolicitudes() {
-        String[] columnas = {
-            "ID Solicitud", "Usuario", "Fecha Solicitud", "Fecha Uso",
-            "Hora Inicio", "Hora Fin", "Estado",
-            "Tipo Servicio", "Elemento"
-        };
+public void cargarTablaSolicitudes() {
+    String[] columnas = {
+        "ID Solicitud", "Usuario", "Fecha Solicitud", "Fecha Uso",
+        "Hora Inicio", "Hora Fin", "Estado",
+        "Tipo Servicio", "Elemento"
+    };
 
-        DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy - EEEE", new Locale("es", "ES"));
-
-        // Consulta para traer todas las solicitudes con sus detalles y usuario
-        String jpql = "SELECT s FROM Solicitud s LEFT JOIN FETCH s.detalles LEFT JOIN FETCH s.usuario";
-        TypedQuery<Solicitud> query = entityManager.createQuery(jpql, Solicitud.class);
-        List<Solicitud> listaSolicitudes = query.getResultList();
-
-        for (Solicitud s : listaSolicitudes) {
-            for (DetalleSolicitud d : s.getDetalles()) {
-                Object[] fila = new Object[9];
-                fila[0] = s.getIdSolicitud();
-                fila[1] = s.getUsuario().getNombre(); // Asumiendo getNombre() en Usuario
-                fila[2] = formato.format(s.getFechaSolicitud());
-                fila[3] = formato.format(s.getFechaUso());
-                fila[4] = s.getHoraInicio();
-                fila[5] = s.getHoraFin();
-                fila[6] = s.getEstado();
-                fila[7] = d.getTipoServicio();
-                fila[8] = d.getElemento();
-                modelo.addRow(fila);
-            }
+    DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
         }
+    };
 
-        TablaSolicitudes.setModel(modelo);
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy - EEEE", new Locale("es", "ES"));
+
+    // 👉 Limpiar la caché antes de volver a consultar (clave para ver los cambios en tiempo real)
+    entityManager.clear();  
+    entityManager.getEntityManagerFactory().getCache().evictAll();
+
+    // Consulta para traer todas las solicitudes con sus detalles y usuario
+    String jpql = "SELECT DISTINCT s FROM Solicitud s LEFT JOIN FETCH s.detalles LEFT JOIN FETCH s.usuario";
+    TypedQuery<Solicitud> query = entityManager.createQuery(jpql, Solicitud.class);
+    List<Solicitud> listaSolicitudes = query.getResultList();
+
+    for (Solicitud s : listaSolicitudes) {
+        for (DetalleSolicitud d : s.getDetalles()) {
+            Object[] fila = new Object[9];
+            fila[0] = s.getIdSolicitud();
+            fila[1] = s.getUsuario().getNombre(); // Asumiendo getNombre() en Usuario
+            fila[2] = formato.format(s.getFechaSolicitud());
+            fila[3] = formato.format(s.getFechaUso());
+            fila[4] = s.getHoraInicio();
+            fila[5] = s.getHoraFin();
+            fila[6] = s.getEstado();
+            fila[7] = d.getTipoServicio();
+            fila[8] = d.getElemento();
+            modelo.addRow(fila);
+        }
     }
+
+    TablaSolicitudes.setModel(modelo);
+}
+
 
     public JButton getBtnMenuPrincipal() {
         return btnMenuPrincipal;

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestionarUsuariosLogica {
+public class GestionarUsuarios {
 
     public boolean crearUsuario(Usuario usuario) {
         String sql = "INSERT INTO usuarios (id, nombre, apellido, email, clave, nivel) " +

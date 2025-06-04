@@ -18,8 +18,6 @@ public class Sanciones {
     private String motivo;
     private Double costo;
 
-    @OneToOne
-    private Devolucion devolucion;
 
     // Getters y Setters
 }

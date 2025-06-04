@@ -15,7 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 
-public class ProgramarSolicitudPrestamo {
+public class RealizarSolicitudP {
 
     // Clase interna para guardar en memoria cada fila que se mostrará en TablaVisual:
     public static class DetalleTemp {
@@ -43,7 +43,7 @@ public class ProgramarSolicitudPrestamo {
     private EntityManagerFactory emf;
     private EntityManager em;
 
-    public ProgramarSolicitudPrestamo() {
+    public RealizarSolicitudP() {
         emf = Persistence.createEntityManagerFactory("PU");
         em = emf.createEntityManager();    
     }

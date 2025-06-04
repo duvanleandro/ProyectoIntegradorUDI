@@ -3,7 +3,7 @@ package com.mycompany.integrador4a.igu;
 import Entidad.Equipos;
 import Entidad.Salas;
 import Entidad.Usuario;
-import Logica.ProgramarSolicitudPrestamo;
+import Logica.RealizarSolicitudP;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.Locale;
  */
 public class PedirPrestamo extends javax.swing.JFrame {
 
-    private ProgramarSolicitudPrestamo programarSolicitudPrestamo;
+    private RealizarSolicitudP programarSolicitudPrestamo;
     private Usuario usuarioLogueado;
     private VerMisPrestamos verMisPrestamosInstance;  // referencia para refrescar tabla
 
@@ -34,7 +34,7 @@ public class PedirPrestamo extends javax.swing.JFrame {
         this.usuarioLogueado = usuario;
         this.verMisPrestamosInstance = verMisPrestamos;  // guardamos referencia
 
-        programarSolicitudPrestamo = new ProgramarSolicitudPrestamo();
+        programarSolicitudPrestamo = new RealizarSolicitudP();
 
         // Que al inicio TextOtroMaterial esté deshabilitado
         TextOtroMaterial.setEnabled(false);
@@ -238,7 +238,7 @@ public class PedirPrestamo extends javax.swing.JFrame {
 
     // Reconstruye el contenido de TablaVisual a partir de la lista temporal
     private void refrescarTablaVisual() {
-        List<ProgramarSolicitudPrestamo.DetalleTemp> detalles =
+        List<RealizarSolicitudP.DetalleTemp> detalles =
             programarSolicitudPrestamo.getListaDetallesTemp();
 
         String[] columnas = {"Tipo de servicio", "Elemento", "Eliminar"};
@@ -249,7 +249,7 @@ public class PedirPrestamo extends javax.swing.JFrame {
             }
         };
 
-        for (ProgramarSolicitudPrestamo.DetalleTemp dt : detalles) {
+        for (RealizarSolicitudP.DetalleTemp dt : detalles) {
             Object[] fila = {
                 dt.getTipoServicio(),
                 dt.getElemento(),

@@ -22,6 +22,10 @@ public class GestionarSanciones extends javax.swing.JFrame {
         return btnMenuPrincipal;
     }
 
+     public JButton getBtnSancionar() {
+         return btnSancionar;
+     }   
+     
     public JButton getBtnSalir() {
         return btnSalir;
     }
@@ -35,7 +39,7 @@ public class GestionarSanciones extends javax.swing.JFrame {
         lblGestionSanciones = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaSanciones = new javax.swing.JTable();
-        btnActualizar = new javax.swing.JButton();
+        btnSancionar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
@@ -64,9 +68,9 @@ public class GestionarSanciones extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 1020, -1));
 
-        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnActualizar.setText("ACTUALIZAR");
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, 170, 40));
+        btnSancionar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSancionar.setText("ACTUALIZAR");
+        jPanel1.add(btnSancionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, 170, 40));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEliminar.setText("ELIMINAR");
@@ -99,10 +103,10 @@ public class GestionarSanciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaSanciones;
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnSancionar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblFondoGestionSanciones;

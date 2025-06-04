@@ -12,14 +12,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class GestionarUsuarios extends javax.swing.JFrame {
+public class GestionarUsuariosGUI extends javax.swing.JFrame {
 
-    private Logica.GestionarUsuariosLogica gestionarUsuariosLogica;
+    private Logica.GestionarUsuarios gestionarUsuariosLogica;
     private GestionarSolicitudes gestionarSolicitudesVentana; // Referencia a la ventana de solicitudes
 
-    public GestionarUsuarios(GestionarSolicitudes gestionarSolicitudes) {
+    public GestionarUsuariosGUI(GestionarSolicitudes gestionarSolicitudes) {
         initComponents();
-        gestionarUsuariosLogica = new Logica.GestionarUsuariosLogica();
+        gestionarUsuariosLogica = new Logica.GestionarUsuarios();
         this.gestionarSolicitudesVentana = gestionarSolicitudes;  // guardamos la referencia
         cargarTablaUsuarios();
         

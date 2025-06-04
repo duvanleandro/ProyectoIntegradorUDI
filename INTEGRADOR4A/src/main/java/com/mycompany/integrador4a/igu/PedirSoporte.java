@@ -1,11 +1,65 @@
 package com.mycompany.integrador4a.igu;
 
+import Entidad.Usuario;
+import Logica.RealizarSoporte;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class PedirSoporte extends javax.swing.JFrame {
 
-    public PedirSoporte() {
+    private Usuario usuarioActivo;  // Campo para guardar el usuario logueado
+    private GestionarSoporteGUI gestionarSoporteGUI;
+
+    public PedirSoporte(Usuario usuario, GestionarSoporteGUI GSoporte) {
         initComponents();
+
+        this.usuarioActivo = usuario;  // Guardamos el usuario que llega
+        this.gestionarSoporteGUI = GSoporte;  // Guardamos la referencia a la ventana de gestión
+
+        // Agrupar los botones
+        BGTipoSolicitud.add(BApelarSancion);
+        BGTipoSolicitud.add(BSoporteSala);
+
+        btnEnviar.addActionListener(e -> {
+            if (!BApelarSancion.isSelected() && !BSoporteSala.isSelected()) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un tipo de solicitud.");
+                return;
+            }
+
+            String tipoSolicitud = BApelarSancion.isSelected() ? "Apelar Sancion" : "Soporte Sala";
+            String observaciones = txtObservaciones.getText();
+
+            // Ahora sí usamos el ID real del usuario
+            Long idUsuario = usuarioActivo.getId();
+
+            RealizarSoporte soporteLogic = new RealizarSoporte();
+            try {
+                boolean exito = soporteLogic.guardarSoporte(idUsuario, tipoSolicitud, observaciones);
+                if (exito) {
+                    JOptionPane.showMessageDialog(this,
+                        "Soporte enviado correctamente.",
+                        "Éxito",
+                        JOptionPane.INFORMATION_MESSAGE);
+                    txtObservaciones.setText("");
+                    BGTipoSolicitud.clearSelection();
+
+                    // Actualizar la tabla en GestionarSoporteGUI
+                    if (gestionarSoporteGUI != null) {
+                        gestionarSoporteGUI.cargarDatosSoporte();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                        "No se pudo enviar el soporte.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                    "Error al enviar soporte: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        });
     }
 
     public JButton getBtnMenuPrincipal() {
@@ -16,25 +70,23 @@ public class PedirSoporte extends javax.swing.JFrame {
         return btnSalir;
     }
     
-    
+
   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        BGTipoSolicitud = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblPedirSoporte = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        lblFecha = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JTextField();
-        lblHora = new javax.swing.JLabel();
-        txtHora = new javax.swing.JTextField();
+        lblTipoSolicitud = new javax.swing.JLabel();
         lblObservaciones = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservaciones = new javax.swing.JTextArea();
+        BSoporteSala = new javax.swing.JRadioButton();
         btnEnviar = new javax.swing.JButton();
         btnMenuPrincipal = new javax.swing.JButton();
+        BApelarSancion = new javax.swing.JRadioButton();
         btnSalir = new javax.swing.JButton();
         lblSoporte = new javax.swing.JLabel();
         lblFondoSoporte = new javax.swing.JLabel();
@@ -48,34 +100,26 @@ public class PedirSoporte extends javax.swing.JFrame {
         lblPedirSoporte.setText("PEDIR SOPORTE");
         jPanel1.add(lblPedirSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
 
-        lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblNombre.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombre.setText("Nombre:");
-        jPanel1.add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 140, -1));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 230, 30));
-
-        lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblFecha.setForeground(new java.awt.Color(255, 255, 255));
-        lblFecha.setText("Fecha:");
-        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, 140, -1));
-        jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 230, 30));
-
-        lblHora.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblHora.setForeground(new java.awt.Color(255, 255, 255));
-        lblHora.setText("Hora:");
-        jPanel1.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 140, -1));
-        jPanel1.add(txtHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 380, 230, 30));
+        lblTipoSolicitud.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTipoSolicitud.setForeground(new java.awt.Color(255, 255, 255));
+        lblTipoSolicitud.setText("TipoSolicitud");
+        jPanel1.add(lblTipoSolicitud, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, 200, -1));
 
         lblObservaciones.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblObservaciones.setForeground(new java.awt.Color(255, 255, 255));
-        lblObservaciones.setText("Observaciones:");
-        jPanel1.add(lblObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 420, 200, -1));
+        lblObservaciones.setText("MENSAJE:");
+        jPanel1.add(lblObservaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 200, -1));
 
         txtObservaciones.setColumns(20);
         txtObservaciones.setRows(5);
         jScrollPane1.setViewportView(txtObservaciones);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, -1, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, -1, -1));
+
+        BSoporteSala.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BSoporteSala.setForeground(new java.awt.Color(255, 255, 255));
+        BSoporteSala.setText("Soporte a Sala");
+        jPanel1.add(BSoporteSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
 
         btnEnviar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEnviar.setText("ENVIAR");
@@ -84,6 +128,11 @@ public class PedirSoporte extends javax.swing.JFrame {
         btnMenuPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnMenuPrincipal.setText("MENU PRINCIPAL");
         jPanel1.add(btnMenuPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 580, 160, 40));
+
+        BApelarSancion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BApelarSancion.setForeground(new java.awt.Color(255, 255, 255));
+        BApelarSancion.setText("Apelar Sancion");
+        jPanel1.add(BApelarSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSalir.setText("SALIR");
@@ -111,21 +160,19 @@ public class PedirSoporte extends javax.swing.JFrame {
 
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton BApelarSancion;
+    private javax.swing.ButtonGroup BGTipoSolicitud;
+    private javax.swing.JRadioButton BSoporteSala;
     private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnMenuPrincipal;
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblFondoSoporte;
-    private javax.swing.JLabel lblHora;
-    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblObservaciones;
     private javax.swing.JLabel lblPedirSoporte;
     private javax.swing.JLabel lblSoporte;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtHora;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JLabel lblTipoSolicitud;
     private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables
 

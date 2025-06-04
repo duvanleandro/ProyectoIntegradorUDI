@@ -31,9 +31,6 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Solicitud> solicitudes;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Devolucion> devoluciones;
-
     public Long getId() {
         return id;
     }

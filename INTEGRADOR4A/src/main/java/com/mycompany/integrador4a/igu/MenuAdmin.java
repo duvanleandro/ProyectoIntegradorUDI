@@ -5,17 +5,14 @@
 
 package com.mycompany.integrador4a.igu;
 
+import Logica.OtrosFuncionamientos;
 import javax.swing.JLabel;
 
-/**
- *
- * @author USER
- */
 public class MenuAdmin extends javax.swing.JFrame {
 
-    /** Creates new form MenuAdmin */
     public MenuAdmin() {
         initComponents();
+        OtrosFuncionamientos.pintar(this.lblBaseDeDatos,"/images/BaseDeDatos.png");
     }
 
     public JLabel getLblDevoluciones() {
@@ -26,8 +23,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         return lblSalir;
     }
 
-    public JLabel getLblSancionar() {
-        return lblSancionar;
+    public JLabel getLblBaseDeDatos() {
+        return lblBaseDeDatos;
     }
 
     public JLabel getLblSolicitudes() {
@@ -50,8 +47,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         lblPanelAdmin = new javax.swing.JLabel();
         lblSolicitudes = new javax.swing.JLabel();
         lblTxtSolicitudes = new javax.swing.JLabel();
-        lblSancionar = new javax.swing.JLabel();
-        lblTxtSancionar = new javax.swing.JLabel();
+        lblBaseDeDatos = new javax.swing.JLabel();
+        lblTxtBaseDeDatos = new javax.swing.JLabel();
         lblUsuarios = new javax.swing.JLabel();
         lblTxtUsuarios = new javax.swing.JLabel();
         lblDevoluciones = new javax.swing.JLabel();
@@ -76,20 +73,18 @@ public class MenuAdmin extends javax.swing.JFrame {
         lblTxtSolicitudes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTxtSolicitudes.setText("GESTIONAR SOLICITUDES");
         jPanel1.add(lblTxtSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, -1));
+        jPanel1.add(lblBaseDeDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 150, 140));
 
-        lblSancionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sancionAdmin.png"))); // NOI18N
-        jPanel1.add(lblSancionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 130, 140));
-
-        lblTxtSancionar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTxtSancionar.setText("SANCIONAR");
-        jPanel1.add(lblTxtSancionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, -1, -1));
+        lblTxtBaseDeDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTxtBaseDeDatos.setText("BASE DE DATOS");
+        jPanel1.add(lblTxtBaseDeDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, -1, -1));
 
         lblUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gestionAdmin.png"))); // NOI18N
         jPanel1.add(lblUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 170, 130, 160));
 
         lblTxtUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTxtUsuarios.setText("GESTIONAR USUARIOS");
-        jPanel1.add(lblTxtUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 340, -1, -1));
+        jPanel1.add(lblTxtUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, -1, -1));
 
         lblDevoluciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/devolucionUsu.png"))); // NOI18N
         jPanel1.add(lblDevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 140, 150));
@@ -134,16 +129,16 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblBaseDeDatos;
     private javax.swing.JLabel lblDevoluciones;
     private javax.swing.JLabel lblFondoAdmin;
     private javax.swing.JLabel lblGestionDevoluciones;
     private javax.swing.JLabel lblGestionSanciones;
     private javax.swing.JLabel lblPanelAdmin;
     private javax.swing.JLabel lblSalir;
-    private javax.swing.JLabel lblSancionar;
     private javax.swing.JLabel lblSolicitudes;
+    private javax.swing.JLabel lblTxtBaseDeDatos;
     private javax.swing.JLabel lblTxtSalir;
-    private javax.swing.JLabel lblTxtSancionar;
     private javax.swing.JLabel lblTxtSanciones;
     private javax.swing.JLabel lblTxtSolicitudes;
     private javax.swing.JLabel lblTxtUsuarios;

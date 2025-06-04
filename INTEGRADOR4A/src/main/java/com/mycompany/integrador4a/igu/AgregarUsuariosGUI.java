@@ -5,17 +5,18 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import Logica.GestionarUsuariosLogica; 
+import Logica.GestionarUsuarios; 
 
-public class AgregarUsuarios extends javax.swing.JFrame {
+public class AgregarUsuariosGUI extends javax.swing.JFrame {
 
-    private GestionarUsuarios gestionarUsuariosGUI;  // Clase GUI con la tabla
-    private GestionarUsuariosLogica gestionarUsuariosLogica;  // Clase lógica para BD
+    private GestionarUsuariosGUI gestionarUsuariosGUI;  // Clase GUI con la tabla
+    
+    private GestionarUsuarios gestionarUsuarios;  // Clase lógica para BD
     /** Creates new form AgregarUsuarios */
-    public AgregarUsuarios(GestionarUsuarios gestionarUsuariosGUI) {
+    public AgregarUsuariosGUI(GestionarUsuariosGUI gestionarUsuariosGUI) {
     initComponents();
     this.gestionarUsuariosGUI = gestionarUsuariosGUI;
-    this.gestionarUsuariosLogica = new GestionarUsuariosLogica();
+    this.gestionarUsuarios = new GestionarUsuarios();
 
         btnAgregar.addActionListener(e -> {
             String nombre = getInsertarNombre().getText();
@@ -36,7 +37,7 @@ public class AgregarUsuarios extends javax.swing.JFrame {
             usuario.setClave(clave);
             usuario.setNivel(rol);
 
-            boolean exito = gestionarUsuariosLogica.crearUsuario(usuario);
+            boolean exito = gestionarUsuarios.crearUsuario(usuario);
 
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Usuario creado correctamente.");

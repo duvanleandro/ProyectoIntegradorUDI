@@ -13,7 +13,6 @@ public class EjecutarSistema {
     static MenuAdmin menuAd;
 
     static RealizarSolicitud RSolicitud;
-    static RealizarDevolucion RDevolucion;
     static PedirSoporte PSoporte;
     static InformacionApp IApp;
     static PedirPrestamo PPrestamo;
@@ -21,10 +20,11 @@ public class EjecutarSistema {
 
     static GestionarSolicitudes GSolicitudes;
     static RealizarSancion RSancion;
-    static GestionarUsuarios GUsuarios;
-    static AgregarUsuarios AUsuarios;
-    static GestionarDevoluciones GDevoluciones;
+    static GestionarUsuariosGUI GUsuarios;
+    static AgregarUsuariosGUI AUsuarios;
+    static GestionarSoporteGUI GSoporte;
     static GestionarSanciones GSanciones;
+    static AdministrarBD ABD;
 
     public static void main(String[] args) {
         
@@ -76,19 +76,20 @@ public class EjecutarSistema {
                     if (menu == null)        menu        = new MenuUsuario();
                     if (menuAd == null)      menuAd      = new MenuAdmin();
                     if (RSolicitud == null)  RSolicitud  = new RealizarSolicitud();
-                    if (RDevolucion == null) RDevolucion = new RealizarDevolucion();
-                    if (PSoporte == null)    PSoporte    = new PedirSoporte();
+                    if (PSoporte == null)    PSoporte    = new PedirSoporte(usuario, GSoporte);
                     if (IApp == null)        IApp        = new InformacionApp();
                     if (RSancion == null)       RSancion       = new RealizarSancion();
-                    if (GDevoluciones == null)  GDevoluciones  = new GestionarDevoluciones();
+                    if (GSoporte == null)  GSoporte  = new GestionarSoporteGUI();
                     if (GSanciones == null)     GSanciones     = new GestionarSanciones();
+                    if (ABD == null) ABD = new AdministrarBD();
 
                     // Crear NUEVAS instancias para ventanas que dependen del usuario activo
                     VMPrestamo = new VerMisPrestamos(usuario);
                     PPrestamo = new PedirPrestamo(usuario, VMPrestamo);
                     GSolicitudes = new GestionarSolicitudes(usuario);
-                    GUsuarios = new GestionarUsuarios(GSolicitudes);
-                    AUsuarios = new AgregarUsuarios(GUsuarios);
+                    GUsuarios = new GestionarUsuariosGUI(GSolicitudes);
+                    AUsuarios = new AgregarUsuariosGUI(GUsuarios);
+                    PSoporte = new PedirSoporte(usuario, GSoporte);
 
 
 
@@ -101,13 +102,7 @@ public class EjecutarSistema {
                         menu.setLocationRelativeTo(null);
                     }
                     // MENU USUARIO
-                    menu.getLblDevolucion().addMouseListener(new MouseAdapter() {
-                        public void mouseClicked(MouseEvent e) {
-                            menu.setVisible(false);
-                            RDevolucion.setVisible(true);
-                            RDevolucion.setLocationRelativeTo(null);
-                        }
-                    });
+           
                     
                     menu.getLblSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
@@ -270,28 +265,15 @@ public class EjecutarSistema {
                         }
                     });
 
-                    // RDevolucion
-                    RDevolucion.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
-                        public void mouseClicked(MouseEvent e) {
-                            RDevolucion.setVisible(false);
-                            menu.setVisible(true);
-                        }
-                    });
-
-                    RDevolucion.getBtnSalir().addMouseListener(new MouseAdapter() {
-                        public void mouseClicked(MouseEvent e) {
-                            RDevolucion.setVisible(false);
-                            limpiarVentanasUsuario();
-                            login.setVisible(true);
-                        }
-                    });
+            
+     
 
                     // ADMIN
                     menuAd.getLblDevoluciones().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menuAd.setVisible(false);
-                            GDevoluciones.setVisible(true);
-                            GDevoluciones.setLocationRelativeTo(null);
+                            GSoporte.setVisible(true);
+                            GSoporte.setLocationRelativeTo(null);
                         }
                     });
 
@@ -303,13 +285,7 @@ public class EjecutarSistema {
                         }
                     });
 
-                    menuAd.getLblSancionar().addMouseListener(new MouseAdapter() {
-                        public void mouseClicked(MouseEvent e) {
-                            menuAd.setVisible(false);
-                            RSancion.setVisible(true);
-                            RSancion.setLocationRelativeTo(null);
-                        }
-                    });
+
 
                     menuAd.getLblSolicitudes().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
@@ -332,6 +308,14 @@ public class EjecutarSistema {
                             menuAd.setVisible(false);
                             GSanciones.setVisible(true);
                             GSanciones.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    menuAd.getLblBaseDeDatos().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            menuAd.setVisible(false);
+                            ABD.setVisible(true);
+                            ABD.setLocationRelativeTo(null);
                         }
                     });
 
@@ -395,16 +379,16 @@ public class EjecutarSistema {
                         }
                     });
 
-                    GDevoluciones.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
+                    GSoporte.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
-                            GDevoluciones.setVisible(false);
+                            GSoporte.setVisible(false);
                             menuAd.setVisible(true);
                         }
                     });
 
-                    GDevoluciones.getBtnSalir().addMouseListener(new MouseAdapter() {
+                    GSoporte.getBtnSalir().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
-                            GDevoluciones.setVisible(false);
+                            GSoporte.setVisible(false);
                             limpiarVentanasUsuario();
                             login.setVisible(true);
                         }
@@ -414,6 +398,14 @@ public class EjecutarSistema {
                         public void mouseClicked(MouseEvent e) {
                             GSanciones.setVisible(false);
                             menuAd.setVisible(true);
+                        }
+                    });
+                    
+                    GSanciones.getBtnSancionar().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            GSanciones.setVisible(false);
+                            RSancion.setVisible(true);
+                            RSancion.setLocationRelativeTo(null);
                         }
                     });
 
