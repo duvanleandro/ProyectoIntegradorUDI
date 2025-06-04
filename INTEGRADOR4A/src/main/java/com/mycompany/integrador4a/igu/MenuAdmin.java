@@ -16,7 +16,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     }
 
     public JLabel getLblDevoluciones() {
-        return lblDevoluciones;
+        return lblSoporte;
     }
 
     public JLabel getLblSalir() {
@@ -51,8 +51,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         lblTxtBaseDeDatos = new javax.swing.JLabel();
         lblUsuarios = new javax.swing.JLabel();
         lblTxtUsuarios = new javax.swing.JLabel();
-        lblDevoluciones = new javax.swing.JLabel();
-        lblGestionDevoluciones = new javax.swing.JLabel();
+        lblSoporte = new javax.swing.JLabel();
+        lblGestionSoporte = new javax.swing.JLabel();
         lblGestionSanciones = new javax.swing.JLabel();
         lblTxtSanciones = new javax.swing.JLabel();
         lblSalir = new javax.swing.JLabel();
@@ -86,12 +86,12 @@ public class MenuAdmin extends javax.swing.JFrame {
         lblTxtUsuarios.setText("GESTIONAR USUARIOS");
         jPanel1.add(lblTxtUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 350, -1, -1));
 
-        lblDevoluciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/devolucionUsu.png"))); // NOI18N
-        jPanel1.add(lblDevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 140, 150));
+        lblSoporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/soporteUsu.png"))); // NOI18N
+        jPanel1.add(lblSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 140, 150));
 
-        lblGestionDevoluciones.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblGestionDevoluciones.setText("GESTION DEVOLUCIONES");
-        jPanel1.add(lblGestionDevoluciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 570, -1, -1));
+        lblGestionSoporte.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblGestionSoporte.setText("GESTION SOPORTE");
+        jPanel1.add(lblGestionSoporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 570, -1, -1));
 
         lblGestionSanciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sancion2admin.png"))); // NOI18N
         jPanel1.add(lblGestionSanciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 130, 150));
@@ -130,13 +130,13 @@ public class MenuAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBaseDeDatos;
-    private javax.swing.JLabel lblDevoluciones;
     private javax.swing.JLabel lblFondoAdmin;
-    private javax.swing.JLabel lblGestionDevoluciones;
     private javax.swing.JLabel lblGestionSanciones;
+    private javax.swing.JLabel lblGestionSoporte;
     private javax.swing.JLabel lblPanelAdmin;
     private javax.swing.JLabel lblSalir;
     private javax.swing.JLabel lblSolicitudes;
+    private javax.swing.JLabel lblSoporte;
     private javax.swing.JLabel lblTxtBaseDeDatos;
     private javax.swing.JLabel lblTxtSalir;
     private javax.swing.JLabel lblTxtSanciones;

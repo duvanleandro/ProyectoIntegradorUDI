@@ -12,6 +12,7 @@ public class BaseDeDatos {
         // Deshabilitar constraints FK que puedan bloquear los deletes
         stmt.executeUpdate("ALTER TABLE SOPORTE DISABLE CONSTRAINT FK_SOPORTE_USUARIO");
         stmt.executeUpdate("ALTER TABLE SOLICITUDES DISABLE CONSTRAINT FK_SOLICITUDES_USUARIO");
+        stmt.executeUpdate("ALTER TABLE SANCIONES DISABLE CONSTRAINT FK_SANCION_USUARIO");
 
         try {
             // Borrar datos en orden correcto para no violar FK
@@ -21,6 +22,7 @@ public class BaseDeDatos {
             stmt.executeUpdate("DELETE FROM EQUIPOS");
             stmt.executeUpdate("DELETE FROM SALAS");
             stmt.executeUpdate("DELETE FROM SOPORTE");
+            stmt.executeUpdate("DELETE FROM SANCIONES");
             stmt.executeUpdate("DELETE FROM USUARIOS");
 
             // Eliminar y recrear secuencias (las secuencias al crearse inician en START WITH)
@@ -48,6 +50,9 @@ public class BaseDeDatos {
             stmt.executeUpdate("DROP SEQUENCE SEQ_SOPORTE");
             stmt.executeUpdate("CREATE SEQUENCE SEQ_SOPORTE START WITH 1 INCREMENT BY 1");
 
+            stmt.executeUpdate("DROP SEQUENCE SEQ_SANCIONES");
+            stmt.executeUpdate("CREATE SEQUENCE SEQ_SANCIONES START WITH 1 INCREMENT BY 1");
+
             // Insertar admin (ID = 1)
             stmt.executeUpdate("INSERT INTO USUARIOS (ID, NOMBRE, APELLIDO, EMAIL, CLAVE, NIVEL) " +
                     "VALUES (1, 'admin', 'admin', 'a', 'a', 'ADMIN')");
@@ -55,7 +60,8 @@ public class BaseDeDatos {
             // Insertar usuario (ID = 2)
             stmt.executeUpdate("INSERT INTO USUARIOS (ID, NOMBRE, APELLIDO, EMAIL, CLAVE, NIVEL) " +
                     "VALUES (2, 'usuario', 'usuario', 'u', 'u', 'USER')");
-            
+
+            // Usuario extra (ID = 3)
             stmt.executeUpdate("INSERT INTO USUARIOS (ID, NOMBRE, APELLIDO, EMAIL, CLAVE, NIVEL) " +
                     "VALUES (3, 'e', 'e', 'e', 'e', 'USER')");
 
@@ -70,9 +76,10 @@ public class BaseDeDatos {
             stmt.executeUpdate("INSERT INTO EQUIPOS (ID, NOMBRE) VALUES (3, 'Proyector')");
 
         } finally {
-            // Siempre habilitar constraints FK
+            // Siempre habilitar constraints FK al final
             stmt.executeUpdate("ALTER TABLE SOPORTE ENABLE CONSTRAINT FK_SOPORTE_USUARIO");
             stmt.executeUpdate("ALTER TABLE SOLICITUDES ENABLE CONSTRAINT FK_SOLICITUDES_USUARIO");
+            stmt.executeUpdate("ALTER TABLE SANCIONES ENABLE CONSTRAINT FK_SANCION_USUARIO");
             stmt.close();
         }
     }

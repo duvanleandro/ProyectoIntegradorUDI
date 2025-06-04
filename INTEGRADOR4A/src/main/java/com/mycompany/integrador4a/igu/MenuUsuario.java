@@ -80,7 +80,7 @@ public class MenuUsuario extends javax.swing.JFrame {
 
         lblTextDevolucion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTextDevolucion.setForeground(new java.awt.Color(255, 255, 255));
-        lblTextDevolucion.setText("DEVOLUCION");
+        lblTextDevolucion.setText("(cambiar)");
         jPanel1.add(lblTextDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 320, -1, -1));
 
         lblSoporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/soporteUsu.png"))); // NOI18N

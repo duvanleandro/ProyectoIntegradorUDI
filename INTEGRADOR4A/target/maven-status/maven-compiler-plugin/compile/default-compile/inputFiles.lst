@@ -13,6 +13,7 @@ C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSancion.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSolicitud.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\VerMisPrestamos.java
+C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\VerMisSanciones.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Conexion\ConexionOracle.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Conexion\Sesion.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Ejecutar\EjecutarSistema.java
@@ -28,5 +29,6 @@ C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\GestionarUsuarios.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\IniciarSesion.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\OtrosFuncionamientos.java
+C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarSancionAdmin.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarSolicitudP.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarSoporte.java

@@ -27,6 +27,8 @@ Conexion\Sesion.class
 Ejecutar\EjecutarSistema$1$37.class
 Entidad\Solicitud.class
 com\mycompany\integrador4a\igu\GestionarSoporteGUI$ButtonEditor.class
+com\mycompany\integrador4a\igu\RealizarSancion$1.class
+com\mycompany\integrador4a\igu\RealizarSancion$SancionDTO.class
 com\mycompany\integrador4a\igu\RealizarSancion.class
 Ejecutar\EjecutarSistema$1$15.class
 Ejecutar\EjecutarSistema$1$20.class
@@ -34,6 +36,7 @@ com\mycompany\integrador4a\igu\VerMisPrestamos$1.class
 Entidad\Sanciones.class
 com\mycompany\integrador4a\igu\GestionarSoporteGUI$2.class
 Entidad\Equipos.class
+com\mycompany\integrador4a\igu\VerMisSanciones.class
 Ejecutar\EjecutarSistema$1$31.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$1.class
 Ejecutar\EjecutarSistema$1$26.class
@@ -45,6 +48,7 @@ Logica\RealizarSolicitudP.class
 Logica\GestionarUsuarios.class
 com\mycompany\integrador4a\igu\AgregarUsuariosGUI.class
 Ejecutar\EjecutarSistema$1$10.class
+Logica\RealizarSancionAdmin.class
 Logica\RealizarSolicitudP$DetalleTemp.class
 Ejecutar\EjecutarSistema$1$30.class
 com\mycompany\integrador4a\igu\GestionarSoporteGUI.class

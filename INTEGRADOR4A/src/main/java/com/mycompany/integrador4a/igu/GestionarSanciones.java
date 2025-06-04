@@ -1,16 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 package com.mycompany.integrador4a.igu;
 
 import javax.swing.JButton;
 
-/**
- *
- * @author USER
- */
 public class GestionarSanciones extends javax.swing.JFrame {
 
     /** Creates new form GestionarSanciones */
@@ -69,7 +61,7 @@ public class GestionarSanciones extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 1020, -1));
 
         btnSancionar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSancionar.setText("ACTUALIZAR");
+        btnSancionar.setText("AGREGAR");
         jPanel1.add(btnSancionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 590, 170, 40));
 
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
