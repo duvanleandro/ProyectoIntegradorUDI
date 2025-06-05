@@ -149,15 +149,30 @@ public class EjecutarSistema {
                             VMSanciones.setLocationRelativeTo(null);
                         }
                     });
-
-                    menu.getLblSoporte().addMouseListener(new MouseAdapter() {
+                    
+                     VMSanciones.getLblMenuPrincipal().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
-                            menu.setVisible(false);
-                            PSoporte.setVisible(true);
-                            PSoporte.setLocationRelativeTo(null);
+                            VMSanciones.setVisible(false);
+                            menu.setVisible(true);
+                            menu.setLocationRelativeTo(null);
+                        }
+                     });
+                        
+                        VMSanciones.getLblSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            VMSanciones.setVisible(false);
+                            menu.setVisible(true);
+                            menu.setLocationRelativeTo(null);
+                        }
+                        });
+                  
+                    VMSanciones.getLblSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            VMSanciones.setVisible(false);
+                            limpiarVentanasUsuario();
+                            login.setVisible(true);
                         }
                     });
-
                     // RSolicitud
                     RSolicitud.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
@@ -332,6 +347,8 @@ public class EjecutarSistema {
                         }
                     });
                     
+                    
+                    
                     menuAd.getLblBaseDeDatos().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menuAd.setVisible(false);
@@ -427,6 +444,23 @@ public class EjecutarSistema {
                             GSanciones.setVisible(false);
                             RSancion.setVisible(true);
                             RSancion.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    RSancion.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            RSancion.setVisible(false);
+                            menuAd.setVisible(true);
+                            menuAd.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    RSancion.getBtnSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            RSancion.setVisible(false);
+                            limpiarVentanasUsuario();
+                            login.setVisible(true);
+                            
                         }
                     });
 

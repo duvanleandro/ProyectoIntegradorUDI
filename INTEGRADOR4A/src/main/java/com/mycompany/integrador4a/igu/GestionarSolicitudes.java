@@ -8,7 +8,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableCellEditor;
+import javax.swing.AbstractCellEditor;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
@@ -39,11 +43,10 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         btnAceptar.addActionListener(e -> {
             int fila = TablaSolicitudes.getSelectedRow();
             if (fila != -1) {
-                Long idSolicitud = (Long) TablaSolicitudes.getModel().getValueAt(fila, 0);
+                Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
 
                 RealizarSolicitudP logica = new RealizarSolicitudP();
                 boolean exito = logica.aceptarSolicitud(idSolicitud);
-                // No cerrar el emf y em en RealizarSolicitudP, porque lo usarás después.
                 if (exito) {
                     refrescarTabla();
                 } else {
@@ -55,7 +58,7 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         btnRechazar.addActionListener(e -> {
             int fila = TablaSolicitudes.getSelectedRow();
             if (fila != -1) {
-                Long idSolicitud = (Long) TablaSolicitudes.getModel().getValueAt(fila, 0);
+                Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
 
                 RealizarSolicitudP logica = new RealizarSolicitudP();
                 boolean exito = logica.rechazarSolicitud(idSolicitud);
@@ -95,13 +98,13 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         String[] columnas = {
             "ID Solicitud", "Usuario", "Fecha Solicitud", "Fecha Uso",
             "Hora Inicio", "Hora Fin", "Estado",
-            "Elementos"  // Columna con botón "VER"
+            "Elementos"
         };
 
         DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                return column == 7;
             }
         };
 
@@ -123,51 +126,37 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
             fila[4] = s.getHoraInicio();
             fila[5] = s.getHoraFin();
             fila[6] = s.getEstado();
-            fila[7] = "VER";
-
+            fila[7] = new JButton("VER");
             modelo.addRow(fila);
         }
 
         TablaSolicitudes.setModel(modelo);
-
-        // Columna con botón VER
         TableColumn col = TablaSolicitudes.getColumn("Elementos");
         col.setCellRenderer(new ButtonRenderer());
         col.setCellEditor(new ButtonEditor(new JCheckBox(), listaSolicitudes));
     }
 
-    // Renderer para el botón VER
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
-            setOpaque(true);
-        }
+    class ButtonRenderer implements TableCellRenderer {
+        @Override
         public Component getTableCellRendererComponent(JTable table, Object value,
                                                        boolean isSelected, boolean hasFocus,
                                                        int row, int column) {
-            setText((value == null) ? "" : value.toString());
-            return this;
+            return (Component) value;
         }
     }
 
-    // Editor para el botón VER
-    class ButtonEditor extends DefaultCellEditor {
-        protected JButton button;
-        private boolean clicked;
+    class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
+        private JButton button;
         private int fila;
-        private JTable table;
         private List<Solicitud> solicitudes;
 
         public ButtonEditor(JCheckBox checkBox, List<Solicitud> solicitudes) {
-            super(checkBox);
             this.solicitudes = solicitudes;
-            button = new JButton();
-            button.setOpaque(true);
-
+            button = new JButton("VER");
             button.addActionListener(e -> {
                 fireEditingStopped();
                 if (fila >= 0 && fila < solicitudes.size()) {
-                    Solicitud solicitud = solicitudes.get(fila);
-                    mostrarDetallesSolicitud(solicitud);
+                    mostrarDetallesSolicitud(solicitudes.get(fila));
                 }
             });
         }
@@ -175,28 +164,13 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value,
                                                      boolean isSelected, int row, int column) {
-            this.table = table;
             this.fila = row;
-            button.setText((value == null) ? "" : value.toString());
-            clicked = true;
             return button;
         }
 
         @Override
         public Object getCellEditorValue() {
-            clicked = false;
-            return button.getText();
-        }
-
-        @Override
-        public boolean stopCellEditing() {
-            clicked = false;
-            return super.stopCellEditing();
-        }
-
-        @Override
-        protected void fireEditingStopped() {
-            super.fireEditingStopped();
+            return button;
         }
     }
 
@@ -232,8 +206,6 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
         return btnSalir;
     }
 
-
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

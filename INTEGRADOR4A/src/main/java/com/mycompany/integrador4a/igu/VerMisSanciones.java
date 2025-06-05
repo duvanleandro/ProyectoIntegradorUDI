@@ -47,8 +47,8 @@ public class VerMisSanciones extends javax.swing.JFrame {
 
         lblInformacion.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblInformacion.setForeground(new java.awt.Color(255, 255, 255));
-        lblInformacion.setText("INFORMACION");
-        jPanel1.add(lblInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, -1, -1));
+        lblInformacion.setText("SANCIONES ACTUALES");
+        jPanel1.add(lblInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, -1, -1));
 
         TextoSancionActual.setColumns(20);
         TextoSancionActual.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N

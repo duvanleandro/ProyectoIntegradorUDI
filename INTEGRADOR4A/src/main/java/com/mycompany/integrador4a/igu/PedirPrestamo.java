@@ -93,23 +93,33 @@ public class PedirPrestamo extends javax.swing.JFrame {
         });
 
         // Botón “Agregar” → añade el detalle a la lista temporal y refresca tabla
-        BAgregar.addActionListener(e -> {
-            String tipoServicio = BEquipoAudiovisual.isSelected()
-                                ? "Equipo Audiovisual"
-                                : "Sala de Informática";
+BAgregar.addActionListener(e -> {
+    String tipoServicio = BEquipoAudiovisual.isSelected()
+                        ? "Equipo Audiovisual"
+                        : "Sala de Informática";
 
-            String elementoSeleccionado = (String) ElegirEquipo.getSelectedItem();
-            if ("Otro".equals(elementoSeleccionado)) {
-                elementoSeleccionado = TextOtroMaterial.getText().trim();
-                if (elementoSeleccionado.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Ingresa el nombre del recurso ‘Otro’");
-                    return;
-                }
+    String elementoSeleccionado = (String) ElegirEquipo.getSelectedItem();
+    if ("Otro".equals(elementoSeleccionado)) {
+        elementoSeleccionado = TextOtroMaterial.getText().trim();
+        if (elementoSeleccionado.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ingresa el nombre del recurso ‘Otro’");
+            return;
+        }
+    }
+
+    // Validación: solo se puede agregar UNA sala
+    if (tipoServicio.equals("Sala de Informática")) {
+        for (RealizarSolicitudP.DetalleTemp dt : programarSolicitudPrestamo.getListaDetallesTemp()) {
+            if (dt.getTipoServicio().equals("Sala de Informática")) {
+                JOptionPane.showMessageDialog(this, "Solo puedes solicitar una sala por vez.");
+                return;
             }
+        }
+    }
 
-            programarSolicitudPrestamo.agregarDetalleTemporal(tipoServicio, elementoSeleccionado);
-            refrescarTablaVisual();
-        });
+    programarSolicitudPrestamo.agregarDetalleTemporal(tipoServicio, elementoSeleccionado);
+    refrescarTablaVisual();
+});
 
         // Llenar ElegirFecha con la fecha de hoy + los 7 días siguientes,
         // usando formato "dd/MM/yyyy - NombreDelDía" (en español)
