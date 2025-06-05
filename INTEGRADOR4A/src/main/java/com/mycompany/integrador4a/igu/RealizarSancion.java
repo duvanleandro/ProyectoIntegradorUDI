@@ -19,8 +19,11 @@ import Logica.RealizarSancionAdmin;
  */
 public class RealizarSancion extends javax.swing.JFrame {
 
+    private GestionarSancionesGUI gestionarSancionesGUI;
+
     /** Creates new form RealizarSancion */
-    public RealizarSancion() {
+    public RealizarSancion(GestionarSancionesGUI GSanciones) {
+        this.gestionarSancionesGUI = GSanciones; 
         initComponents();
         inicializarComponentesPersonalizados();
     }
@@ -60,6 +63,7 @@ public class RealizarSancion extends javax.swing.JFrame {
         if (exito) {
             JOptionPane.showMessageDialog(this, "Sanción registrada con éxito.");
             limpiarFormulario();
+            gestionarSancionesGUI.cargarDatosDeBase();
         } else {
             JOptionPane.showMessageDialog(this, "Error al registrar la sanción. Verifique si el usuario existe.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -121,6 +125,11 @@ public class RealizarSancion extends javax.swing.JFrame {
     public JButton getBtnEnviar() {
         return btnEnviar;
     }
+    
+    public void setGestionarSancionesGUI(GestionarSancionesGUI gestionarSancionesGUI) {
+    this.gestionarSancionesGUI = gestionarSancionesGUI;
+}
+
 
     // Clase DTO para pasar datos de sanción fuera de la GUI
     public static class SancionDTO {
@@ -170,7 +179,6 @@ public class RealizarSancion extends javax.swing.JFrame {
         jPanel1.add(txtIdUsuarioASancionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 280, 30));
 
         TipoSancion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        TipoSancion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "USER", "ADMIN" }));
         jPanel1.add(TipoSancion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 260, 40));
 
         lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N

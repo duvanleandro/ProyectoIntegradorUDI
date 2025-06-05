@@ -4,17 +4,37 @@ import Entidad.DetalleSolicitud;
 import Entidad.Solicitud;
 import Entidad.Usuario;
 import Logica.RealizarSolicitudP;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.persistence.TypedQuery;
-import javax.swing.JButton;
-import javax.swing.table.DefaultTableModel;
+import java.util.Locale;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import javax.persistence.TypedQuery;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import javax.swing.AbstractCellEditor;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.BoxLayout;
+
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class VerMisPrestamos extends javax.swing.JFrame {
+
     private EntityManager entityManager;
     private EntityManagerFactory emf;
     private Usuario usuario;
@@ -27,15 +47,17 @@ public class VerMisPrestamos extends javax.swing.JFrame {
         emf = Persistence.createEntityManagerFactory("PU");
         entityManager = emf.createEntityManager();
 
-        // Listener para habilitar/deshabilitar botón según estado
-        TablaMisPrestamos.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int fila = TablaMisPrestamos.getSelectedRow();
-                if (fila >= 0) {
-                    String estado = (String) TablaMisPrestamos.getValueAt(fila, 5);
-                    CancelarPrestamo.setEnabled("PENDIENTE".equalsIgnoreCase(estado));
-                } else {
-                    CancelarPrestamo.setEnabled(false);
+        // Listener para habilitar/deshabilitar botón Cancelar según estado
+        TablaMisPrestamos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int fila = TablaMisPrestamos.getSelectedRow();
+                    if (fila >= 0) {
+                        String estado = (String) TablaMisPrestamos.getValueAt(fila, 5);
+                        CancelarPrestamo.setEnabled("PENDIENTE".equalsIgnoreCase(estado));
+                    } else {
+                        CancelarPrestamo.setEnabled(false);
+                    }
                 }
             }
         });
@@ -50,41 +72,53 @@ public class VerMisPrestamos extends javax.swing.JFrame {
                 boolean exito = logica.cancelarSolicitud(idSolicitud);
 
                 if (exito) {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Préstamo cancelado correctamente.");
-                    
-                    // Limpiar caché del EntityManager y refrescar la tabla
-                    entityManager.clear(); 
+                    JOptionPane.showMessageDialog(this, "Préstamo cancelado correctamente.");
+
+                    // Limpiar caché y refrescar tabla
+                    entityManager.clear();
                     refrescarTabla();
                     CancelarPrestamo.setEnabled(false);
                 } else {
-                    javax.swing.JOptionPane.showMessageDialog(this, "No se pudo cancelar el préstamo.");
+                    JOptionPane.showMessageDialog(this, "No se pudo cancelar el préstamo.");
                 }
             }
         });
 
         cargarTablaPrestamos(usuario);
+
+        // Configurar renderer y editor para la columna botón "VER"
+        configurarColumnaBoton();
     }
 
-public void refrescarTabla() {
-    if (entityManager.isOpen()) {
-        entityManager.close();
+    public void refrescarTabla() {
+        if (entityManager.isOpen()) {
+            entityManager.close();
+        }
+        entityManager = emf.createEntityManager(); // Nueva conexión limpia
+        cargarTablaPrestamos(usuario);
+        configurarColumnaBoton();  // Reconfigurar botones al recargar
     }
-    entityManager = emf.createEntityManager(); // Nueva conexión limpia
-    cargarTablaPrestamos(usuario);
-}
-
 
     public void cargarTablaPrestamos(Usuario usuario) {
         String[] columnas = {
             "ID Solicitud", "Fecha Solicitud", "Fecha Uso",
             "Hora Inicio", "Hora Fin", "Estado",
-            "Tipo Servicio", "Elemento"
+            "Elementos"
         };
 
         DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false;
+                // Solo columna "Elementos" (última) editable para el botón
+                return column == 6;
+            }
+
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 6) {
+                    return JButton.class; // Para que JTable sepa que es botón
+                }
+                return String.class;
             }
         };
 
@@ -92,30 +126,146 @@ public void refrescarTabla() {
         List<Solicitud> listaSolicitudes = listarSolicitudesPorUsuario(usuario);
 
         for (Solicitud s : listaSolicitudes) {
-            for (DetalleSolicitud d : s.getDetalles()) {
-                Object[] fila = new Object[8];
-                fila[0] = s.getIdSolicitud();
-                fila[1] = formato.format(s.getFechaSolicitud());
-                fila[2] = formato.format(s.getFechaUso());
-                fila[3] = s.getHoraInicio();
-                fila[4] = s.getHoraFin();
-                fila[5] = s.getEstado();
-                fila[6] = d.getTipoServicio();
-                fila[7] = d.getElemento();
-                modelo.addRow(fila);
-            }
+            // En la columna elementos ponemos un botón "VER"
+            JButton btnVer = new JButton("VER");
+
+            Object[] fila = new Object[7];
+            fila[0] = s.getIdSolicitud();
+            fila[1] = formato.format(s.getFechaSolicitud());
+            fila[2] = formato.format(s.getFechaUso());
+            fila[3] = s.getHoraInicio();
+            fila[4] = s.getHoraFin();
+            fila[5] = s.getEstado();
+            fila[6] = btnVer;
+
+            modelo.addRow(fila);
         }
 
         TablaMisPrestamos.setModel(modelo);
     }
 
     public List<Solicitud> listarSolicitudesPorUsuario(Usuario usuario) {
-        String jpql = "SELECT s FROM Solicitud s LEFT JOIN FETCH s.detalles WHERE s.usuario.id = :usuarioId";
+        String jpql = "SELECT DISTINCT s FROM Solicitud s LEFT JOIN FETCH s.detalles WHERE s.usuario.id = :usuarioId";
         TypedQuery<Solicitud> query = entityManager.createQuery(jpql, Solicitud.class);
         query.setParameter("usuarioId", usuario.getId());
         return query.getResultList();
     }
 
+    private void configurarColumnaBoton() {
+        // Renderer para botón en columna "Elementos"
+        TablaMisPrestamos.getColumn("Elementos").setCellRenderer(new TableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                if (value instanceof JButton) {
+                    return (JButton) value;
+                }
+                return new JLabel(value != null ? value.toString() : "");
+            }
+        });
+
+        // Editor para botón, para capturar clic
+        TablaMisPrestamos.getColumn("Elementos").setCellEditor(new BotonEditor(new JButton("VER")));
+    }
+
+    // Editor personalizado para el botón en JTable
+    private class BotonEditor extends AbstractCellEditor implements TableCellEditor, ActionListener {
+        private JButton boton;
+        private Long idSolicitudSeleccionada;
+
+        public BotonEditor(JButton boton) {
+            this.boton = boton;
+            this.boton.addActionListener(this);
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value,
+                boolean isSelected, int row, int column) {
+            // Obtener ID de la solicitud de la fila clickeada
+            Object idObj = table.getValueAt(row, 0);
+            if (idObj instanceof Long) {
+                idSolicitudSeleccionada = (Long) idObj;
+            } else if (idObj instanceof Integer) {
+                // Por si viene como Integer
+                idSolicitudSeleccionada = ((Integer) idObj).longValue();
+            } else {
+                idSolicitudSeleccionada = null;
+            }
+            return boton;
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return boton;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Cuando se hace clic en el botón "VER"
+            if (idSolicitudSeleccionada != null) {
+                SwingUtilities.invokeLater(() -> abrirVentanaDetalles(idSolicitudSeleccionada));
+            }
+            // Termina la edición para que el botón se "libere"
+            fireEditingStopped();
+        }
+    }
+
+    private void abrirVentanaDetalles(Long idSolicitud) {
+        DetallePrestamoDialog dialog = new DetallePrestamoDialog(this, true, idSolicitud);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }
+
+    // Clase interna para el diálogo que muestra detalles de la solicitud
+    private class DetallePrestamoDialog extends JDialog {
+        private JTable tablaDetalles;
+        private DefaultTableModel modelo;
+
+        public DetallePrestamoDialog(java.awt.Frame parent, boolean modal, Long idSolicitud) {
+            super(parent, modal);
+            setTitle("Detalles del préstamo - ID: " + idSolicitud);
+            setSize(400, 300);
+
+            String[] columnas = {"Tipo Servicio", "Elemento"};
+            modelo = new DefaultTableModel(null, columnas) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tablaDetalles = new JTable(modelo);
+            add(new JScrollPane(tablaDetalles));
+
+            cargarDetalles(idSolicitud);
+        }
+
+        private void cargarDetalles(Long idSolicitud) {
+            List<DetalleSolicitud> detalles = obtenerDetallesPorSolicitud(idSolicitud);
+
+            for (DetalleSolicitud d : detalles) {
+                Object[] fila = new Object[2];
+                fila[0] = d.getTipoServicio();
+                fila[1] = d.getElemento();
+                modelo.addRow(fila);
+            }
+        }
+
+        private List<DetalleSolicitud> obtenerDetallesPorSolicitud(Long idSolicitud) {
+            EntityManager em = emf.createEntityManager();
+            List<DetalleSolicitud> detalles = null;
+            try {
+                String jpql = "SELECT d FROM DetalleSolicitud d WHERE d.solicitud.idSolicitud = :id";
+                detalles = em.createQuery(jpql, DetalleSolicitud.class)
+                        .setParameter("id", idSolicitud)
+                        .getResultList();
+            } finally {
+                em.close();
+            }
+            return detalles;
+        }
+    }
+
+    // Métodos get para botones (según tu código original)
     public JButton getRealizarPrestamo() {
         return RealizarPrestamo;
     }
@@ -128,7 +278,7 @@ public void refrescarTabla() {
         return btnSalir;
     }
 
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

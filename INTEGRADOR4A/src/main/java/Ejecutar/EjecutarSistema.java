@@ -1,6 +1,7 @@
 package Ejecutar;
 
 import Entidad.Usuario;
+import Logica.GestionarSanciones;
 import com.mycompany.integrador4a.igu.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,7 +24,8 @@ public class EjecutarSistema {
     static GestionarUsuariosGUI GUsuarios;
     static AgregarUsuariosGUI AUsuarios;
     static GestionarSoporteGUI GSoporte;
-    static GestionarSanciones GSanciones;
+    static GestionarSancionesGUI GSanciones;
+    static VerMisSanciones VMSanciones;
     static AdministrarBD ABD;
 
     public static void main(String[] args) {
@@ -73,24 +75,24 @@ public class EjecutarSistema {
                     login.setVisible(false);
 
                     // 5) Inicializo ventanas generales si aún no existen
-                    if (menu == null)        menu        = new MenuUsuario();
+                    
                     if (menuAd == null)      menuAd      = new MenuAdmin();
                     if (RSolicitud == null)  RSolicitud  = new RealizarSolicitud();
-                    if (PSoporte == null)    PSoporte    = new PedirSoporte(usuario, GSoporte);
                     if (IApp == null)        IApp        = new InformacionApp();
-                    if (RSancion == null)       RSancion       = new RealizarSancion();
                     if (GSoporte == null)  GSoporte  = new GestionarSoporteGUI();
-                    if (GSanciones == null)     GSanciones     = new GestionarSanciones();
+                    if (GSanciones == null)     GSanciones     = new GestionarSancionesGUI();
                     if (ABD == null) ABD = new AdministrarBD();
 
                     // Crear NUEVAS instancias para ventanas que dependen del usuario activo
+                    menu = new MenuUsuario(usuario);
                     VMPrestamo = new VerMisPrestamos(usuario);
                     PPrestamo = new PedirPrestamo(usuario, VMPrestamo);
                     GSolicitudes = new GestionarSolicitudes(usuario);
                     GUsuarios = new GestionarUsuariosGUI(GSolicitudes);
                     AUsuarios = new AgregarUsuariosGUI(GUsuarios);
                     PSoporte = new PedirSoporte(usuario, GSoporte);
-
+                    RSancion = new RealizarSancion(GSanciones);
+                    VMSanciones = new VerMisSanciones(usuario);
 
 
                     // 6) Mostrar solo el menú que corresponda según el rol
@@ -121,11 +123,30 @@ public class EjecutarSistema {
                         }
                     });
 
-                    menu.getLblSolicitud().addMouseListener(new MouseAdapter() {
+                menu.getLblSolicitud().addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        GestionarSanciones gestorSanciones = new GestionarSanciones();
+
+                        if (gestorSanciones.tieneSanciones(menu.getIdUsuario())) {
+                            JOptionPane.showMessageDialog(menu, 
+                                "No puedes hacer solicitudes porque tienes sanciones activas.", 
+                                "Acceso denegado", 
+                                JOptionPane.WARNING_MESSAGE);
+                            return; // no abrir ventana
+                        }
+
+                        menu.setVisible(false);
+                        RSolicitud.setVisible(true);
+                        RSolicitud.setLocationRelativeTo(null);
+                    }
+                });
+
+
+                    menu.getLblMisSanciones().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menu.setVisible(false);
-                            RSolicitud.setVisible(true);
-                            RSolicitud.setLocationRelativeTo(null);
+                            VMSanciones.setVisible(true);
+                            VMSanciones.setLocationRelativeTo(null);
                         }
                     });
 

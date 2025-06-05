@@ -1,22 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
 package com.mycompany.integrador4a.igu;
 
+import Entidad.Usuario;
+import Logica.GestionarSanciones;
 import javax.swing.JLabel;
 
-/**
- *
- * @author USER
- */
 public class VerMisSanciones extends javax.swing.JFrame {
 
 
-    public VerMisSanciones() {
-        initComponents();
-    }
+    public VerMisSanciones(Usuario usuario) {
+       initComponents();
+       TextoSancionActual.setEditable(false);
+       GestionarSanciones gestor = new GestionarSanciones();
+       String texto = gestor.obtenerTextoSancionesPorUsuario(usuario.getId()); // Corrección aquí
+       TextoSancionActual.setText(texto);
+   }
+
 
     public JLabel getLblMenuPrincipal() {
         return lblMenuPrincipal;
