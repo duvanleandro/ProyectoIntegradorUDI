@@ -21,6 +21,7 @@ public class GestionarUsuariosGUI extends javax.swing.JFrame {
         initComponents();
         gestionarUsuariosLogica = new Logica.GestionarUsuarios();
         this.gestionarSolicitudesVentana = gestionarSolicitudes;  // guardamos la referencia
+        TotalUsuariosConteo.setEditable(false);
         cargarTablaUsuarios();
         
         // Agregar listener al botón modificar
@@ -162,6 +163,8 @@ public class GestionarUsuariosGUI extends javax.swing.JFrame {
         }
 
         TablaUsuarios.setModel(modelo);
+        TotalUsuariosConteo.setText(String.valueOf(listaUsuarios.size()));
+        
     }
 
     // Getters para componentes si los necesitas
@@ -200,6 +203,8 @@ public class GestionarUsuariosGUI extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaUsuarios = new javax.swing.JTable();
+        TotalUsuarios = new javax.swing.JLabel();
+        TotalUsuariosConteo = new javax.swing.JTextField();
         lblFondoGestionUsuarios = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -245,6 +250,11 @@ public class GestionarUsuariosGUI extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 990, -1));
 
+        TotalUsuarios.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TotalUsuarios.setText("Total Usuarios:");
+        jPanel1.add(TotalUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanel1.add(TotalUsuariosConteo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 160, -1));
+
         lblFondoGestionUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondoAdmin.jpg"))); // NOI18N
         jPanel1.add(lblFondoGestionUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 660));
 
@@ -265,6 +275,8 @@ public class GestionarUsuariosGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaUsuarios;
+    private javax.swing.JLabel TotalUsuarios;
+    private javax.swing.JTextField TotalUsuariosConteo;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnMenuPrincipal;

@@ -95,6 +95,27 @@ public boolean borrarUsuarioPorId(Long id) {
         }
         return usuarios;
     }
+    
+    public int contarUsuarios() {
+    String sql = "CREATE OR REPLACE FUNCTION contar_usuarios\n" +
+"RETURN NUMBER\n" +
+"IS\n" +
+"    total_usuarios NUMBER;\n" +
+"BEGIN\n" +
+"    SELECT COUNT(*) INTO total_usuarios FROM usuarios;\n" +
+"    RETURN total_usuarios;\n" +
+"END;";
+    try (Connection cn = new ConexionOracle().conectar();
+         PreparedStatement ps = cn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) {
+            return rs.getInt("total");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return 0;
+}
 
 
 }

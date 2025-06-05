@@ -8,6 +8,7 @@ Ejecutar\EjecutarSistema$1$9.class
 Ejecutar\EjecutarSistema$1$22.class
 Ejecutar\EjecutarSistema$1$32.class
 Ejecutar\EjecutarSistema$1$42.class
+Ejecutar\EjecutarSistema$1$52.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes$ButtonRenderer.class
 Ejecutar\EjecutarSistema$1$3.class
 Ejecutar\EjecutarSistema$1$12.class
@@ -17,6 +18,7 @@ Ejecutar\EjecutarSistema$1$25.class
 com\mycompany\integrador4a\igu\GestionarSolicitudes.class
 com\mycompany\integrador4a\igu\GestionarUsuariosGUI$1.class
 Ejecutar\EjecutarSistema$1$27.class
+Ejecutar\EjecutarSistema$1$48.class
 Logica\RealizarSoporte.class
 Entidad\DetalleSolicitud.class
 com\mycompany\integrador4a\igu\Login.class
@@ -48,6 +50,7 @@ Ejecutar\EjecutarSistema$1$43.class
 Entidad\Sanciones.class
 com\mycompany\integrador4a\igu\GestionarSoporteGUI$2.class
 Logica\RealizarSolicitud.class
+Ejecutar\EjecutarSistema$1$49.class
 Entidad\Equipos.class
 com\mycompany\integrador4a\igu\VerMisSanciones.class
 Ejecutar\EjecutarSistema$1$31.class
@@ -66,7 +69,9 @@ Logica\RealizarSancionAdmin.class
 Ejecutar\EjecutarSistema$1$30.class
 com\mycompany\integrador4a\igu\GestionarSoporteGUI.class
 Ejecutar\EjecutarSistema$1$5.class
+Ejecutar\EjecutarSistema$1$50.class
 Ejecutar\EjecutarSistema$1$33.class
+Ejecutar\EjecutarSistema$1$53.class
 Logica\RealizarSolicitud$DetalleTemp.class
 Ejecutar\EjecutarSistema$1$13.class
 Ejecutar\EjecutarSistema$1$19.class
@@ -89,6 +94,7 @@ Logica\GestionarSoporte.class
 Ejecutar\EjecutarSistema$1$28.class
 Ejecutar\EjecutarSistema.class
 com\mycompany\integrador4a\igu\VerMisPrestamos$DetallePrestamoDialog.class
+Ejecutar\EjecutarSistema$1$47.class
 com\mycompany\integrador4a\igu\VerMisPrestamos$DetallePrestamoDialog$1.class
 com\mycompany\integrador4a\igu\GestionarSancionesGUI$BotonRendererEditor$1.class
 com\mycompany\integrador4a\igu\GestionarSoporteGUI$ButtonRenderer.class
@@ -102,6 +108,7 @@ Ejecutar\EjecutarSistema$1$17.class
 com\mycompany\integrador4a\igu\AdministrarBD.class
 Ejecutar\EjecutarSistema$1$40.class
 Ejecutar\EjecutarSistema$1$23.class
+Ejecutar\EjecutarSistema$1$51.class
 com\mycompany\integrador4a\igu\VerMisPrestamos.class
 Ejecutar\EjecutarSistema$1$29.class
 Logica\BaseDeDatos.class

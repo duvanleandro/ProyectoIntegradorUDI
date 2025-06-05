@@ -1,4 +1,4 @@
-package com.mycompany.integrador4a.igu;
+    package com.mycompany.integrador4a.igu;
 
 import Logica.GestionarSoporte;
 import Entidad.Soporte;
@@ -175,7 +175,8 @@ public class GestionarSoporteGUI extends javax.swing.JFrame {
                         EntityManager localEm = null;
                         try {
                             localEm = emf.createEntityManager();
-                            GestionarSoporte.eliminarSoportePorId(idSoporte, localEm);
+                            GestionarSoporte Gestor = new GestionarSoporte();
+                            Gestor.eliminarSoportePorId(idSoporte, localEm);
                         } catch (Exception ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(GestionarSoporteGUI.this, "Error al eliminar soporte: " + ex.getMessage());

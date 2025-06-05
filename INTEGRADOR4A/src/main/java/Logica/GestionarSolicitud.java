@@ -1,8 +1,11 @@
 package Logica;
 
 import Entidad.Solicitud;
+import Entidad.Salas;
+import Entidad.Equipos;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class GestionarSolicitud {
 
@@ -46,6 +49,37 @@ public class GestionarSolicitud {
         }
 
         return exito;
+    }
+
+    public List<Solicitud> listarSolicitudesPendientes() {
+        try {
+            return em.createQuery("SELECT s FROM Solicitud s WHERE s.estado = :estado", Solicitud.class)
+                    .setParameter("estado", "PENDIENTE")
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
+    // Nuevo método para listar todas las Salas
+    public List<Salas> listarSalas() {
+        try {
+            return em.createQuery("SELECT s FROM Salas s", Salas.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
+    }
+
+    // Nuevo método para listar todos los Equipos
+    public List<Equipos> listarEquipos() {
+        try {
+            return em.createQuery("SELECT e FROM Equipos e", Equipos.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of();
+        }
     }
 
     public void cerrar() {

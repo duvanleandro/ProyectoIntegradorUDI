@@ -126,6 +126,14 @@ public class EjecutarSistema {
                             IApp.setLocationRelativeTo(null);
                         }
                     });
+                    
+                    menu.getLblSoporte().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            menu.setVisible(false);
+                            PSoporte.setVisible(true);
+                            PSoporte.setLocationRelativeTo(null);
+                        }
+                    });
 
                 menu.getLblSolicitud().addMouseListener(new MouseAdapter() {
                     public void mouseClicked(MouseEvent e) {
@@ -152,7 +160,25 @@ public class EjecutarSistema {
                             REncuesta.setLocationRelativeTo(null);
                         }
                     });
-
+                    
+                    REncuesta.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            REncuesta.setVisible(false);
+                            menu.setVisible(true);
+                            menu.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    REncuesta.getBtnSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            REncuesta.setVisible(false);
+                            limpiarVentanasUsuario();
+                            login.setVisible(true);
+                            
+                        }
+                    });
+                    
+                    
                     menu.getLblMisSanciones().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menu.setVisible(false);
@@ -367,12 +393,45 @@ public class EjecutarSistema {
                             ABD.setLocationRelativeTo(null);
                         }
                     });
+                    
+                    ABD.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            ABD.setVisible(false);
+                            menuAd.setVisible(true);
+                            menuAd.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    ABD.getBtnSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            ABD.setVisible(false);
+                            limpiarVentanasUsuario();
+                            login.setVisible(true);
+                            login.setLocationRelativeTo(null);
+                        }
+                    });
 
                     menuAd.getLblGestionarEncuesta().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
                             menuAd.setVisible(false);
                             GEncuesta.setVisible(true);
                             GEncuesta.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    GEncuesta.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            GEncuesta.setVisible(false);
+                            menuAd.setVisible(true);
+                            menuAd.setLocationRelativeTo(null);
+                        }
+                    });
+                    
+                    GEncuesta.getBtnSalir().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            GEncuesta.setVisible(false);
+                            limpiarVentanasUsuario();
+                            login.setVisible(true);
                         }
                     });
                     
