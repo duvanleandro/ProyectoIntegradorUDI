@@ -1,13 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Logica;
 
-/**
- *
- * @author USER
- */
+import Entidad.Encuesta;
+
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class GestionarEncuesta {
-    
+
+    private EntityManagerFactory emf;
+
+    public GestionarEncuesta() {
+        // Usa el nombre de tu unidad de persistencia desde persistence.xml
+        emf = Persistence.createEntityManagerFactory("PU");
+    }
+
+    public List<Encuesta> obtenerTodasLasEncuestas() {
+        EntityManager em = emf.createEntityManager();
+        List<Encuesta> lista = em.createQuery("SELECT e FROM Encuesta e", Encuesta.class).getResultList();
+        em.close();
+        return lista;
+    }
 }

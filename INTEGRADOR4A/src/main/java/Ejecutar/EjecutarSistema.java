@@ -18,7 +18,7 @@ public class EjecutarSistema {
     static InformacionApp IApp;
     static PedirPrestamo PPrestamo;
     static VerMisPrestamos VMPrestamo;
-
+    static RealizarEncuestaGUI REncuesta;
     static GestionarSolicitudes GSolicitudes;
     static RealizarSancion RSancion;
     static GestionarUsuariosGUI GUsuarios;
@@ -27,6 +27,7 @@ public class EjecutarSistema {
     static GestionarSancionesGUI GSanciones;
     static VerMisSanciones VMSanciones;
     static AdministrarBD ABD;
+    static GestionarEncuestaGUI GEncuesta;
 
     public static void main(String[] args) {
         
@@ -82,6 +83,7 @@ public class EjecutarSistema {
                     if (GSoporte == null)  GSoporte  = new GestionarSoporteGUI();
                     if (GSanciones == null)     GSanciones     = new GestionarSancionesGUI();
                     if (ABD == null) ABD = new AdministrarBD();
+                    if (GEncuesta == null) GEncuesta = new GestionarEncuestaGUI();
 
                     // Crear NUEVAS instancias para ventanas que dependen del usuario activo
                     menu = new MenuUsuario(usuario);
@@ -93,6 +95,8 @@ public class EjecutarSistema {
                     PSoporte = new PedirSoporte(usuario, GSoporte);
                     RSancion = new RealizarSancion(GSanciones);
                     VMSanciones = new VerMisSanciones(usuario);
+                    REncuesta = new RealizarEncuestaGUI(usuario);
+                    
 
 
                     // 6) Mostrar solo el menú que corresponda según el rol
@@ -140,7 +144,14 @@ public class EjecutarSistema {
                         RSolicitud.setLocationRelativeTo(null);
                     }
                 });
-
+                
+                    menu.getLblEncuesta().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            menu.setVisible(false);
+                            REncuesta.setVisible(true);
+                            REncuesta.setLocationRelativeTo(null);
+                        }
+                    });
 
                     menu.getLblMisSanciones().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {
@@ -357,6 +368,14 @@ public class EjecutarSistema {
                         }
                     });
 
+                    menuAd.getLblGestionarEncuesta().addMouseListener(new MouseAdapter() {
+                        public void mouseClicked(MouseEvent e) {
+                            menuAd.setVisible(false);
+                            GEncuesta.setVisible(true);
+                            GEncuesta.setLocationRelativeTo(null);
+                        }
+                    });
+                    
                     // ADMIN interno
                     GSolicitudes.getBtnMenuPrincipal().addMouseListener(new MouseAdapter() {
                         public void mouseClicked(MouseEvent e) {

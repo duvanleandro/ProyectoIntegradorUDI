@@ -1,5 +1,6 @@
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\AdministrarBD.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\AgregarUsuariosGUI.java
+C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarEncuestaGUI.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarSancionesGUI.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarSolicitudes.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\GestionarSoporteGUI.java
@@ -10,6 +11,7 @@ C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\MenuUsuario.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PedirPrestamo.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\PedirSoporte.java
+C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarEncuestaGUI.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSancion.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\RealizarSolicitud.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\com\mycompany\integrador4a\igu\VerMisPrestamos.java
@@ -35,5 +37,5 @@ C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\OtrosFuncionamientos.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarEncuesta.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarSancionAdmin.java
-C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarSolicitudP.java
+C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarSolicitud.java
 C:\Users\USER\OneDrive\Desktop\ProyectoIntegradorUDI\INTEGRADOR4A\src\main\java\Logica\RealizarSoporte.java

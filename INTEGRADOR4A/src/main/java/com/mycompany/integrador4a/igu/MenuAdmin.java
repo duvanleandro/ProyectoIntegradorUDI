@@ -13,6 +13,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     public MenuAdmin() {
         initComponents();
         OtrosFuncionamientos.pintar(this.lblBaseDeDatos,"/images/BaseDeDatos.png");
+        OtrosFuncionamientos.pintar(this.lblGestionarEncuesta, "/images/GestionarEncuesta.png");
     }
 
     public JLabel getLblDevoluciones() {
@@ -26,7 +27,10 @@ public class MenuAdmin extends javax.swing.JFrame {
     public JLabel getLblBaseDeDatos() {
         return lblBaseDeDatos;
     }
-
+    
+    public JLabel getLblGestionarEncuesta() {
+        return lblGestionarEncuesta;
+    }
     public JLabel getLblSolicitudes() {
         return lblSolicitudes;
     }
@@ -47,8 +51,9 @@ public class MenuAdmin extends javax.swing.JFrame {
         lblPanelAdmin = new javax.swing.JLabel();
         lblSolicitudes = new javax.swing.JLabel();
         lblTxtSolicitudes = new javax.swing.JLabel();
+        lblGestionarEncuesta = new javax.swing.JLabel();
         lblBaseDeDatos = new javax.swing.JLabel();
-        lblTxtBaseDeDatos = new javax.swing.JLabel();
+        txtGestionarEncuesta = new javax.swing.JLabel();
         lblUsuarios = new javax.swing.JLabel();
         lblTxtUsuarios = new javax.swing.JLabel();
         lblSoporte = new javax.swing.JLabel();
@@ -73,11 +78,14 @@ public class MenuAdmin extends javax.swing.JFrame {
         lblTxtSolicitudes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTxtSolicitudes.setText("GESTIONAR SOLICITUDES");
         jPanel1.add(lblTxtSolicitudes, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, -1));
-        jPanel1.add(lblBaseDeDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 200, 150, 140));
+        jPanel1.add(lblGestionarEncuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 160, 150));
 
-        lblTxtBaseDeDatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblTxtBaseDeDatos.setText("BASE DE DATOS");
-        jPanel1.add(lblTxtBaseDeDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, -1, -1));
+        lblBaseDeDatos.setText("bd");
+        jPanel1.add(lblBaseDeDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 10, 50, 60));
+
+        txtGestionarEncuesta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtGestionarEncuesta.setText("GESTIONAR ENCUESTAS");
+        jPanel1.add(txtGestionarEncuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 350, 230, 30));
 
         lblUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gestionAdmin.png"))); // NOI18N
         jPanel1.add(lblUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 170, 130, 160));
@@ -133,16 +141,17 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel lblFondoAdmin;
     private javax.swing.JLabel lblGestionSanciones;
     private javax.swing.JLabel lblGestionSoporte;
+    private javax.swing.JLabel lblGestionarEncuesta;
     private javax.swing.JLabel lblPanelAdmin;
     private javax.swing.JLabel lblSalir;
     private javax.swing.JLabel lblSolicitudes;
     private javax.swing.JLabel lblSoporte;
-    private javax.swing.JLabel lblTxtBaseDeDatos;
     private javax.swing.JLabel lblTxtSalir;
     private javax.swing.JLabel lblTxtSanciones;
     private javax.swing.JLabel lblTxtSolicitudes;
     private javax.swing.JLabel lblTxtUsuarios;
     private javax.swing.JLabel lblUsuarios;
+    private javax.swing.JLabel txtGestionarEncuesta;
     // End of variables declaration//GEN-END:variables
 
 }

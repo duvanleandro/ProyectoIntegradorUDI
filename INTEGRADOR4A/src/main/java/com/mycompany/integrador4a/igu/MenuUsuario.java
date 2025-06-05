@@ -1,6 +1,7 @@
 package com.mycompany.integrador4a.igu;
 
 import Entidad.Usuario;
+import Logica.OtrosFuncionamientos;
 import javax.swing.JLabel;
 
 public class MenuUsuario extends javax.swing.JFrame {
@@ -11,10 +12,11 @@ public class MenuUsuario extends javax.swing.JFrame {
     public MenuUsuario(Usuario usuario) {
         this.usuario = usuario; // guardamos el usuario recibido
         initComponents();
+        OtrosFuncionamientos.pintar(this.lblEncuesta, "/images/GestionarEncuesta.png");
     }
 
-    public JLabel getLblDevolucion() {
-        return lblDevolucion;
+    public JLabel getLblEncuesta() {
+        return lblEncuesta;
     }
 
     public JLabel getLblInformacion() {
@@ -49,7 +51,7 @@ public class MenuUsuario extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblPanelUsuario = new javax.swing.JLabel();
-        lblDevolucion = new javax.swing.JLabel();
+        lblEncuesta = new javax.swing.JLabel();
         lblTextDevolucion = new javax.swing.JLabel();
         lblSoporte = new javax.swing.JLabel();
         txtSoporte = new javax.swing.JLabel();
@@ -71,13 +73,11 @@ public class MenuUsuario extends javax.swing.JFrame {
         lblPanelUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblPanelUsuario.setText("PANEL USUARIO");
         jPanel1.add(lblPanelUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, -1, -1));
-
-        lblDevolucion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/devolucionUsu.png"))); // NOI18N
-        jPanel1.add(lblDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 130, 140));
+        jPanel1.add(lblEncuesta, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 130, 140));
 
         lblTextDevolucion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTextDevolucion.setForeground(new java.awt.Color(255, 255, 255));
-        lblTextDevolucion.setText("(cambiar)");
+        lblTextDevolucion.setText("ENCUESTA");
         jPanel1.add(lblTextDevolucion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 320, -1, -1));
 
         lblSoporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/soporteUsu.png"))); // NOI18N
@@ -139,7 +139,7 @@ public class MenuUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel lblDevolucion;
+    private javax.swing.JLabel lblEncuesta;
     private javax.swing.JLabel lblFondoUsuario;
     private javax.swing.JLabel lblInformacion;
     private javax.swing.JLabel lblMisSanciones;
