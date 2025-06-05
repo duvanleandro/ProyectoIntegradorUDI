@@ -1,0 +1,47 @@
+CREATE TABLE usuarios (
+id NUMBER CONSTRAINT usuarios_id_pk PRIMARY KEY,
+nombre VARCHAR2(20) CONSTRAINT usuarios_nom_nn NOT NULL,
+apellido VARCHAR2(20) CONSTRAINT usuarios_ape_nn NOT NULL,
+email VARCHAR2(50) CONSTRAINT usuarios_email_nn NOT NULL,
+clave VARCHAR2(100) CONSTRAINT usuarios_clave_nn NOT NULL,
+nivel VARCHAR2(10) CONSTRAINT usuarios_nivel_nn NOT NULL);
+
+CREATE TABLE solicitudes (
+id_solicitud NUMBER CONSTRAINT solicitudes_id_pk PRIMARY KEY,
+id_usuario NUMBER CONSTRAINT solicitudes_id_usr_nn NOT NULL,
+fecha_solicitud DATE,
+fecha_uso DATE CONSTRAINT solicitudes_fecha_uso_nn NOT NULL,
+hora_inicio VARCHAR2(10) CONSTRAINT solicitudes_inicio_nn NOT NULL,
+hora_fin VARCHAR2(10) CONSTRAINT solicitudes_fin_nn NOT NULL,
+estado VARCHAR2(20),
+CONSTRAINT solicitudes_id_usr_fk FOREIGN KEY (id_usuario) REFERENCES usuarios(id));
+
+CREATE TABLE detalle_solicitud (
+id_detalle NUMBER CONSTRAINT detalle_solicitud_id_pk PRIMARY KEY,
+id_solicitud NUMBER CONSTRAINT detalle_solicitud_id_sol_nn NOT NULL,
+tipo_servicio VARCHAR2(50) CONSTRAINT detalle_solicitud_tipo_nn NOT NULL,
+elemento VARCHAR2(100) CONSTRAINT detalle_solicitud_elem_nn NOT NULL,
+CONSTRAINT detalle_solicitud_id_sol_fk FOREIGN KEY (id_solicitud) REFERENCES solicitudes(id_solicitud));
+
+CREATE TABLE equipos (
+id NUMBER CONSTRAINT equipos_id_pk PRIMARY KEY,
+nombre VARCHAR2(100) CONSTRAINT equipos_nombre_nn NOT NULL);
+
+CREATE TABLE salas (
+id NUMBER CONSTRAINT salas_id_pk PRIMARY KEY,
+nombre VARCHAR2(100) CONSTRAINT salas_nombre_nn NOT NULL);
+
+CREATE TABLE sanciones (
+id_sancion NUMBER CONSTRAINT sanciones_id_pk PRIMARY KEY,
+id_usuario NUMBER CONSTRAINT sanciones_id_usr_nn NOT NULL,
+tipo_sancion VARCHAR2(50) CONSTRAINT sanciones_tipo_nn NOT NULL,
+mensaje VARCHAR2(255),
+CONSTRAINT sanciones_id_usr_fk FOREIGN KEY (id_usuario) REFERENCES usuarios(id));
+
+CREATE TABLE soporte (
+id_soporte NUMBER CONSTRAINT soporte_id_pk PRIMARY KEY,
+id_usuario NUMBER CONSTRAINT soporte_id_usr_nn NOT NULL,
+fecha_envio DATE,
+tipo_soporte VARCHAR2(50) CONSTRAINT soporte_tipo_nn NOT NULL,
+mensaje VARCHAR2(500) CONSTRAINT soporte_mensaje_nn NOT NULL,
+CONSTRAINT soporte_id_usr_fk FOREIGN KEY (id_usuario) REFERENCES usuarios(id));
