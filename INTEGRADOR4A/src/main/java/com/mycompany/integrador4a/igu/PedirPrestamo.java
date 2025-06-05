@@ -3,7 +3,7 @@ package com.mycompany.integrador4a.igu;
 import Entidad.Equipos;
 import Entidad.Salas;
 import Entidad.Usuario;
-import Logica.RealizarSolicitudP;
+import Logica.RealizarSolicitud;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.Locale;
  */
 public class PedirPrestamo extends javax.swing.JFrame {
 
-    private RealizarSolicitudP programarSolicitudPrestamo;
+    private RealizarSolicitud programarSolicitudPrestamo;
     private Usuario usuarioLogueado;
     private VerMisPrestamos verMisPrestamosInstance;  // referencia para refrescar tabla
 
@@ -34,7 +34,7 @@ public class PedirPrestamo extends javax.swing.JFrame {
         this.usuarioLogueado = usuario;
         this.verMisPrestamosInstance = verMisPrestamos;  // guardamos referencia
 
-        programarSolicitudPrestamo = new RealizarSolicitudP();
+        programarSolicitudPrestamo = new RealizarSolicitud();
 
         // Que al inicio TextOtroMaterial esté deshabilitado
         TextOtroMaterial.setEnabled(false);
@@ -109,7 +109,7 @@ BAgregar.addActionListener(e -> {
 
     // Validación: solo se puede agregar UNA sala
     if (tipoServicio.equals("Sala de Informática")) {
-        for (RealizarSolicitudP.DetalleTemp dt : programarSolicitudPrestamo.getListaDetallesTemp()) {
+        for (RealizarSolicitud.DetalleTemp dt : programarSolicitudPrestamo.getListaDetallesTemp()) {
             if (dt.getTipoServicio().equals("Sala de Informática")) {
                 JOptionPane.showMessageDialog(this, "Solo puedes solicitar una sala por vez.");
                 return;
@@ -217,7 +217,7 @@ BAgregar.addActionListener(e -> {
 
                 String estado = "PENDIENTE";
 
-                boolean exito = programarSolicitudPrestamo.registrarSolicitud(
+                boolean exito = programarSolicitudPrestamo.registrarSolicitudJPA(
                     idUsuario, fechaSolicitud, fechaUso, horaInicio, horaFin, estado
                 );
 
@@ -248,7 +248,7 @@ BAgregar.addActionListener(e -> {
 
     // Reconstruye el contenido de TablaVisual a partir de la lista temporal
     private void refrescarTablaVisual() {
-        List<RealizarSolicitudP.DetalleTemp> detalles =
+        List<RealizarSolicitud.DetalleTemp> detalles =
             programarSolicitudPrestamo.getListaDetallesTemp();
 
         String[] columnas = {"Tipo de servicio", "Elemento", "Eliminar"};
@@ -259,7 +259,7 @@ BAgregar.addActionListener(e -> {
             }
         };
 
-        for (RealizarSolicitudP.DetalleTemp dt : detalles) {
+        for (RealizarSolicitud.DetalleTemp dt : detalles) {
             Object[] fila = {
                 dt.getTipoServicio(),
                 dt.getElemento(),

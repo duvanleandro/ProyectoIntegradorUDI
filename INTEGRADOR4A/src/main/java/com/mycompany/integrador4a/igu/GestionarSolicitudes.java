@@ -20,7 +20,7 @@ import java.util.Locale;
 import Entidad.Solicitud;
 import Entidad.DetalleSolicitud;
 import Entidad.Usuario;
-import Logica.RealizarSolicitudP;
+import Logica.GestionarSolicitud;
 
 public class GestionarSolicitudes extends javax.swing.JFrame {
 
@@ -45,7 +45,7 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
             if (fila != -1) {
                 Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
 
-                RealizarSolicitudP logica = new RealizarSolicitudP();
+                GestionarSolicitud logica = new GestionarSolicitud();
                 boolean exito = logica.aceptarSolicitud(idSolicitud);
                 if (exito) {
                     refrescarTabla();
@@ -60,7 +60,7 @@ public class GestionarSolicitudes extends javax.swing.JFrame {
             if (fila != -1) {
                 Long idSolicitud = Long.parseLong(TablaSolicitudes.getModel().getValueAt(fila, 0).toString());
 
-                RealizarSolicitudP logica = new RealizarSolicitudP();
+                GestionarSolicitud logica = new GestionarSolicitud();
                 boolean exito = logica.rechazarSolicitud(idSolicitud);
                 if (exito) {
                     refrescarTabla();
