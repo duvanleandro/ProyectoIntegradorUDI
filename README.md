@@ -1,5 +1,8 @@
 # Proyecto Integrador - 4to Semestre 2025 - Grupo 4A
 
+VIDEO FINAL
+https://youtu.be/ir802M3gSlU?si=5crgEbgnT5IHUOvI
+
 Este trabajo está enfocado en la formulación del proyecto integrador del cuarto semestre (2025) del grupo 4A, siguiendo los parámetros establecidos según la documentación que se nos brindó.
 
 El objetivo de este proyecto es desarrollar un sistema para gestionar el préstamo de equipos audiovisuales y salas de informática dentro de una institución universitaria. Este sistema busca facilitar el acceso y uso de estos recursos por parte de docentes y personal administrativo, mediante un proceso organizado que incluye la solicitud, aprobación, préstamo, uso, devolución, evaluación, sanciones y mantenimiento.
